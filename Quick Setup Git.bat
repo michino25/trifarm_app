@@ -22,4 +22,4 @@ echo -------------------------
 echo  First push successfully
 echo -------------------------
 
-timeout 10
+pause
