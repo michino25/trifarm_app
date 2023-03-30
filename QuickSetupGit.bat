@@ -2,9 +2,11 @@
 title Quick Setup Git
 set /p "link=Enter link repository GitHub: "
 
+echo 
 echo -------------------------
 echo      Please wait...
 echo -------------------------
+echo 
 
 set nameapp=%link:*com/=%
 set nameapp=%nameapp:*/=%
@@ -18,8 +20,10 @@ git branch -M main
 git remote add origin %link%
 git push -u -f origin main
 
+echo 
 echo -------------------------
 echo  First push successfully
 echo -------------------------
+echo 
 
 pause
