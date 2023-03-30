@@ -2,20 +2,20 @@
 title Quick Setup Git
 set /p "message=Enter commit message: "
 
-echo ‎
+echo .
 echo -------------------------
 echo      Please wait...
 echo -------------------------
-echo ‎
+echo .
 
 cmd /c git add .
 git commit -m "%message%"
 git push
 
-echo ‎
+echo .
 echo -------------------------
 echo     Push successfully
 echo -------------------------
-echo ‎
+echo .
 
 timeout 5
