@@ -6,11 +6,11 @@ echo -------------------------
 echo      Please wait...
 echo -------------------------
 
-set nameapp=%nameapp:*com/=%
+set nameapp=%link:*com/=%
 set nameapp=%nameapp:*/=%
 set nameapp=%nameapp:.git=%
 
-echo "# %nameapp%" >> README.md
+echo # %nameapp% >> README.md
 cmd /c git init
 git add .
 git commit -m "first commit"
