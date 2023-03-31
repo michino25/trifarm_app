@@ -1,19 +1,36 @@
 package michittio.ueh.trifarm_app;
 
+import static android.content.ContentValues.TAG;
+
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.GridView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import michittio.ueh.trifarm_app.data.Product;
+import michittio.ueh.trifarm_app.data.ProductAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,9 +47,11 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    Context thiscontext;
 
 
     public HomeFragment() {
+
         // Required empty public constructor
     }
 
@@ -52,10 +71,17 @@ public class HomeFragment extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+
     }
 
     private ViewPager2 viewPager2;
     private Handler sliderHandler = new Handler();
+    Button button;
+    private GridView gridView;
+    private ArrayList<Product> productArrayList;
+    private ProductAdapter adapter;
+    final private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Products");
+
 
 
     @Override
@@ -68,7 +94,6 @@ public class HomeFragment extends Fragment {
         }
 
         viewPager2 = getView().findViewById(R.id.slider);
-
         List<SliderItem> sliderItems = getListSlider();
 
 //        viewPager2.setCurrentItem(2);
@@ -82,13 +107,52 @@ public class HomeFragment extends Fragment {
                 sliderHandler.postDelayed(sliderRunnable, 3000);
             }
         });
+
+
+        gridView = getView().findViewById(R.id.gridView);
+        productArrayList = new ArrayList<>();
+
+
+
+
+
     }
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        thiscontext = container.getContext();
+        gridView = rootView.findViewById(R.id.gridView);
+        productArrayList = new ArrayList<>();
+
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Product product = dataSnapshot.getValue(Product.class);
+                    productArrayList.add(product);
+                }
+                adapter = new ProductAdapter(thiscontext, productArrayList);
+                gridView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
+
+
+
     }
 
     private Runnable sliderRunnable = new Runnable() {

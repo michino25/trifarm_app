@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "885917819131",
+    "firebase_url": "https://trifarm-db-default-rtdb.firebaseio.com",
+    "project_id": "trifarm-db",
+    "storage_bucket": "trifarm-db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:885917819131:android:fa9af9e6d74001b5e9905e",
+        "android_client_info": {
+          "package_name": "michittio.ueh.firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "885917819131-6h8ilohg20n7gtnrv99eke4756r1t2io.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2dBwwG3ISMVTmnnoqvRzfkWVFYxjtJBM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "885917819131-6h8ilohg20n7gtnrv99eke4756r1t2io.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:885917819131:android:b8cc3eb47b0c7f08e9905e",
+        "android_client_info": {
+          "package_name": "michittio.ueh.trifarm_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "885917819131-6h8ilohg20n7gtnrv99eke4756r1t2io.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2dBwwG3ISMVTmnnoqvRzfkWVFYxjtJBM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "885917819131-6h8ilohg20n7gtnrv99eke4756r1t2io.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
