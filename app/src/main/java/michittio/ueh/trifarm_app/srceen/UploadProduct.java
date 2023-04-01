@@ -113,7 +113,7 @@ public class UploadProduct extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
                         Product product = new Product(name,descripttion,uri.toString(),price,"","");
-                        String key = databaseReference.push().getKey();
+                        //String key = databaseReference.push().getKey();
                         int count = 0;
                         String productId = "s" + (count + 1);
                         databaseReference.child(productId).setValue(product);
