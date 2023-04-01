@@ -57,4 +57,9 @@ public class ProductAdapter extends BaseAdapter {
 
         return view;
     }
+
+    public void searchProductList(ArrayList<Product>  searchList) {
+        listProduct = searchList;
+        notifyDataSetChanged();
+    }
 }

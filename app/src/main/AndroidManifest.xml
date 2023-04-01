@@ -12,6 +12,12 @@
         android:theme="@style/Theme.Trifarm_app"
         tools:targetApi="31">
         <activity
+            android:name=".srceen.Login"
+            android:exported="false" />
+        <activity
+            android:name=".srceen.SignUp"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
@@ -19,6 +25,9 @@
             android:exported="false" />
         <activity
             android:name=".srceen.UploadProduct"
+            android:exported="false" />
+        <activity
+            android:name=".srceen.Splash"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
