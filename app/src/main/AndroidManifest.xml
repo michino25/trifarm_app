@@ -12,6 +12,9 @@
         android:theme="@style/Theme.Trifarm_app"
         tools:targetApi="31">
         <activity
+            android:name=".srceen.Detail"
+            android:exported="false" />
+        <activity
             android:name=".srceen.Login"
             android:exported="false" />
         <activity
