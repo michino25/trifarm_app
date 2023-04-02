@@ -56,7 +56,7 @@ public class Login extends AppCompatActivity {
                             boolean found = false;
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 User user = snapshot.getValue(User.class);
-                                if (user != null && user.getPassword().equals(password)) {
+                                if (user != null && user.getPassword().equals(password) ) {
                                     found = true;
                                     progressBar.setVisibility(View.VISIBLE);
                                     // Login successful
