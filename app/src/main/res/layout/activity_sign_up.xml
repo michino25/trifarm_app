@@ -46,14 +46,14 @@
           android:layout_height="50dp"
           android:id="@+id/edt_signup_email"
           android:background="@drawable/custom_edittext"
-
           android:padding="8dp"
           android:inputType="textEmailAddress"
           android:hint="Email"
           android:maxLength="100"
           android:drawableLeft="@drawable/baseline_person_24"
           android:drawablePadding="8dp"
-          android:textColor="@color/black"/>
+          android:textColor="@color/black"
+          tools:ignore="HardcodedText" />
 
       <EditText
           android:layout_width="match_parent"
