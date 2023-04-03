@@ -1,4 +1,4 @@
-package michittio.ueh.trifarm_app;
+package michittio.ueh.trifarm_app.fragment;
 
 import static android.content.ContentValues.TAG;
 
@@ -8,11 +8,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +18,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +29,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import michittio.ueh.trifarm_app.ExpandableGridView;
+import michittio.ueh.trifarm_app.R;
+import michittio.ueh.trifarm_app.SliderAdapter;
+import michittio.ueh.trifarm_app.SliderItem;
 import michittio.ueh.trifarm_app.data.Product;
 import michittio.ueh.trifarm_app.data.ProductAdapter;
 import michittio.ueh.trifarm_app.srceen.Detail;
@@ -79,7 +81,8 @@ public class HomeFragment extends Fragment {
 
     private ViewPager2 viewPager2;
     private Handler sliderHandler = new Handler();
-    Button button;
+
+    private TextView txtSearch;
     private GridView gridView;
     private ArrayList<Product> productArrayList;
     private ProductAdapter adapter;
@@ -113,6 +116,7 @@ public class HomeFragment extends Fragment {
 
 
         gridView = getView().findViewById(R.id.gridView);
+        txtSearch= getView().findViewById(R.id.txt_searchButton);
         productArrayList = new ArrayList<>();
 
 
@@ -130,7 +134,10 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+
         thiscontext = container.getContext();
+
+        txtSearch = rootView.findViewById(R.id.txt_searchButton);
         gridView = rootView.findViewById(R.id.gridView);
         productArrayList = new ArrayList<>();
 
@@ -169,6 +176,14 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        //search data
+        txtSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(thiscontext,CartFragment.class);
+                thiscontext.startActivity(intent);
+            }
+        });
 
 
 
