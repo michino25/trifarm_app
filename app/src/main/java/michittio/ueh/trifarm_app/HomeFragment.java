@@ -3,6 +3,7 @@ package michittio.ueh.trifarm_app;
 import static android.content.ContentValues.TAG;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 
@@ -31,6 +33,7 @@ import java.util.List;
 
 import michittio.ueh.trifarm_app.data.Product;
 import michittio.ueh.trifarm_app.data.ProductAdapter;
+import michittio.ueh.trifarm_app.srceen.Detail;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -147,6 +150,25 @@ public class HomeFragment extends Fragment {
                 Log.e(TAG, "Failed to read value.", error.toException());
             }
         });
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Lấy sản phẩm được chọn
+                Product selectedProduct = productArrayList.get(position);
+
+                // Tạo Intent và truyền dữ liệu cho trang Detail
+                Intent intent = new Intent(getActivity(), Detail.class);
+                intent.putExtra("product_name", selectedProduct.getName());
+                intent.putExtra("product_description", selectedProduct.getDescription());
+
+                // Khởi chạy Intent để chuyển sang trang Detail
+                startActivity(intent);
+            }
+        });
+
+
+
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);

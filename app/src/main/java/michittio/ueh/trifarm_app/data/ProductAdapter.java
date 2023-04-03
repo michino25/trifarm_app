@@ -1,6 +1,7 @@
 package michittio.ueh.trifarm_app.data;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +11,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import michittio.ueh.trifarm_app.R;
+import michittio.ueh.trifarm_app.srceen.Detail;
 
 public class ProductAdapter extends BaseAdapter {
     private ArrayList<Product> listProduct;
@@ -49,11 +53,36 @@ public class ProductAdapter extends BaseAdapter {
         }
 
         ImageView gridImage = view.findViewById(R.id.grid_image);
-        TextView gridCaption = view.findViewById(R.id.gird_name);
+        TextView gridName = view.findViewById(R.id.gird_name);
+        TextView gridPrice = view.findViewById(R.id.gird_price);
+        TextView gridSold= view.findViewById(R.id.gird_sold);
+
+
+        DecimalFormat myFormatter = new DecimalFormat("###,###đ");
+        int price = Integer.parseInt(listProduct.get(i).getPrice());
+
+        String sold =listProduct.get(i).getSold() +"k";
 
 
         Glide.with(context).load(listProduct.get(i).getImage()).into(gridImage);
-        gridCaption.setText(listProduct.get(i).getName());
+        gridName.setText(listProduct.get(i).getName());
+        gridPrice.setText(myFormatter.format(price));
+        gridSold.setText(sold);
+
+        // Set OnClickListener for each item in GridView
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle onClick event here
+                // For example, start a new activity to display the details of the clicked item
+                Intent intent = new Intent(context, Detail.class);
+                intent.putExtra("image",listProduct.get(i).getImage());
+                intent.putExtra("name", listProduct.get(i).getName());
+                intent.putExtra("description",listProduct.get(i).getDescription());
+                intent.putExtra("price", listProduct.get(i).getPrice());
+                context.startActivity(intent);
+            }
+        });
 
         return view;
     }

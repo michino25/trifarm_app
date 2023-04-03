@@ -1,5 +1,7 @@
 package michittio.ueh.trifarm_app.data;
 
+
+
 public class Product {
     String name;
     String description;
