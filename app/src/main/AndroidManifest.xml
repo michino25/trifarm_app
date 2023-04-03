@@ -13,12 +13,12 @@
         android:theme="@style/Theme.Trifarm_app"
         tools:targetApi="31">
         <activity
-<<<<<<< HEAD
-            android:name=".ProductDetail"
-=======
             android:name=".srceen.Product_RecyclerView"
->>>>>>> 4f0747d6c2de1a9816f79caacc8b1bed6a8f9103
             android:exported="false" />
+        <activity
+            android:name=".srceen.ProductDetail"
+            android:exported="false" />
+
         <activity
             android:name=".srceen.Detail"
             android:exported="false" />
@@ -38,7 +38,7 @@
             android:name=".srceen.UploadProduct"
             android:exported="false" />
         <activity
-            android:name=".srceen.ProductDetail"
+            android:name=".srceen.Splash"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
