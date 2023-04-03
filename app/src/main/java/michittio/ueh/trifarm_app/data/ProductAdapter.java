@@ -87,8 +87,9 @@ public class ProductAdapter extends BaseAdapter {
         return view;
     }
 
-    public void searchProductList(ArrayList<Product>  searchList) {
-        listProduct = searchList;
+    public void searchProductList(ArrayList<Product> searchList) {
+        listProduct.clear();
+        listProduct.addAll(searchList);
         notifyDataSetChanged();
     }
 }
