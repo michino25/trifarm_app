@@ -59,10 +59,17 @@ public class Login extends AppCompatActivity {
                                 if (user != null && user.getPassword().equals(password) ) {
                                     found = true;
                                     progressBar.setVisibility(View.VISIBLE);
-                                    // Login successful
-                                    Toast.makeText(Login.this, "Login successful.", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(Login.this, MainActivity.class);
-                                    startActivity(intent);
+                                    if(user.getRule().equals("admin")) {
+                                        // Login successful
+                                        Toast.makeText(Login.this, "Login successful.", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(Login.this, Product_RecyclerView.class);
+                                        startActivity(intent);
+                                    } else {
+                                        Toast.makeText(Login.this, "Login successful.", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(Login.this, MainActivity.class);
+                                        startActivity(intent);
+                                    }
+
                                 }
                             }
 
