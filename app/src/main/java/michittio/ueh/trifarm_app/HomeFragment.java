@@ -116,6 +116,8 @@ public class HomeFragment extends Fragment {
         productArrayList = new ArrayList<>();
 
 
+        ExpandableGridView productGrid = (ExpandableGridView) getView().findViewById(R.id.gridView);
+        productGrid.setExpanded(true);
 
 
 

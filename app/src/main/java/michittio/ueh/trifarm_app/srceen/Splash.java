@@ -22,11 +22,11 @@ public class Splash extends AppCompatActivity {
             public void run() {
                 nextActivity();
             }
-        },2000);
+        },500);
     }
 
     private void nextActivity() {
-            Intent intent = new Intent(this, Login.class);
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
 
     }
