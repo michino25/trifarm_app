@@ -5,9 +5,13 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
@@ -22,14 +26,15 @@ public class Product_RecyclerView extends AppCompatActivity {
     RecyclerAdapter recyclerAdapter;
     SearchView searchView;
     List<Product> productList;
+    FloatingActionButton btnAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_recycler_view);
 
-
-        recyclerView = findViewById(R.id.recyclerView);
+        initui();
+        nextUpload();
 
         // Set up Layout Manager for RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -44,7 +49,7 @@ public class Product_RecyclerView extends AppCompatActivity {
         // Set up RecyclerView with the FirebaseRecyclerAdapter
         recyclerView.setAdapter(recyclerAdapter);
 
-        searchView = findViewById(R.id.search);
+
         searchView.clearFocus();
         //search data
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -62,6 +67,12 @@ public class Product_RecyclerView extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void initui() {
+        recyclerView = findViewById(R.id.recyclerView);
+        btnAdd = findViewById(R.id.btn_add);
+        searchView = findViewById(R.id.search);
     }
 
     private void searchList(String query) {
@@ -84,6 +95,16 @@ public class Product_RecyclerView extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         recyclerAdapter.stopListening();
+    }
+
+    private void nextUpload() {
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Product_RecyclerView.this,UploadProduct.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

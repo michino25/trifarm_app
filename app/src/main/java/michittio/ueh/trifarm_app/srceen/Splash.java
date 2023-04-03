@@ -26,7 +26,7 @@ public class Splash extends AppCompatActivity {
     }
 
     private void nextActivity() {
-            Intent intent = new Intent(this, Product_RecyclerView.class);
+            Intent intent = new Intent(this, Login.class);
             startActivity(intent);
 
     }
