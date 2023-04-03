@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import michittio.ueh.trifarm_app.R;
 import michittio.ueh.trifarm_app.srceen.Detail;
+import michittio.ueh.trifarm_app.srceen.ProductDetail;
 
 public class ProductAdapter extends BaseAdapter {
     private ArrayList<Product> listProduct;
@@ -75,7 +76,7 @@ public class ProductAdapter extends BaseAdapter {
             public void onClick(View v) {
                 // Handle onClick event here
                 // For example, start a new activity to display the details of the clicked item
-                Intent intent = new Intent(context, Detail.class);
+                Intent intent = new Intent(context, ProductDetail.class);
                 intent.putExtra("image",listProduct.get(i).getImage());
                 intent.putExtra("name", listProduct.get(i).getName());
                 intent.putExtra("description",listProduct.get(i).getDescription());

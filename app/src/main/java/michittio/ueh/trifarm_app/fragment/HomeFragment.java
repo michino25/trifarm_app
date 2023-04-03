@@ -36,6 +36,7 @@ import michittio.ueh.trifarm_app.SliderItem;
 import michittio.ueh.trifarm_app.data.Product;
 import michittio.ueh.trifarm_app.data.ProductAdapter;
 import michittio.ueh.trifarm_app.srceen.Detail;
+import michittio.ueh.trifarm_app.srceen.ProductDetail;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -160,21 +161,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Lấy sản phẩm được chọn
-                Product selectedProduct = productArrayList.get(position);
-
-                // Tạo Intent và truyền dữ liệu cho trang Detail
-                Intent intent = new Intent(getActivity(), Detail.class);
-                intent.putExtra("product_name", selectedProduct.getName());
-                intent.putExtra("product_description", selectedProduct.getDescription());
-
-                // Khởi chạy Intent để chuyển sang trang Detail
-                startActivity(intent);
-            }
-        });
 
         //search data
         txtSearch.setOnClickListener(new View.OnClickListener() {
@@ -184,6 +170,25 @@ public class HomeFragment extends Fragment {
                 thiscontext.startActivity(intent);
             }
         });
+
+
+//        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                // Lấy sản phẩm được chọn
+//                Product selectedProduct = productArrayList.get(position);
+//
+//                // Tạo Intent và truyền dữ liệu cho trang Detail
+//                Intent intent = new Intent(getActivity(), ProductDetail.class);
+//                intent.putExtra("product_name", selectedProduct.getName());
+//                intent.putExtra("product_description", selectedProduct.getDescription());
+//                intent.putExtra("product_price", selectedProduct.getPrice());
+//
+//                // Khởi chạy Intent để chuyển sang trang Detail
+//                startActivity(intent);
+//            }
+//        });
+
 
 
 
