@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -30,7 +29,6 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import michittio.ueh.trifarm_app.HomeFragment;
 import michittio.ueh.trifarm_app.MainActivity;
 import michittio.ueh.trifarm_app.R;
 import michittio.ueh.trifarm_app.data.Product;

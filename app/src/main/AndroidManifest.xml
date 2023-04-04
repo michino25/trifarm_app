@@ -16,6 +16,10 @@
             android:name=".srceen.Product_RecyclerView"
             android:exported="false" />
         <activity
+            android:name=".srceen.ProductDetail"
+            android:exported="false" />
+
+        <activity
             android:name=".srceen.Detail"
             android:exported="false" />
         <activity
