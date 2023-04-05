@@ -31,6 +31,8 @@ public class Detail extends AppCompatActivity {
         String description = intent.getStringExtra("description");
         String price = intent.getStringExtra("price");
 
+
+
         // Hiển thị ảnh sản phẩm bằng Glide
 
         Glide.with(this).load(image).into(imageView);

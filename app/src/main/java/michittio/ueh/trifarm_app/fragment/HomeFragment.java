@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,6 +36,7 @@ import michittio.ueh.trifarm_app.SliderItem;
 import michittio.ueh.trifarm_app.data.Product;
 import michittio.ueh.trifarm_app.data.ProductAdapter;
 import michittio.ueh.trifarm_app.srceen.Detail;
+import michittio.ueh.trifarm_app.srceen.ProductDetail;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,7 +82,8 @@ public class HomeFragment extends Fragment {
 
     private ViewPager2 viewPager2;
     private Handler sliderHandler = new Handler();
-    Button button;
+
+    private TextView txtSearch;
     private GridView gridView;
     private ArrayList<Product> productArrayList;
     private ProductAdapter adapter;
@@ -114,6 +117,7 @@ public class HomeFragment extends Fragment {
 
 
         gridView = getView().findViewById(R.id.gridView);
+        txtSearch= getView().findViewById(R.id.txt_searchButton);
         productArrayList = new ArrayList<>();
 
 
@@ -131,7 +135,10 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+
         thiscontext = container.getContext();
+
+        txtSearch = rootView.findViewById(R.id.txt_searchButton);
         gridView = rootView.findViewById(R.id.gridView);
         productArrayList = new ArrayList<>();
 
@@ -154,21 +161,35 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        //search data
+        txtSearch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Lấy sản phẩm được chọn
-                Product selectedProduct = productArrayList.get(position);
-
-                // Tạo Intent và truyền dữ liệu cho trang Detail
-                Intent intent = new Intent(getActivity(), Detail.class);
-                intent.putExtra("product_name", selectedProduct.getName());
-                intent.putExtra("product_description", selectedProduct.getDescription());
-
-                // Khởi chạy Intent để chuyển sang trang Detail
-                startActivity(intent);
+            public void onClick(View v) {
+                Intent intent = new Intent(thiscontext,CartFragment.class);
+                thiscontext.startActivity(intent);
             }
         });
+
+
+//        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                // Lấy sản phẩm được chọn
+//                Product selectedProduct = productArrayList.get(position);
+//
+//                // Tạo Intent và truyền dữ liệu cho trang Detail
+//                Intent intent = new Intent(getActivity(), ProductDetail.class);
+//                intent.putExtra("product_name", selectedProduct.getName());
+//                intent.putExtra("product_description", selectedProduct.getDescription());
+//                intent.putExtra("product_price", selectedProduct.getPrice());
+//
+//                // Khởi chạy Intent để chuyển sang trang Detail
+//                startActivity(intent);
+//            }
+//        });
+
+
 
 
 
