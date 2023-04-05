@@ -1,5 +1,6 @@
 ECHO OFF
 title Quick Git
+cmd /c git config --global --unset-all remote.origin.proxy
 %SystemRoot%\System32\chcp.com 65001 >nul
 CLS
 
@@ -11,10 +12,12 @@ ECHO -----------------------------------------------
 ECHO.
 ECHO   1 - Push project lên GitHub lần đầu
 ECHO   2 - Push project lên GitHub
-ECHO   3 - Pull dự án trên GitHub về máy
-ECHO   4 - Clone dự án trên GitHub về máy
+ECHO   3 - Pull + Push project lên GitHub (nếu 2 lỗi)
 ECHO.
-ECHO   5 - Hướng dẫn
+ECHO   4 - Pull dự án trên GitHub về máy
+ECHO   5 - Clone dự án trên GitHub về máy
+ECHO.
+ECHO   6 - Hướng dẫn
 ECHO   0 - Thoát
 ECHO.
 
@@ -22,9 +25,10 @@ SET /P M=Chọn chức năng:
 echo.
 IF %M%==1 GOTO PUSHFIRST
 IF %M%==2 GOTO PUSH
-IF %M%==3 GOTO PULL
-IF %M%==4 GOTO CLONE
-IF %M%==5 GOTO HELP
+IF %M%==3 GOTO PULLPUSH
+IF %M%==4 GOTO PULL
+IF %M%==5 GOTO CLONE
+IF %M%==6 GOTO HELP
 IF %M%==0 GOTO EOF
 
 :PUSHFIRST
@@ -69,6 +73,28 @@ echo.
 
 cmd /c git add .
 git commit -m "%message%"
+git push
+
+echo.
+echo -----------------------------------------------
+echo                 Push thành công                
+echo -----------------------------------------------
+echo.
+
+GOTO MENU
+
+:PULLPUSH
+set /p "message=Nhập commit message: "
+
+echo.
+echo -----------------------------------------------
+echo                   Đang tải...                  
+echo -----------------------------------------------
+echo.
+
+cmd /c git add .
+git commit -m "%message%"
+git pull
 git push
 
 echo.
