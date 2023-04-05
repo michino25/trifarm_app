@@ -1,5 +1,6 @@
 ECHO OFF
 title Quick Git
+cmd /c git config --global --unset-all remote.origin.proxy
 %SystemRoot%\System32\chcp.com 65001 >nul
 CLS
 
@@ -11,6 +12,7 @@ ECHO -----------------------------------------------
 ECHO.
 ECHO   1 - Push project lên GitHub lần đầu
 ECHO   2 - Push project lên GitHub
+ECHO.
 ECHO   3 - Pull dự án trên GitHub về máy
 ECHO   4 - Clone dự án trên GitHub về máy
 ECHO.
@@ -21,7 +23,7 @@ ECHO.
 SET /P M=Chọn chức năng: 
 echo.
 IF %M%==1 GOTO PUSHFIRST
-IF %M%==2 GOTO PUSH
+IF %M%==2 GOTO PULLPUSH
 IF %M%==3 GOTO PULL
 IF %M%==4 GOTO CLONE
 IF %M%==5 GOTO HELP
@@ -69,6 +71,28 @@ echo.
 
 cmd /c git add .
 git commit -m "%message%"
+git push
+
+echo.
+echo -----------------------------------------------
+echo                 Push thành công                
+echo -----------------------------------------------
+echo.
+
+GOTO MENU
+
+:PULLPUSH
+set /p "message=Nhập commit message: "
+
+echo.
+echo -----------------------------------------------
+echo                   Đang tải...                  
+echo -----------------------------------------------
+echo.
+
+cmd /c git add .
+git commit -m "%message%"
+git pull
 git push
 
 echo.
@@ -142,11 +166,13 @@ echo.
 echo Khi muốn pull hoặc push, đặt file QuickGit vào thư mục dự án.
 echo Ví dụ: Muốn push demo_project lên GitHub
 echo ^=^> Đặt file QuickGit vào thư mục 'demo_project' và dùng chức năng push (2)
+echo.
+echo Lưu ý: Phần mềm chưa xử lý được các trường hợp conflict khi pull code
 
 echo.
 echo -----------------------------------------------
-echo              written by Michittio             
-echo              github.com/michittio
+echo             Phát triển bởi Michittio           
+echo             github.com/michittio
 echo -----------------------------------------------
 echo.
 
