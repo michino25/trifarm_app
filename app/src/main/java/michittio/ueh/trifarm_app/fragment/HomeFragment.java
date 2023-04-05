@@ -126,7 +126,7 @@ public class HomeFragment extends Fragment {
                 // Hiển thị icon search trên BottomNavigationView
                 bottomNavigationView.setSelectedItemId(R.id.search);
                 //Chuyển fragment page
-                replaceFragment(new NewsFragment());
+                replaceFragment(new SearchFragment());
             }
         });
     }
