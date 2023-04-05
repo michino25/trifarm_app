@@ -57,6 +57,7 @@ public class SignUp extends AppCompatActivity {
         String email = edtEmail.getText().toString().trim();
         String password = edtPassword.getText().toString().trim();
         User user = new User(email, password, rule);
+
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
         String userId = databaseReference.push().getKey();
         databaseReference.child(userId).setValue(user)
