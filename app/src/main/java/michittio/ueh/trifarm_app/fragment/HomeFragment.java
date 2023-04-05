@@ -3,23 +3,22 @@ package michittio.ueh.trifarm_app.fragment;
 import static android.content.ContentValues.TAG;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager2.widget.ViewPager2;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,8 +34,7 @@ import michittio.ueh.trifarm_app.SliderAdapter;
 import michittio.ueh.trifarm_app.SliderItem;
 import michittio.ueh.trifarm_app.data.Product;
 import michittio.ueh.trifarm_app.data.ProductAdapter;
-import michittio.ueh.trifarm_app.srceen.Detail;
-import michittio.ueh.trifarm_app.srceen.ProductDetail;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,12 +51,17 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    Context thiscontext;
+    final private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Products");
+    private ViewPager2 viewPager2;
+    private final Handler sliderHandler = new Handler();
+    private LinearLayout linearLayoutFragmentSearch;
+    private Context thiscontext;
+    private GridView gridView;
+    private ArrayList<Product> productArrayList;
+    private ProductAdapter adapter;
 
 
     public HomeFragment() {
-
-        // Required empty public constructor
     }
 
     /**
@@ -80,17 +83,6 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private ViewPager2 viewPager2;
-    private Handler sliderHandler = new Handler();
-
-    private TextView txtSearch;
-    private GridView gridView;
-    private ArrayList<Product> productArrayList;
-    private ProductAdapter adapter;
-    final private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Products");
-
-
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -102,10 +94,8 @@ public class HomeFragment extends Fragment {
 
         viewPager2 = getView().findViewById(R.id.slider);
         List<SliderItem> sliderItems = getListSlider();
-
 //        viewPager2.setCurrentItem(2);
         viewPager2.setAdapter(new SliderAdapter(sliderItems, viewPager2));
-
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
@@ -115,20 +105,46 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
-        gridView = getView().findViewById(R.id.gridView);
-        txtSearch= getView().findViewById(R.id.txt_searchButton);
-        productArrayList = new ArrayList<>();
-
-
-        ExpandableGridView productGrid = (ExpandableGridView) getView().findViewById(R.id.gridView);
-        productGrid.setExpanded(true);
-
-
+        initui();
+        renderData();
+        nextFragmentSearch();
 
     }
 
+    private void renderData() {
+        ExpandableGridView productGrid = (ExpandableGridView) getView().findViewById(R.id.gridView);
+        productGrid.setExpanded(true);
+    }
 
+
+    private void nextFragmentSearch() {
+        //next fragment search
+        linearLayoutFragmentSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
+                // Hiển thị icon search trên BottomNavigationView
+                bottomNavigationView.setSelectedItemId(R.id.search);
+                //Chuyển fragment page
+                replaceFragment(new NewsFragment());
+            }
+        });
+    }
+
+
+    private void replaceFragment(Fragment fragment) {
+
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.commit();
+    }
+
+    private void initui() {
+        gridView = getView().findViewById(R.id.gridView);
+        productArrayList = new ArrayList<>();
+        linearLayoutFragmentSearch = getView().findViewById(R.id.linearLayout);
+    }
 
 
     @Override
@@ -137,8 +153,6 @@ public class HomeFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
         thiscontext = container.getContext();
-
-        txtSearch = rootView.findViewById(R.id.txt_searchButton);
         gridView = rootView.findViewById(R.id.gridView);
         productArrayList = new ArrayList<>();
 
@@ -160,37 +174,6 @@ public class HomeFragment extends Fragment {
                 Log.e(TAG, "Failed to read value.", error.toException());
             }
         });
-
-
-        //search data
-        txtSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(thiscontext,CartFragment.class);
-                thiscontext.startActivity(intent);
-            }
-        });
-
-
-//        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                // Lấy sản phẩm được chọn
-//                Product selectedProduct = productArrayList.get(position);
-//
-//                // Tạo Intent và truyền dữ liệu cho trang Detail
-//                Intent intent = new Intent(getActivity(), ProductDetail.class);
-//                intent.putExtra("product_name", selectedProduct.getName());
-//                intent.putExtra("product_description", selectedProduct.getDescription());
-//                intent.putExtra("product_price", selectedProduct.getPrice());
-//
-//                // Khởi chạy Intent để chuyển sang trang Detail
-//                startActivity(intent);
-//            }
-//        });
-
-
-
 
 
 
