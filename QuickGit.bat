@@ -166,11 +166,13 @@ echo.
 echo Khi muốn pull hoặc push, đặt file QuickGit vào thư mục dự án.
 echo Ví dụ: Muốn push demo_project lên GitHub
 echo ^=^> Đặt file QuickGit vào thư mục 'demo_project' và dùng chức năng push (2)
+echo.
+echo Lưu ý: Phần mềm chưa xử lý được các trường hợp conflict khi pull code
 
 echo.
 echo -----------------------------------------------
-echo              written by Michittio             
-echo              github.com/michittio
+echo             Phát triển bởi Michittio           
+echo             github.com/michittio
 echo -----------------------------------------------
 echo.
 
