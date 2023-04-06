@@ -25,7 +25,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import michittio.ueh.trifarm_app.R;
 import michittio.ueh.trifarm_app.data.Product;
@@ -33,10 +32,10 @@ import michittio.ueh.trifarm_app.data.ProductAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link NewsFragment#newInstance} factory method to
+ * Use the {@link SearchFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewsFragment extends Fragment {
+public class SearchFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,7 +57,7 @@ public class NewsFragment extends Fragment {
     final private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Products");
 
 
-    public NewsFragment() {}
+    public SearchFragment() {}
 
     /**
      * Use this factory method to create a new instance of
@@ -69,8 +68,8 @@ public class NewsFragment extends Fragment {
      * @return A new instance of fragment NewsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NewsFragment newInstance(String param1, String param2) {
-        NewsFragment fragment = new NewsFragment();
+    public static SearchFragment newInstance(String param1, String param2) {
+        SearchFragment fragment = new SearchFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

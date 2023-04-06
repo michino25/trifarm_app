@@ -6,11 +6,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-
 import michittio.ueh.trifarm_app.databinding.ActivityMainBinding;
 import michittio.ueh.trifarm_app.fragment.CartFragment;
 import michittio.ueh.trifarm_app.fragment.HomeFragment;
-import michittio.ueh.trifarm_app.fragment.NewsFragment;
+import michittio.ueh.trifarm_app.fragment.SearchFragment;
 import michittio.ueh.trifarm_app.fragment.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new HomeFragment());
                     break;
                 case R.id.search:
-                    replaceFragment(new NewsFragment());
+                    replaceFragment(new SearchFragment());
                     break;
                 case R.id.cart:
                     replaceFragment(new CartFragment());

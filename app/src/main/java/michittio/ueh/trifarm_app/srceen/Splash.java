@@ -22,7 +22,7 @@ public class Splash extends AppCompatActivity {
             public void run() {
                 nextActivity();
             }
-        },500);
+        },200);
     }
 
     private void nextActivity() {

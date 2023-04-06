@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/fragment_search"
-    tools:context=".fragment.NewsFragment">
+    tools:context=".fragment.SearchFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -18,29 +18,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/green_boder"
             android:focusable="false"
             app:closeIcon="@drawable/baseline_clear_24"
             app:iconifiedByDefault="false"
+            android:theme="@style/AppSearchView"
             app:queryHint="Search..."
             app:searchHintIcon="@null"
-            app:searchIcon="@drawable/i_search_icon" />
+            app:searchIcon="@drawable/i_search_icon_green" />
 
         <GridView
             android:id="@+id/gv_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
+            android:background="@color/background"
             android:gravity="fill"
             android:numColumns="2"
             android:padding="5px"
             android:stretchMode="columnWidth" />
 
     </LinearLayout>
-
-
-
 
 </FrameLayout>
