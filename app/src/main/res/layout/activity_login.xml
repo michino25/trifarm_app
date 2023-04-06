@@ -65,7 +65,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="Sign Ip"
+                android:text="Sign In"
                 android:id="@+id/btn_login"
                 android:textSize="18sp"
                 android:layout_marginTop="30dp"

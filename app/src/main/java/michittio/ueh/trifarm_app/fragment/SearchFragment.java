@@ -101,9 +101,6 @@ public class SearchFragment extends Fragment {
         gridView.setAdapter(adapter);
     }
 
-    private void searchData() {
-
-    }
 
     private void loadData() {
         databaseReference.addValueEventListener(new ValueEventListener() {
