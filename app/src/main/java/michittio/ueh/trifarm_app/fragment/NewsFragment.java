@@ -102,9 +102,6 @@ public class NewsFragment extends Fragment {
         gridView.setAdapter(adapter);
     }
 
-    private void searchData() {
-
-    }
 
     private void loadData() {
         databaseReference.addValueEventListener(new ValueEventListener() {
