@@ -1,6 +1,8 @@
 package michittio.ueh.trifarm_app.srceen;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -65,9 +67,14 @@ public class Login extends AppCompatActivity {
                                         Intent intent = new Intent(Login.this, Product_RecyclerView.class);
                                         startActivity(intent);
                                     } else {
-                                        Toast.makeText(Login.this, "Login successful.", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(Login.this, MainActivity.class);
-                                        startActivity(intent);
+                                        if (saveUser(user.getEmail(),user.getPassword()) ) {
+                                            Toast.makeText(Login.this, "Login successful.", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(Login.this, MainActivity.class);
+                                            startActivity(intent);
+                                        }
+                                        else {
+                                            Toast.makeText(Login.this, "Login Errol.", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
 
                                 }
@@ -91,6 +98,19 @@ public class Login extends AppCompatActivity {
             }
 
         });
+    }
+    private boolean saveUser(String email, String password) {
+        if (!email.isEmpty() && !password.isEmpty()) {
+            // Kiểm tra email và password không rỗng
+            SharedPreferences sharedPreferences = getSharedPreferences("SaveUser", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("email", email);
+            editor.putString("password", password);
+            editor.apply();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void nextSignUp() {
