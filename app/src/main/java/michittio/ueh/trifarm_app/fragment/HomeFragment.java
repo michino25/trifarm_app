@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -60,6 +61,8 @@ public class HomeFragment extends Fragment {
     private ViewPager2 viewPager2;
     private final Handler sliderHandler = new Handler();
     private LinearLayout linearLayoutFragmentSearch;
+    private LinearLayout searchBtn;
+    private ImageView cartBtn;
     private Context thiscontext;
     private GridView gridView;
     private GridView gridViewCategory;
@@ -117,6 +120,7 @@ public class HomeFragment extends Fragment {
         initui();
         renderData();
         nextFragmentSearch();
+        nextFragmentCart();
 
         gridViewCategory = getView().findViewById(R.id.gridviewCategory);
         CategoryAdapter adapter = new CategoryAdapter(getListCategory(), getActivity().getApplicationContext());
@@ -134,7 +138,8 @@ public class HomeFragment extends Fragment {
 
     private void nextFragmentSearch() {
         //next fragment search
-        linearLayoutFragmentSearch.setOnClickListener(new View.OnClickListener() {
+        searchBtn = getView().findViewById(R.id.liner_search);
+        searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
@@ -146,6 +151,21 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    private void nextFragmentCart() {
+
+        //next fragment cart
+        cartBtn = getView().findViewById(R.id.cartBtn);
+        cartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
+                // Hiển thị icon search trên BottomNavigationView
+                bottomNavigationView.setSelectedItemId(R.id.cart);
+                //Chuyển fragment page
+                replaceFragment(new CartFragment());
+            }
+        });
+    }
 
     private void replaceFragment(Fragment fragment) {
 

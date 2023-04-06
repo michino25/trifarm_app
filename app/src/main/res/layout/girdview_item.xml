@@ -13,23 +13,65 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/d_carditem_background"
-        android:orientation="vertical"
-        android:paddingHorizontal="5dp"
-        android:paddingVertical="5dp">
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/grid_image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <ImageView
+                android:id="@+id/grid_image"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_marginVertical="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/d_freeship_product"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4sp"
+                android:singleLine="true"
+                android:text="Freeship+"
+                android:textColor="@color/green_2"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="HardcodedText,SmallSp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/d_sale_product"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4sp"
+                android:singleLine="true"
+                android:text="Giảm 49%"
+                android:textColor="@color/green_2"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="HardcodedText" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="5dp"
-            android:paddingVertical="2dp"
-            >
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="6dp">
 
             <TextView
                 android:id="@+id/gird_name"
@@ -46,6 +88,9 @@
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:paddingTop="2dp"
+                android:paddingBottom="5dp"
                 app:layout_constraintEnd_toEndOf="@+id/gird_sold"
                 app:layout_constraintStart_toEndOf="@+id/gird_sold">
 
@@ -54,11 +99,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Price"
+                    android:textStyle="bold"
                     android:textColor="@color/green_2"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView15"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="₫"
+                    android:textStyle="bold"
+                    android:textColor="@color/green_2"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/gird_price"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.25" />
 
                 <TextView
                     android:id="@+id/gird_sold"
@@ -66,8 +125,8 @@
                     android:layout_height="wrap_content"
                     android:text="Sold"
                     android:textAlignment="textEnd"
-                    android:textColor="@color/green_2"
-                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:textSize="10sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

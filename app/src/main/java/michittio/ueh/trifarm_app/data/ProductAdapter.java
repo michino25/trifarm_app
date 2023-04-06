@@ -59,10 +59,10 @@ public class ProductAdapter extends BaseAdapter {
         TextView gridSold= view.findViewById(R.id.gird_sold);
 
 
-        DecimalFormat myFormatter = new DecimalFormat("###,###đ");
+        DecimalFormat myFormatter = new DecimalFormat("###,###");
         int price = Integer.parseInt(listProduct.get(i).getPrice());
 
-        String sold =listProduct.get(i).getSold() +"k";
+        String sold ="Đã bán " + listProduct.get(i).getSold() +"k";
 
 
         Glide.with(context).load(listProduct.get(i).getImage()).into(gridImage);
