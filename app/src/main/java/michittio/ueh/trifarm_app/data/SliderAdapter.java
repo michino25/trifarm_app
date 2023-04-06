@@ -1,4 +1,4 @@
-package michittio.ueh.trifarm_app;
+package michittio.ueh.trifarm_app.data;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +11,8 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.List;
+
+import michittio.ueh.trifarm_app.R;
 
 public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderViewHolder> {
 

@@ -2,9 +2,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frame_layout_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/frame_layout_home"
     tools:context=".fragment.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -49,12 +49,12 @@
                     android:id="@+id/txt_searchButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:background="@null"
                     android:ems="8"
-                    android:layout_gravity="center_vertical"
-                    android:text="Search"
                     android:paddingStart="12sp"
+                    android:text="Search"
                     android:textSize="13sp"
                     tools:ignore="HardcodedText,NestedWeights,RtlSymmetry" />
 
@@ -95,8 +95,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="2dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingTop="2dp">
 
                 <!--            Slider    -->
                 <LinearLayout
@@ -120,20 +120,75 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/background"
                     android:paddingHorizontal="4dp"
-                    android:paddingVertical="6dp"
-                    android:orientation="vertical">
+                    android:paddingVertical="6dp">
+
+                    <TextView
+                        android:id="@+id/textView18"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="DANH MỤC NỔI BẬT"
+                        android:textColor="@color/green_2"
+                        android:layout_marginTop="1dp"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:scrollbars="none">
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+
+                            <LinearLayout
+                                android:id="@+id/linearLayout_gridtableLayout"
+                                android:layout_width="780dp"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                tools:ignore="UselessParent">
+
+                                <GridView
+                                    android:id="@+id/gridviewCategory"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginHorizontal="6dp"
+                                    android:layout_marginVertical="4dp"
+                                    android:background="@color/white"
+                                    android:columnWidth="110dp"
+                                    android:gravity="center"
+                                    android:numColumns="10"
+                                    android:scrollbarAlwaysDrawHorizontalTrack="true"
+                                    android:scrollbarAlwaysDrawVerticalTrack="true"
+                                    android:scrollbars="none"
+                                    android:stretchMode="none"
+                                    tools:ignore="NestedScrolling" />
+                            </LinearLayout>
+                        </FrameLayout>
+                    </HorizontalScrollView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="4dp"
+                    android:paddingVertical="6dp">
 
                     <TextView
                         android:id="@+id/textView14"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="GỢI Ý CHO BẠN"
-                        android:textStyle="bold"
                         android:gravity="center_horizontal"
+                        android:text="GỢI Ý CHO BẠN"
                         android:textColor="@color/green_2"
                         android:textSize="15sp"
-                        />
+                        android:textStyle="bold" />
 
                     <michittio.ueh.trifarm_app.ExpandableGridView
                         android:id="@+id/gridView"

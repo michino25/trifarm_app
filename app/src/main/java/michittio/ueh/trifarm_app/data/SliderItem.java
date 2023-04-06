@@ -1,4 +1,4 @@
-package michittio.ueh.trifarm_app;
+package michittio.ueh.trifarm_app.data;
 
 public class SliderItem {
     private int image;
