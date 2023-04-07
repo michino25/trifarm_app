@@ -33,6 +33,7 @@ public class Login extends AppCompatActivity {
     private TextView txtsignupRedirectText;
     private Button btnLogin;
     private ProgressBar progressBar;
+    private String key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class Login extends AppCompatActivity {
                                         Intent intent = new Intent(Login.this, Product_RecyclerView.class);
                                         startActivity(intent);
                                     } else {
-                                        if (saveUser(user.getEmail(),user.getPassword()) ) {
+                                        if (saveUser(user.getEmail(),user.getPassword(),user.getKey()) ) {
                                             Toast.makeText(Login.this, "Login successful.", Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(Login.this, MainActivity.class);
                                             startActivity(intent);
@@ -99,13 +100,14 @@ public class Login extends AppCompatActivity {
 
         });
     }
-    private boolean saveUser(String email, String password) {
+    private boolean saveUser(String email, String password,String key) {
         if (!email.isEmpty() && !password.isEmpty()) {
             // Kiểm tra email và password không rỗng
             SharedPreferences sharedPreferences = getSharedPreferences("SaveUser", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("email", email);
             editor.putString("password", password);
+            editor.putString("key",key);
             editor.apply();
             return true;
         } else {

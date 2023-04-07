@@ -1,9 +1,11 @@
 package michittio.ueh.trifarm_app.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
@@ -11,9 +13,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
 import michittio.ueh.trifarm_app.R;
+import michittio.ueh.trifarm_app.srceen.UpdateUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +43,12 @@ public class ProfileFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private View view;
+    private ImageView imgAvatar;
+    private TextView txtFullName;
+    private TextView txtPhone;
+    private TextView txtDateOfBirth;
+    private TextView txtAddress;
+    private ImageView btnSetting;
     private Context context;
     private Button btnLogout;
 
@@ -66,14 +84,59 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
-        initui();
         context = container.getContext();
+        initui();
+        nextUpdateProfile();
         logOut();
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("SaveUser", Context.MODE_PRIVATE);
+        String key = sharedPreferences.getString("key","");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(key);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // Lấy dữ liệu từ DataSnapshot và gán vào các thành phần giao diện
+                String avatarUrl = snapshot.child("avatar").getValue(String.class);
+                String fullName = snapshot.child("fullName").getValue(String.class);
+                String phone = snapshot.child("phone").getValue(String.class);
+                String dateOfBirth = snapshot.child("dateOfBirth").getValue(String.class);
+                String address = snapshot.child("address").getValue(String.class);
+
+
+                Picasso.get().load(avatarUrl).into(imgAvatar);
+                txtFullName.setText(fullName);
+                txtPhone.setText(phone);
+                txtDateOfBirth.setText(dateOfBirth);
+                txtAddress.setText(address);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         return view;
+    }
+
+    private void nextUpdateProfile() {
+        btnSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), UpdateUser.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initui() {
         btnLogout = view.findViewById(R.id.btn_logout);
+        btnSetting = view.findViewById(R.id.btn_setting);
+        txtFullName = view.findViewById(R.id.txt_fullname);
+        txtAddress = view.findViewById(R.id.txt_address);
+        txtPhone = view.findViewById(R.id.txt_phone);
+        txtDateOfBirth = view.findViewById(R.id.txt_dateofbirth);
+        imgAvatar = view.findViewById(R.id.img_avatar);
     }
 
     private void logOut() {

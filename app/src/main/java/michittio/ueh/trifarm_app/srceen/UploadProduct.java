@@ -49,8 +49,10 @@ public class UploadProduct extends AppCompatActivity {
         setContentView(R.layout.activity_upload_product);
 
         initui();
+        UpLoadProduct();
+    }
 
-
+    private void UpLoadProduct() {
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -98,7 +100,7 @@ public class UploadProduct extends AppCompatActivity {
         progressBar.setVisibility(View.INVISIBLE);
     }
 
-    //Outside onCreate
+
     private void uploadToFirebase(Uri uri){
         String name = edtName.getText().toString();
         String descripttion = edtDesciption.getText().toString();
@@ -136,6 +138,7 @@ public class UploadProduct extends AppCompatActivity {
             }
         });
     }
+
     private String getFileExtension(Uri fileUri){
         ContentResolver contentResolver = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();

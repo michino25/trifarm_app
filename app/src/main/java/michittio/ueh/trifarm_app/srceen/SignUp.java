@@ -53,13 +53,13 @@ public class SignUp extends AppCompatActivity {
     }
 
     private void addUser() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        String userId = databaseReference.push().getKey();
         String rule = "user";
         String email = edtEmail.getText().toString().trim();
         String password = edtPassword.getText().toString().trim();
-        User user = new User(email, password, rule);
+        User user = new User(email, password, rule,userId);
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-        String userId = databaseReference.push().getKey();
         databaseReference.child(userId).setValue(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
