@@ -97,7 +97,6 @@ public class UploadProduct extends AppCompatActivity {
         edtPrice = findViewById(R.id.edt_price);
         uploadImage = findViewById(R.id.uploadImage);
         progressBar = findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.INVISIBLE);
     }
 
 

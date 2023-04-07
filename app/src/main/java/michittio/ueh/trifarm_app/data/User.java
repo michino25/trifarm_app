@@ -10,6 +10,15 @@ public class User {
     private String address;
     private String avatar;
     private String key;
+    private String nickName;
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
 
     public String getKey() {
         return key;
@@ -76,11 +85,12 @@ public class User {
         this.key = key;
     }
 
-    public void updateUserInfo(String fullName, String phoneNumber, String dateOfBirth, String address) {
+    public void updateUserInfo(String fullName, String phoneNumber, String dateOfBirth, String address,String nickName) {
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.dateOfBirth = dateOfBirth;
         this.address = address;
+        this.nickName = nickName;
     }
 
     public void updateImage(String avatar) {

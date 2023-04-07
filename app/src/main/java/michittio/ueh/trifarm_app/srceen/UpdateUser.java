@@ -6,6 +6,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -20,6 +22,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,15 +32,18 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import michittio.ueh.trifarm_app.MainActivity;
 import michittio.ueh.trifarm_app.R;
 import michittio.ueh.trifarm_app.data.Product;
 import michittio.ueh.trifarm_app.data.User;
+import michittio.ueh.trifarm_app.fragment.ProfileFragment;
 
 public class UpdateUser extends AppCompatActivity {
 
@@ -45,10 +51,10 @@ public class UpdateUser extends AppCompatActivity {
     private EditText edtPhone;
     private EditText edtDateOfBirth;
     private EditText edtAddress;
+    private EditText edtNickName;
     private Button btnSave;
     private ImageView imageAvartar;
-    private DatabaseReference databaseReference;
-    private StorageReference storageReference ;
+    ProgressBar progressBar;
     private Uri imageUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,10 +107,10 @@ public class UpdateUser extends AppCompatActivity {
         edtPhone = findViewById(R.id.edt_phone);
         edtDateOfBirth = findViewById(R.id.edt_dateOfBirth);
         edtAddress = findViewById(R.id.edt_address);
+        edtNickName = findViewById(R.id.edt_nickname);
         btnSave = findViewById(R.id.btn_save);
         imageAvartar = findViewById(R.id.upload_Avatar);
-        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-        storageReference = FirebaseStorage.getInstance().getReference();
+        progressBar = findViewById(R.id.progressBar);
     }
 
     private void uploadToFirebase(Uri uri) {
@@ -112,6 +118,7 @@ public class UpdateUser extends AppCompatActivity {
         String phoneNumber = edtPhone.getText().toString();
         String dateOfBirth = edtDateOfBirth.getText().toString();
         String address = edtAddress.getText().toString();
+        String nickname = edtNickName.getText().toString();
 
         // Lấy reference đến Firebase Storage
         StorageReference storageReference = FirebaseStorage.getInstance().getReference("avatars");
@@ -136,6 +143,7 @@ public class UpdateUser extends AppCompatActivity {
                         user.setPhoneNumber(phoneNumber);
                         user.setDateOfBirth(dateOfBirth);
                         user.setAddress(address);
+                        user.setNickName(nickname);
                         user.setAvatar(uri.toString());
 
                         Map<String, Object> updateData = new HashMap<>();
@@ -143,13 +151,19 @@ public class UpdateUser extends AppCompatActivity {
                         updateData.put("phoneNumber", phoneNumber);
                         updateData.put("dateOfBirth", dateOfBirth);
                         updateData.put("address", address);
+                        updateData.put("nickname",nickname);
                         updateData.put("avatar", uri.toString());
-
+                        progressBar.setVisibility(View.INVISIBLE);
                         userRef.updateChildren(updateData).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(getApplicationContext(), "Cập nhật thông tin thành công!", Toast.LENGTH_SHORT).show();
+                                    ProfileFragment profileFragment = new ProfileFragment();
+                                    FragmentManager fragmentManager = getSupportFragmentManager();
+                                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                    fragmentTransaction.replace(R.id.layout_update_user, profileFragment);
+                                    fragmentTransaction.commit();
                                 } else {
                                     Toast.makeText(getApplicationContext(), "Cập nhật thông tin thất bại!", Toast.LENGTH_SHORT).show();
                                 }
@@ -160,7 +174,18 @@ public class UpdateUser extends AppCompatActivity {
                     }
                 });
             }
-        });
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(UpdateUser.this, "Failed", Toast.LENGTH_SHORT).show();
+            }
+        });;
     }
 
     private String getFileExtension(Uri fileUri){

@@ -48,6 +48,8 @@ public class ProfileFragment extends Fragment {
     private TextView txtPhone;
     private TextView txtDateOfBirth;
     private TextView txtAddress;
+    private TextView txtNickName;
+    private TextView txtEmail;
     private ImageView btnSetting;
     private Context context;
     private Button btnLogout;
@@ -98,9 +100,11 @@ public class ProfileFragment extends Fragment {
                 // Lấy dữ liệu từ DataSnapshot và gán vào các thành phần giao diện
                 String avatarUrl = snapshot.child("avatar").getValue(String.class);
                 String fullName = snapshot.child("fullName").getValue(String.class);
-                String phone = snapshot.child("phone").getValue(String.class);
+                String phone = snapshot.child("phoneNumber").getValue(String.class);
                 String dateOfBirth = snapshot.child("dateOfBirth").getValue(String.class);
                 String address = snapshot.child("address").getValue(String.class);
+                String nickname = snapshot.child("nickname").getValue(String.class);
+                String email = snapshot.child("email").getValue(String.class);
 
 
                 Picasso.get().load(avatarUrl).into(imgAvatar);
@@ -108,6 +112,8 @@ public class ProfileFragment extends Fragment {
                 txtPhone.setText(phone);
                 txtDateOfBirth.setText(dateOfBirth);
                 txtAddress.setText(address);
+                txtNickName.setText(nickname);
+                txtEmail.setText(email);
             }
 
             @Override
@@ -135,6 +141,8 @@ public class ProfileFragment extends Fragment {
         txtFullName = view.findViewById(R.id.txt_fullname);
         txtAddress = view.findViewById(R.id.txt_address);
         txtPhone = view.findViewById(R.id.txt_phone);
+        txtEmail = view.findViewById(R.id.txt_email);
+        txtNickName = view.findViewById(R.id.txt_nickname);
         txtDateOfBirth = view.findViewById(R.id.txt_dateofbirth);
         imgAvatar = view.findViewById(R.id.img_avatar);
     }
