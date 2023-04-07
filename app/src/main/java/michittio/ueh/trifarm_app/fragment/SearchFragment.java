@@ -3,6 +3,7 @@ package michittio.ueh.trifarm_app.fragment;
 import static android.content.ContentValues.TAG;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.GridView;
+import android.widget.Toast;
 
 
 import com.google.firebase.database.DataSnapshot;
@@ -46,7 +48,6 @@ public class SearchFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private View view;
-
     private Context thiscontext;
     private SearchView searchView ;
     private ProductAdapter adapter;
@@ -99,6 +100,7 @@ public class SearchFragment extends Fragment {
         // Khởi tạo Adapter cho GridView
         adapter = new ProductAdapter(getContext(), productList);
         gridView.setAdapter(adapter);
+
     }
 
 
@@ -132,6 +134,28 @@ public class SearchFragment extends Fragment {
         //ánh xạ
         initui();
 
+        if (searchIdCategory()) {
+            // Nếu searchIdCategory() trả về true
+            if (searchView.getQuery().length() == 0) {
+                // Nếu độ dài của query trong searchView khác 0, thực hiện searchData()
+                return view;
+            } else {
+                searchList.clear();
+                Toast.makeText(thiscontext, "aaaa", Toast.LENGTH_SHORT).show();
+                return view;
+            }
+
+        } else {
+            // Nếu searchIdCategory() trả về false, thực hiện searchData()
+            searchData();
+            return view;
+        }
+
+
+
+    }
+
+    private void searchData() {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -159,14 +183,45 @@ public class SearchFragment extends Fragment {
                 return false;
             }
         });
-
-        // Load dữ liệu từ Firebase Realtime Database
         loadData();
 
-        return view;
 
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_search, container, false);
+    }
+
+    private boolean searchIdCategory() {
+        // Lấy đối tượng Bundle từ Fragment
+        Bundle bundle = getArguments();
+
+        // Kiểm tra xem Bundle có dữ liệu không
+        if (bundle != null) {
+            // Lấy giá trị của key "idCategory"
+            int idCategory = bundle.getInt("idCategory");
+            String key = Integer.toString(idCategory);
+            databaseReference.orderByChild("id_category").equalTo(key).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    // Xử lý dữ liệu sản phẩm có idCategory bằng 1
+                    for (DataSnapshot productSnapshot : dataSnapshot.getChildren()) {
+                        // Lấy dữ liệu của sản phẩm
+                        Product product = productSnapshot.getValue(Product.class);
+                        productList.add(product);
+                        // Hiển thị sản phẩm trong giao diện người dùng
+                        adapter.searchDataList(productList);
+                        gridView.setAdapter(adapter);
+                        // ...
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+            return true;
+
+        } else {
+            return false;
+        }
+
     }
 
     @Override
@@ -184,13 +239,5 @@ public class SearchFragment extends Fragment {
 
     }
 
-    public void searchList(String text){
-        ArrayList<Product> searchList = new ArrayList<>();
-        for (Product dataClass: searchList){
-            if (dataClass.getName().toLowerCase().contains(text.toLowerCase())){
-                searchList.add(dataClass);
-            }
-        }
-        adapter.searchDataList(searchList);
-    }
+
 }

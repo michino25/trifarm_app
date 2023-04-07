@@ -20,7 +20,7 @@ import michittio.ueh.trifarm_app.R;
 public class ProductDetail extends AppCompatActivity {
     ImageView imageView;
     TextView tv_detail_name, tv_detail_description,
-            tv_detail_price,tv_detail_quanlity,tv_total;
+            tv_detail_price,tv_detail_quanlity,tv_total,tv_detail_sold;
     ImageView mImagePlus,mImageMinus;
     private int mCount = 1;
     private int mTotal = 0;
@@ -43,6 +43,7 @@ public class ProductDetail extends AppCompatActivity {
         String image = intent.getStringExtra("image");
         String name = intent.getStringExtra("name");
         String description = intent.getStringExtra("description");
+        String sold = intent.getStringExtra("sold");
         price = intent.getStringExtra("price");
 
         //format price
@@ -56,6 +57,7 @@ public class ProductDetail extends AppCompatActivity {
         tv_detail_name.setText(name);
         tv_detail_description.setText(description);
         tv_detail_price.setText(myFormatter.format(priceFormat));
+        tv_detail_sold.setText("Đã bán" + " " +sold + "k"  );
         tv_total.setText(myFormatter.format(priceFormat * mCount ));
     }
 
@@ -66,6 +68,7 @@ public class ProductDetail extends AppCompatActivity {
         tv_detail_price = findViewById(R.id.txt_detaiPrice);
         tv_detail_quanlity = findViewById(R.id.txt_quanlity);
         tv_total = findViewById(R.id.txt_total);
+        tv_detail_sold = findViewById(R.id.txt_detailSold);
         mImagePlus =  findViewById(R.id.btn_plus);
         mImageMinus = findViewById(R.id.btn_minus);
 
