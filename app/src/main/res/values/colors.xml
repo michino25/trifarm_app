@@ -11,9 +11,10 @@
     <!-- Trifarm -->
     <color name="green_1">#89BF3F</color>
     <color name="green_2">#4CA71E</color>
-    <color name="transparent">#0000</color>
+    <color name="transparent">#00000000</color>
     <color name="background">#f5f5f5</color>
     <color name="delete">#F44336</color>
+    <color name="yellow_star">#fdd836</color>
 
 
 

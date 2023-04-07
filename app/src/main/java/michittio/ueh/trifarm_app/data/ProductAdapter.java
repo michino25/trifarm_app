@@ -12,11 +12,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import michittio.ueh.trifarm_app.R;
-import michittio.ueh.trifarm_app.srceen.Detail;
 import michittio.ueh.trifarm_app.srceen.ProductDetail;
 
 public class ProductAdapter extends BaseAdapter {
@@ -50,7 +48,7 @@ public class ProductAdapter extends BaseAdapter {
             layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
         if (view == null){
-            view = layoutInflater.inflate(R.layout.girdview_item, null);
+            view = layoutInflater.inflate(R.layout.product_item, null);
         }
 
         ImageView gridImage = view.findViewById(R.id.grid_image);
