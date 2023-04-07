@@ -28,7 +28,8 @@
             android:layout_gravity="center"
             android:text="Caption"
             android:paddingVertical="4dp"
-            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
             tools:ignore="HardcodedText" />
     </LinearLayout>
 </LinearLayout>
