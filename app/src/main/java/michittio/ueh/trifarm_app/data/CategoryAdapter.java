@@ -1,18 +1,28 @@
 package michittio.ueh.trifarm_app.data;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import michittio.ueh.trifarm_app.R;
+import michittio.ueh.trifarm_app.fragment.SearchFragment;
 
 public class CategoryAdapter extends BaseAdapter {
     private ArrayList<Category> categories;
@@ -55,6 +65,16 @@ public class CategoryAdapter extends BaseAdapter {
         //new DownloadImage(dataitem.iv_photo).execute(categories.get(position).getSource_photo());
         Picasso.get().load(categories.get(position).getImage()).resize(256, 256).centerCrop().into(dataitem.iv_photo);
         dataitem.tv_caption.setText(categories.get(position).getName());
+
+//        convertView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(context, SearchFragment.class);
+//                intent.putExtra("idCategory",categories.get(position).getId());
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                context.startActivity(intent);
+//            }
+//        });
         return convertView;
     }
 

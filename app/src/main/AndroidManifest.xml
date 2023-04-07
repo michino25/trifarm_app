@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Trifarm_app"
         tools:targetApi="31">
+
+
+
         <activity
             android:name=".srceen.Product_RecyclerView"
             android:exported="false" />

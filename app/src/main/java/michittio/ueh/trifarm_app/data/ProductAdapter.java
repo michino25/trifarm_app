@@ -79,6 +79,7 @@ public class ProductAdapter extends BaseAdapter {
                 intent.putExtra("name", listProduct.get(i).getName());
                 intent.putExtra("description",listProduct.get(i).getDescription());
                 intent.putExtra("price", listProduct.get(i).getPrice());
+                intent.putExtra("sold", listProduct.get(i).getSold());
                 context.startActivity(intent);
             }
         });
