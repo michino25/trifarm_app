@@ -34,8 +34,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            >
+            app:layout_constraintStart_toStartOf="parent">
 
             <RadioGroup
                 android:id="@+id/daily_weekly_button_view"
@@ -60,7 +59,8 @@
                     android:gravity="center"
                     android:paddingHorizontal="14dp"
                     android:text="Phổ Biến"
-                    android:textColor="@drawable/radio_flat_text_selector" />
+                    android:textColor="@drawable/radio_flat_text_selector"
+                    tools:ignore="HardcodedText" />
 
                 <RadioButton
                     android:id="@+id/radio1"
@@ -69,10 +69,11 @@
                     android:background="@drawable/radio_flat_selector"
                     android:button="@android:color/transparent"
                     android:gravity="center"
+                    android:padding="-1dp"
                     android:paddingHorizontal="14dp"
                     android:text="Bán Chạy"
-                    android:padding="-1dp"
-                    android:textColor="@drawable/radio_flat_text_selector" />
+                    android:textColor="@drawable/radio_flat_text_selector"
+                    tools:ignore="HardcodedText" />
 
                 <RadioButton
                     android:id="@+id/radio2"
@@ -83,18 +84,8 @@
                     android:gravity="center"
                     android:paddingHorizontal="14dp"
                     android:text="Giảm Giá"
-                    android:textColor="@drawable/radio_flat_text_selector" />
-
-                <RadioButton
-                    android:id="@+id/radio3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/radio_flat_selector"
-                    android:button="@android:color/transparent"
-                    android:gravity="center"
-                    android:paddingHorizontal="14dp"
-                    android:text="Cùng Loại"
-                    android:textColor="@drawable/radio_flat_text_selector" />
+                    android:textColor="@drawable/radio_flat_text_selector"
+                    tools:ignore="HardcodedText" />
 
             </RadioGroup>
 
@@ -107,7 +98,8 @@
             android:background="@color/background"
             android:gravity="fill"
             android:numColumns="2"
-            android:padding="5px"
+            android:paddingTop="1dp"
+            android:paddingHorizontal="5dp"
             android:stretchMode="columnWidth" />
 
     </LinearLayout>

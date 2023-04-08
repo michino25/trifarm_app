@@ -47,7 +47,7 @@ if not exist README.md echo # %nameapp% >> README.md
 
 cmd /c git init
 git add .
-git commit -m "first commit"
+git commit -m "first commit."
 git branch -M main
 git remote add origin %link%
 git push -u -f origin main
@@ -70,7 +70,7 @@ echo -----------------------------------------------
 echo.
 
 cmd /c git add .
-git commit -m "%message%"
+git commit -m "%message%."
 git push
 
 echo.
@@ -91,7 +91,7 @@ echo -----------------------------------------------
 echo.
 
 cmd /c git add .
-git commit -m "%message%"
+git commit -m "%message%."
 git pull
 git push
 
@@ -112,7 +112,7 @@ echo -----------------------------------------------
 echo.
 
 cmd /c git add .
-git commit -m "commit to pull"
+git commit -m "commit to pull."
 git pull
 
 echo.
