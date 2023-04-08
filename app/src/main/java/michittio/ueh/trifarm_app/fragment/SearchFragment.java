@@ -88,8 +88,6 @@ public class SearchFragment extends Fragment {
 
     }
 
-
-
     private void initui() {
         gridView = view.findViewById(R.id.gv_search);
         searchView = view.findViewById(R.id.edt_search);

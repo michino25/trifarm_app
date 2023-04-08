@@ -23,9 +23,6 @@
             android:exported="false" />
 
         <activity
-            android:name=".srceen.Detail"
-            android:exported="false" />
-        <activity
             android:name=".srceen.Login"
             android:exported="false" />
         <activity

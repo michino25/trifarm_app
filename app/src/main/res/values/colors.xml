@@ -15,6 +15,10 @@
     <color name="background">#f5f5f5</color>
     <color name="delete">#F44336</color>
     <color name="yellow_star">#fdd836</color>
+    <color name="text_fuzz3">#333</color>
+    <color name="text_fuzz7">#777</color>
+    <color name="text_fuzz6">#666</color>
+
 
 
 

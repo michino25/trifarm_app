@@ -103,7 +103,7 @@
                     android:textColor="@color/green_2"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/textView15"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="HardcodedText" />
 
@@ -113,12 +113,14 @@
                     android:layout_height="wrap_content"
                     android:text="₫"
                     android:textColor="@color/green_2"
-                    android:textSize="10sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"
+                    android:paddingStart="5dp"
                     app:layout_constraintBottom_toBottomOf="@+id/gird_price"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/gird_price"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.25" />
+                    app:layout_constraintVertical_bias="0.25"
+                    tools:ignore="HardcodedText,SmallSp" />
 
                 <TextView
                     android:id="@+id/gird_sold"

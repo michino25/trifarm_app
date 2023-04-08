@@ -71,6 +71,7 @@
                     android:gravity="center"
                     android:paddingHorizontal="16dp"
                     android:text="Bán Chạy"
+                    android:padding="-1dp"
                     android:textColor="@drawable/radio_flat_text_selector" />
 
                 <RadioButton
