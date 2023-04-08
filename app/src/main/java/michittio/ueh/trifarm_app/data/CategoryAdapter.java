@@ -50,21 +50,21 @@ public class CategoryAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final MyView dataitem;
+        final MyView dataItem;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
-            dataitem = new MyView();
+            dataItem = new MyView();
             convertView = inflater.inflate(R.layout.category_item, null);
-            dataitem.iv_photo = convertView.findViewById(R.id.imv_photo);
-            dataitem.tv_caption = convertView.findViewById(R.id.tv_title);
-            convertView.setTag(dataitem);
+            dataItem.iv_photo = convertView.findViewById(R.id.imv_photo);
+            dataItem.tv_caption = convertView.findViewById(R.id.tv_title);
+            convertView.setTag(dataItem);
         } else {
-            dataitem = (MyView) convertView.getTag();
+            dataItem = (MyView) convertView.getTag();
         }
 
-        //new DownloadImage(dataitem.iv_photo).execute(categories.get(position).getSource_photo());
-        Picasso.get().load(categories.get(position).getImage()).resize(256, 256).centerCrop().into(dataitem.iv_photo);
-        dataitem.tv_caption.setText(categories.get(position).getName());
+        //new DownloadImage(dataItem.iv_photo).execute(categories.get(position).getSource_photo());
+        Picasso.get().load(categories.get(position).getImage()).resize(256, 256).centerCrop().into(dataItem.iv_photo);
+        dataItem.tv_caption.setText(categories.get(position).getName());
 
 //        convertView.setOnClickListener(new View.OnClickListener() {
 //            @Override

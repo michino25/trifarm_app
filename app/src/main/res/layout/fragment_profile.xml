@@ -180,24 +180,18 @@
                                 android:elevation="5dp"
                                 android:orientation="vertical">
 
-                                <androidx.constraintlayout.widget.ConstraintLayout
-                                    android:layout_width="60dp"
-                                    android:layout_height="60dp"
-                                    android:layout_gravity="center_horizontal"
-                                    android:layout_margin="12dp"
-                                    android:background="@drawable/oval_background">
-
                                     <ImageView
                                         android:id="@+id/imageView7"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:src="@drawable/wallet"
+                                        android:layout_width="40dp"
+                                        android:layout_height="40dp"
+                                        android:layout_gravity="center_horizontal"
+                                        android:layout_margin="12dp"
+                                        android:src="@drawable/i_notification_solid"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toTopOf="parent"
-                                        app:srcCompat="@drawable/notification" />
-                                </androidx.constraintlayout.widget.ConstraintLayout>
+                                        />
 
                                 <TextView
                                     android:id="@+id/textView5"

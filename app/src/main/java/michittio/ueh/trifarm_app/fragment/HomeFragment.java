@@ -65,12 +65,10 @@ public class HomeFragment extends Fragment {
     private ImageView cartBtn;
     private Context thiscontext;
     private GridView gridView;
-    private GridView gridViewCategory;
     private ArrayList<Product> productArrayList;
     private ProductAdapter adapter;
+    private GridView gridViewCategory;
     private ArrayList<Category> categories = new ArrayList<>();
-    private RecyclerView rcVData;
-    private CategoryAdapter categoryAdapter;
 
 
     public HomeFragment() {
@@ -121,6 +119,7 @@ public class HomeFragment extends Fragment {
         renderData();
         nextFragmentSearch();
         nextFragmentCart();
+
         CategoryAdapter adapter = new CategoryAdapter(getListCategory(), getActivity().getApplicationContext());
         gridViewCategory.setAdapter(adapter);
         searchCategory();
