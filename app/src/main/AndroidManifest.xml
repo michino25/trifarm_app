@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,16 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Trifarm_app"
         tools:targetApi="31">
-
-
-
+        <activity
+            android:name=".srceen.UpdateUser"
+            android:exported="false" />
         <activity
             android:name=".srceen.Product_RecyclerView"
             android:exported="false" />
         <activity
             android:name=".srceen.ProductDetail"
             android:exported="false" />
-
         <activity
             android:name=".srceen.Login"
             android:exported="false" />
@@ -30,8 +30,8 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustNothing"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".srceen.UploadCategory"
             android:exported="false" />

@@ -8,14 +8,32 @@ public class User {
     private String phoneNumber;
     private String dateOfBirth;
     private String address;
-    private String image;
+    private String avatar;
+    private String key;
+    private String nickName;
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     public String getImage() {
-        return image;
+        return avatar;
     }
 
     public void setImage(String image) {
-        this.image = image;
+        this.avatar = image;
     }
 
     public String getFullName() {
@@ -52,21 +70,31 @@ public class User {
 
     public User() {}
 
-    public User(String email, String password, String rule) {
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public User(String email, String password, String rule,String key) {
         this.email = email;
         this.password = password;
         this.rule = rule;
+        this.key = key;
     }
 
-    public void updateUserInfo(String fullName, String phoneNumber, String dateOfBirth, String address) {
+    public void updateUserInfo(String fullName, String phoneNumber, String dateOfBirth, String address,String nickName) {
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.dateOfBirth = dateOfBirth;
         this.address = address;
+        this.nickName = nickName;
     }
 
-    public void updateImage(String image) {
-        this.image = image;
+    public void updateImage(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getEmail() {
