@@ -111,10 +111,10 @@ public class UploadProduct extends AppCompatActivity {
                 imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Product product = new Product(name,descripttion,uri.toString(),price,"","");
                         //String key = databaseReference.push().getKey();
                         int count = 0;
                         String productId = "s" + (count + 1);
+                        Product product = new Product(productId,name,descripttion,uri.toString(),price,"","");
                         databaseReference.child(productId).setValue(product);
                         progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(UploadProduct.this, "Uploaded", Toast.LENGTH_SHORT).show();

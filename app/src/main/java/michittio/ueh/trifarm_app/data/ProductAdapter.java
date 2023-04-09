@@ -75,6 +75,7 @@ public class ProductAdapter extends BaseAdapter {
                 // Handle onClick event here
                 // For example, start a new activity to display the details of the clicked item
                 Intent intent = new Intent(context, ProductDetail.class);
+                intent.putExtra("id",listProduct.get(i).getId());
                 intent.putExtra("image",listProduct.get(i).getImage());
                 intent.putExtra("name", listProduct.get(i).getName());
                 intent.putExtra("description",listProduct.get(i).getDescription());

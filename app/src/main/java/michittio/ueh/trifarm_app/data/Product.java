@@ -3,6 +3,7 @@ package michittio.ueh.trifarm_app.data;
 
 
 public class Product {
+    String id;
     String name;
     String description;
     String image;
@@ -10,11 +11,20 @@ public class Product {
     String sold;
     String id_category;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public  Product() {
 
     }
 
-    public Product( String name, String description, String image, String price, String sold, String id_category) {
+    public Product( String id,String name, String description, String image, String price, String sold, String id_category) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.image = image;
