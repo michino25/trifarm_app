@@ -3,7 +3,6 @@ package michittio.ueh.trifarm_app.fragment;
 import static android.content.ContentValues.TAG;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -19,7 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -33,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import michittio.ueh.trifarm_app.ExpandableGridView;
+import michittio.ueh.trifarm_app.MainActivity;
 import michittio.ueh.trifarm_app.R;
 import michittio.ueh.trifarm_app.data.Category;
 import michittio.ueh.trifarm_app.data.CategoryAdapter;
@@ -55,20 +54,16 @@ public class HomeFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     final private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Products");
     private ViewPager2 viewPager2;
     private final Handler sliderHandler = new Handler();
-    private LinearLayout linearLayoutFragmentSearch;
     private LinearLayout searchBtn;
     private ImageView cartBtn;
-    private Context thiscontext;
+    private Context context;
     private GridView gridView;
     private ArrayList<Product> productArrayList;
     private ProductAdapter adapter;
     private GridView gridViewCategory;
-    private ArrayList<Category> categories = new ArrayList<>();
 
 
     public HomeFragment() {
@@ -97,10 +92,6 @@ public class HomeFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
 
         viewPager2 = getView().findViewById(R.id.slider);
         List<SliderItem> sliderItems = getListSlider();
@@ -176,7 +167,6 @@ public class HomeFragment extends Fragment {
     private void initui() {
         gridView = getView().findViewById(R.id.gridView);
         productArrayList = new ArrayList<>();
-        linearLayoutFragmentSearch = getView().findViewById(R.id.linearLayout);
         gridViewCategory = getView().findViewById(R.id.gridviewCategory);
     }
 
@@ -186,7 +176,9 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
-        thiscontext = container.getContext();
+        ((MainActivity)getActivity()).updateStatusBarColor("#FFFFFF");
+
+        context = container.getContext();
         gridView = rootView.findViewById(R.id.gridView);
         productArrayList = new ArrayList<>();
 
@@ -198,7 +190,7 @@ public class HomeFragment extends Fragment {
                     Product product = dataSnapshot.getValue(Product.class);
                     productArrayList.add(product);
                 }
-                adapter = new ProductAdapter(thiscontext, productArrayList);
+                adapter = new ProductAdapter(context, productArrayList);
                 gridView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             }
@@ -211,7 +203,6 @@ public class HomeFragment extends Fragment {
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
-
 
     }
 
@@ -246,6 +237,8 @@ public class HomeFragment extends Fragment {
     }
 
     private  ArrayList<Category> getListCategory() {
+        ArrayList<Category> categories = new ArrayList<>();
+
         categories.add(new Category(1, "Trái cây", "https://lh3.googleusercontent.com/fife/AMPSeme7HMbr_L4-RfgzvnRyxzTsCtn4S4ujrpsRGAGIMtXWBLrWmQCBErza8oxBXMYfPUqQaJ4K7e1KGMdipWTVRpR3iCv11wIbeOuQWRZkQUgXm9O0GsB45-xPXUhDQPAsfL-qErP7wT-a41rjN-NNPfgRcq9lNKLb8Dhbt21xivA9RHJyxFMde67JxWiltHqycP2wSfpmkk4X_rsNbOWryXYGVZ6AKzHh7urVwaIR6am_NbHPVIFONEpqrNVX3XbSMBq-ieCWq8CC1k1AOyzndurCLpoP3RvN9_Gb6ENgmb4pyDXPLb05I0IV5JcK4SVqqnzLWhhSO9iEsdjthI860KfrGqonGY005fvYiM1f43lwFtsAOIbMv8ahDAZWX0HMAgDRGnHgWKxnnCz7CMtCNYDDqdII3leKF7v9kiYk4Lua5JSIaqGLZFNlrBcc0vCJgolvriyEyxCurcZi9NXoJvdA7rdlB-o8u6IX89GCe1_ujcoabXthDI3dvnUtg68oBstPmKO0yPz8Qpx4lPkpUtwOdZ7KIJmQijXaGUx9alhy9WzMKZqpKNXYGhMt0LFFtCGTJmCPDtz8gvni8RNQhE9i1z3fR895MorRUlIoHxP0wndso6RyivPyasfbfzKn5ZQfp4FYKbFel9C0xvbS6_vN1xwPdhw2gBLlLV0rG0urG7hPH8NLixkW-_gttdXnacy9W-63fPpEWVpLTSl5ww19aXx35CuYzhCQX2TfDohnxNcPwK-ZBO7UHzjhOkLJt-OZ4aokaoFEBvqUglqeQDKE3Ns6cOQ475yzsIGNxdxg1y-41Q7v24ZMH9fnk5CQ3kXAIcVlyMfmS6GLKL515YP1K7szx7vWpyv4xh3SC9s7Giwaqs3fYteer7AXpC5qrbJOLF_HSg0aUaYUHR9YtmC-RmTL_Wis7IFc67CR3hzikNu1YXlkSW79P8AtiVcz7W3cOT8u6y0eLvzIjGIeNcD7GINz5ucxtRjU8AUZB1LIU4B_efaybY6APS7SmLowX5rDw-JJ0Sx1__4qhsfDynU9u2KYWqi-rnziG4AGxuJt9Eshivn6DoJmRgRjqEZU4aEviTK9UugRc2ZKMslTtN8E2X3lfLD4iC16F5CeY2g6HMRoHL4qkvZmKHeVvLNyLs6rNAJrH52CR5i0DZnlotjbzwS1ou2awGMwAV0ks9SbmN6O7i08J85PVGqqrapmid5qZpvtDlB17SJOSE0C12HBLCz-XV_W_50tm5pP0lKY2M2bu84-pQO51fwZyni2TZrBGwV-0QRhBZugXLivBYiGT6fpPXgeZSJXF2jNSD6G1hSJ24HsUsvS9U1kTms7y_Mgk-j478LUIYcc6hSuchXz88Y1e3SqCCMcoGm7gzGSEYEDBvjhlrsl_MPnyLZy7RzZssQ9PdoTXoz20QXgyJ-yPr4PWmpVZBQHD6n6ZyevnSlO7RLTFCAT_jto7jiydhF0CdhbWX8AHOQtSrPrWx5QlqrVVOzsmnpL6udwypKZhJwTtejUQ98ZSuKuSZs=w1088-h928"));
         categories.add(new Category(2, "Rau củ", "https://lh3.googleusercontent.com/fife/AMPSemcdem5OTxV7ZgcAqW0fIY_NFJCO288IzOxWERdZzdGKe-hV9cJS5dog5g5cSZ6dtZ8p-iOmTQ4O8kOzka8BATDm7E_Ld0NTyvrife-DmKFQueSZAJKv93oyelsLG-EaIEiMM2BhGBmMMNVFRf7gyBGuOhruu3gUYKxBZj8eCUaYwrINM0am0wYBxy1cx5__lbAw2udXizUmxiJGOPrprn-ORRXJrHBnnbK4_gZw68M6fQt7ANwrmkQgo7kLYlKxKgb_o6Lh4Hve6ePV4P6DjIa0g7I7yexmFoUj81ye2ItzoEt0HoRob6rTeyrRckTVvIiax8JTcCJNzu1ON8P7rcvGUz_h6XkDJX7bAEgeze-hh79PQO2h-FecpO0qj5QbY7-m_UnXYIjlyb9hIQaRrVrygWC5nAZjuLBS6ZwU-5b5NirADHn_WIRPnK2Sef4twq1715XGne-JFiu3UrHJSYSf4Tj6FONODgdVZdhZAcTCSHfoKGEk6OE8wnAVP5EOZFxcE73P5vsVNBoVoHg5GHPzUD7HYaYwHOalBse6mCG6YXe7yzARZCUWzeUcM5C8f70JPeiQN2XY-vE5wK2o2e_Qk73ZZgtw8v_3bvKmAulAMWSXUVjR_Lno1h3g--7C6-se7F7Xx8txiua4zZUe3pfjCG_TFAJRHpQLUVu3-aS39h8P2Ae2AzD6GTOl-9TcQKnaqK_0GSVCyL0GpoA-kbdeb5ZoSJLUXDv2xA1trM5Rsn_l7cmpDczlkZaswTGskdsUsXFl_ncKzFkdZJ8ArHk56E-0F2tXwnNNz0-DL35PyYKPGuCIR8ncmA0NstfGYiC7BU8mdQrWhj3oQTa7ANHtoqfxqh3QDsSqhn5Ra1_j8L3HsER8PCAiHEsAn4pOyysn6SH0rt2IEAjbHpXgF0j8iOlo7yy2DhzbY99Xg14-g5HUoZmAVCslUUDkr6qi3poG-rakshKscoVqR1T0rPt-iD1VOWlqg8HSNhEs1RcxD58RXHh6yFnGBLx-EoJkJYexFsqishOGBKEmFtgMBjDEloQNp-FNgTGfUj6DjW5jL7a530cnWw0yDuFGmiSedeGY4hm2NXzqX9berQ9tuRUb4_6JtQDLUBIle-xlVETKHjTOCr6DKqKxFcbU5kME46WTa4vGsiRUP_mHMx85t_5mk5yqmV-X6SrMEm3VaFYaYlnMpZxX10KKcQyV1SKTuW5iOGXq24olhrw5F9POlxMoAbqwp7B24iiIjuFx3VCl6DcVtoOJn3S5OIS_3wxNQvSruJpIdcIt_UpXd1vqAGXpZBlQmtVYLkhMqrNnkesR_40i5UBYoRcbwIh-0uUKr8xnNaw-VxNJzunLzdfYPR2MwwInxkCHbJ1WqLf6ktA5vCtuzJMWhr0w4QYUISrz7qJ23J9xdo7StJUTxTKXmqjgJYsyimoBSqzHyxBewoBa0tJK-1jKTyh3qQKVX5APowLtujeCWOLcu0kUTkcPq9lH-bja9AbDAVgVCukQ6_bHV4Tr0LthRqty4IHtRxM=w1088-h928"));
         categories.add(new Category(3, "Trà", "https://lh3.googleusercontent.com/fife/AMPSemesJGaJBNaiQYfI65mdxJ-7iSwiJ8ohYHWiA9MVRxL3hGesKIPtmB5wNYiS-zUB3IqKj_CCbCAtHTEB8XPo4r2f5VpX_2u7SaO-5oQNy9eCZBTzsgWp7y5qLBBGpi8lE72EptDDkBW2iI1bnLLWHlhcCyoAh5mL3KSzjB2SUgeDfv2YJeJXPPHIomgmzkN-E709Jbb6FEo7HazOcTIskg7ASB9C2aFY3zXICXhyc8PZxohqaornDGpjDIBUiQFz0x_A-oQTXltINQKrA-I71VJAx_swWW2BEcsLkWy7uRGlzEvlHVfKxBUGcXBg51rMMqKh9MpHeCGmzmCPo1Z5Z7AKRWblg1pWrUswbe9ZxxmWh9Y8SoDY6ndYHenDvVdufjGr8KZ2HQaChpO8xfjBwsmvVpuu2HQo14zi7g4vs2shao013yx9wtEk4yZ8ldeiicY5crIgNR52pqAF1aTU7szzaFWdxfKvFC-SenWFp_0XSe0novJ_tpeXH1IUfBy8N_IkHQc5EJlom3SNhFkQlHPs_hLppfd5Hukbsil838aMH_XR3i2Z5Erglm_qbfeI9e4u4a7EYMqjcn6I2kQEtLItmnSIHiauh5t3uwaNWMqTzspx2SHXpR4LB_owQbVYd7XlHCoSKB-5mu2xQLsx8LFZ7LJqxOGFLVr6yJYlcjB5TIwzuJBrT39QElTxF9VScmDeyfTQ9a89V_YUbfX3zncx0x8TZEmn_UuFgaQMxVZ87brDoPjv5WQbuSzAmbr1sbKa_WO0d5V9eIWRGla2NSb7RMYMDwRgLIUG8MeN_VvEJC4WEjwXBMnSNcwT0roonNM9rTNmbJtbaZ2C6AjsoVPXF7I9fYzYWfaCGOPiMnGGo-aSZ01hcGVCLk0uqL6F_T2CL2o_1kDrsx8EaqnYMpdgsy00V7CFvtSxMRpHfkRMDYJWZO7hGy9e3FWRxD0t2fU4pdTVHr6Gh7BlX7y3MqUXGV89QwzfY87GHvdQbCfRbfN665CP6KefxV6c26SLgUOD50g-ewYMWHH424yvX-_GyQ24q2u_9pxHUjckccJf8Z-yF9fdWPbFsQhxTgKAZx_G-ZUYo0tdUtBf4F9eOeJUr1l_0oiojwCYu3dPhNRCZbYhBLyRU2Q9AZ_P0Sk0FwAxHAYP7euWTr-oAGgDUl-HCCJSoBPKaFWmeBqIpu9dUfAA0xzQXiUYD5WGv3yRsENY7xzT04l8-Nz-Pr7rVgSf4mZqcliJl_DToo_jsXe94p_NZjKS0wcKsuAcW8GbvjuWi0_h0PA0dM1IKX-5QOTbqR8xgGbEz9BRKze13qHOPXmcON9tmcTSFdUAgUwUHBpmHxetyZyzBQNfi3BJwiBoQmmzoYQx4FvOQgrlGCblbFU1uWkMsbOn4u7ggv8_Rm58DBp0gPoTLk1z1kxsWaSvdsI_6t09i345z0Mem13-Jmi3moHYjdjvhl3KqaXPaHreVUcwIbQXgXfWR1bSDvnNLKBuxwtYKcaxTxo0kWOhNw-6Aep2opaeVmigK3c=w1919-h928"));
@@ -263,7 +256,7 @@ public class HomeFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Tạo đối tượng Bundle để truyền dữ liệu qua Fragment mới
                 Bundle bundle = new Bundle();
-                bundle.putInt("idCategory", categories.get(position).getId());
+                bundle.putInt("idCategory", getListCategory().get(position).getId());
 
                 // Tạo đối tượng Fragment mới
                 SearchFragment searchFragment = new SearchFragment();

@@ -13,6 +13,7 @@ import android.widget.GridView;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import michittio.ueh.trifarm_app.MainActivity;
 import michittio.ueh.trifarm_app.R;
 import michittio.ueh.trifarm_app.data.CartAdapter;
 import michittio.ueh.trifarm_app.data.Category;
@@ -87,6 +88,9 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        ((MainActivity)getActivity()).updateStatusBarColor("#FFFFFF");
+
         return inflater.inflate(R.layout.fragment_cart, container, false);
     }
 
