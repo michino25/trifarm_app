@@ -23,7 +23,11 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+
 import michittio.ueh.trifarm_app.CartTotalListener;
+
+import michittio.ueh.trifarm_app.MainActivity;
+
 import michittio.ueh.trifarm_app.R;
 import michittio.ueh.trifarm_app.data.CartAdapter;
 import michittio.ueh.trifarm_app.data.ProductCart;
@@ -91,13 +95,15 @@ public class CartFragment extends Fragment implements CartTotalListener {
         adapter.setCartTotalListener(this);
         gridViewCart.setAdapter(adapter);
 
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        ((MainActivity)getActivity()).updateStatusBarColor("#FFFFFF");
+
         return inflater.inflate(R.layout.fragment_cart, container, false);
     }
 
@@ -125,6 +131,8 @@ public class CartFragment extends Fragment implements CartTotalListener {
             while (iterator.hasNext()) {
                 ProductCart productCart = iterator.next();
                 if (productCart.getExpiryTimeMillis() <= currentTimeMillis) {
+                    iterator.remove();
+                } else if (!productCart.isStatus()) {
                     iterator.remove();
                 }
             }

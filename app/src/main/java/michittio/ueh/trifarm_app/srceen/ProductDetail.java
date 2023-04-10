@@ -56,9 +56,7 @@ public class ProductDetail extends AppCompatActivity {
 
         renderData();
 
-        totalQuantity();
-
-        addToCart();
+        addToCartView();
     }
 
     @SuppressLint("SetTextI18n")
@@ -104,7 +102,7 @@ public class ProductDetail extends AppCompatActivity {
 
     }
 
-    private void addToCart() {
+    private void addToCartView() {
         btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,37 +152,4 @@ public class ProductDetail extends AppCompatActivity {
     }
 
 
-    private void totalQuantity() {
-        // Đặt OnClickListener cho ImageView "plus"
-        mImagePlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Tăng biến đếm và cập nhật giá trị TextView
-
-                DecimalFormat myFormatter = new DecimalFormat("###,###");
-                int priceFormat = Integer.parseInt(price);
-                mCount++;
-                tv_detail_quantity.setText(String.valueOf(mCount));
-                mTotal = priceFormat * mCount;
-//                tv_total.setText(myFormatter.format(mTotal));
-
-            }
-        });
-
-        // Đặt OnClickListener cho ImageView "minus"
-        mImageMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Giảm biến đếm và cập nhật giá trị TextView
-                if (mCount > 0) {
-                    mCount--;
-                    DecimalFormat myFormatter = new DecimalFormat("###,###");
-                    int priceFormat = Integer.parseInt(price);
-                    tv_detail_quantity.setText(String.valueOf(mCount));
-                    mTotal = priceFormat * mCount;
-                    //tv_total.setText(myFormatter.format(mTotal));
-                }
-            }
-        });
-    }
 }

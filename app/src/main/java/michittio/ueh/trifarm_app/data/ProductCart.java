@@ -27,6 +27,7 @@ public class ProductCart {
         this.expiryTimeMillis = expiryTimeMillis;
     }
 
+    public ProductCart() {}
     public ProductCart(String id, String name, String price, String quantity, String image, long expiryTimeMillis,boolean status) {
         this.id = id;
         this.name = name;

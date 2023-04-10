@@ -28,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import michittio.ueh.trifarm_app.MainActivity;
 import michittio.ueh.trifarm_app.R;
 import michittio.ueh.trifarm_app.data.Product;
 import michittio.ueh.trifarm_app.data.ProductAdapter;
@@ -128,6 +129,8 @@ public class SearchFragment extends Fragment {
     // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_search, container, false);
         thiscontext = container.getContext();
+
+        ((MainActivity)getActivity()).updateStatusBarColor("#FFFFFF");
 
         //ánh xạ
         initui();

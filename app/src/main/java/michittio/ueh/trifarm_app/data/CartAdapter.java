@@ -2,6 +2,7 @@ package michittio.ueh.trifarm_app.data;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +69,8 @@ public class CartAdapter extends BaseAdapter {
         } else {
             dataItem = (MyView) convertView.getTag();
         }
+
+
         DecimalFormat myFormatter = new DecimalFormat("###,###");
         int price = Integer.parseInt(productCartList.get(position).getPrice());
         int quantity = Integer.parseInt(productCartList.get(position).getQuantity());
@@ -78,17 +81,16 @@ public class CartAdapter extends BaseAdapter {
         dataItem.tv_quantity.setText(myFormatter.format(quantity));
 
 
+
         dataItem.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (removeProductCart(position)) {
-                    Toast.makeText(context, "Delete Success", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(context, "Delete Fail", Toast.LENGTH_SHORT).show();
-
-                }
+                String productId = productCartList.get(position).getId() ;
+                updateProductCartStatus(productId, false);
+                Toast.makeText(context, productId, Toast.LENGTH_SHORT).show();
             }
         });
+
 
 
         dataItem.btnPlus.setOnClickListener(new View.OnClickListener() {
@@ -123,9 +125,20 @@ public class CartAdapter extends BaseAdapter {
         return convertView;
     }
 
+
+    public void updateProductCartStatus(String id, boolean status) {
+        for (ProductCart productCart : productCartList) {
+            if (productCart.getId() == id) {
+                productCart.setStatus(status);
+                notifyDataSetChanged();
+                break;
+            }
+        }
+    }
+
     public boolean removeProductCart(int position) {
         if (position >= 0 && position < productCartList.size()) {
-            productCartList.remove(position);
+            productCartList.get(position).setStatus(false);
             notifyDataSetChanged();
             return true;
         } else {
@@ -143,10 +156,6 @@ public class CartAdapter extends BaseAdapter {
 
     public String myFormat(int number, int mode) {
         DecimalFormat myFormatter = new DecimalFormat("###,###");
-
-//        mode:
-//        1: int to string
-//        2: int to string price
 
         if (mode == 1)
             return String.valueOf(number);
