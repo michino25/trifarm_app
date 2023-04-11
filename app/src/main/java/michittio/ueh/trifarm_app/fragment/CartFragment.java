@@ -28,6 +28,7 @@ import michittio.ueh.trifarm_app.CartTotalListener;
 
 import michittio.ueh.trifarm_app.MainActivity;
 
+import michittio.ueh.trifarm_app.OnProductItemClickListener;
 import michittio.ueh.trifarm_app.R;
 import michittio.ueh.trifarm_app.data.CartAdapter;
 import michittio.ueh.trifarm_app.data.ProductCart;
@@ -37,7 +38,7 @@ import michittio.ueh.trifarm_app.data.ProductCart;
  * Use the {@link CartFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CartFragment extends Fragment implements CartTotalListener {
+public class CartFragment extends Fragment implements OnProductItemClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -71,7 +72,7 @@ public class CartFragment extends Fragment implements CartTotalListener {
     private GridView gridViewCart;
     private TextView txtQuantity,txtTotal;
     private ArrayList<ProductCart> cartProducts ;
-
+    private CartAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,8 +92,8 @@ public class CartFragment extends Fragment implements CartTotalListener {
         txtQuantity = getView().findViewById(R.id.txt_quantity_cart);
 
         txtTotal = getView().findViewById(R.id.txt_total_cart);
-        CartAdapter adapter = new CartAdapter(getCartProducts(), getActivity().getApplicationContext());
-        adapter.setCartTotalListener(this);
+        adapter = new CartAdapter(getCartProducts(), getActivity().getApplicationContext());
+        adapter.setItemClickListener(this);
         gridViewCart.setAdapter(adapter);
 
     }
@@ -130,9 +131,7 @@ public class CartFragment extends Fragment implements CartTotalListener {
             Iterator<ProductCart> iterator = cartProducts.iterator();
             while (iterator.hasNext()) {
                 ProductCart productCart = iterator.next();
-                if (productCart.getExpiryTimeMillis() <= currentTimeMillis) {
-                    iterator.remove();
-                } else if (!productCart.isStatus()) {
+                if (productCart.getExpiryTimeMillis() <= currentTimeMillis || !productCart.isStatus()) {
                     iterator.remove();
                 }
             }
@@ -142,9 +141,27 @@ public class CartFragment extends Fragment implements CartTotalListener {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("cart", updatedCartJson);
             editor.apply();
+
         }
 
+
         return cartProducts;
+    }
+
+
+    @Override
+    public void onProductItemClick(int position) {
+
+    }
+
+    @Override
+    public void onProductItemDeleteClick(int position) {
+        // Xóa sản phẩm trong danh sách
+        boolean result = adapter.removeProductCart(position);
+        if (result) {
+            // Cập nhật lại GridView
+            gridViewCart.setAdapter(adapter);
+        }
     }
 
     @Override
