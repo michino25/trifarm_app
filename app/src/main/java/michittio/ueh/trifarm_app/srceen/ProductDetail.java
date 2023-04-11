@@ -91,7 +91,7 @@ public class ProductDetail extends AppCompatActivity {
         tv_detail_name2.setText(name);
         tv_detail_description.setText(description);
         tv_detail_price.setText(myFormatter.format(priceFormat));
-        tv_detail_old_price.setText(myFormatter.format(oldPriceFormat));
+        tv_detail_old_price.setText(myFormatter.format(oldPriceFormat) + " ₫");
         tv_detail_old_price.setPaintFlags(tv_detail_old_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         tv_detail_sold.setText(sold + "k");
         tv_detail_star.setText(star);

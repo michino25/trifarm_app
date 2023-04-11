@@ -166,7 +166,7 @@ public class CartFragment extends Fragment implements OnProductItemClickListener
 
     @Override
     public void onCartTotalChanged(int total) {
-        DecimalFormat myFormatter = new DecimalFormat("###,###");
+        DecimalFormat myFormatter = new DecimalFormat("###,### ₫");
         txtTotal.setText(myFormatter.format(total));
     }
 }

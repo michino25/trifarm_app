@@ -3,12 +3,17 @@ package michittio.ueh.trifarm_app.srceen;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Outline;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewOutlineProvider;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import michittio.ueh.trifarm_app.MainActivity;
 import michittio.ueh.trifarm_app.R;
 
 public class ViewProfile extends AppCompatActivity {
@@ -37,6 +43,8 @@ public class ViewProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_profile);
         init();
+
+        updateStatusBarColor("#8BC34A");
 
         // Set the outline provider to create a circular outline
         imgAvatar.setOutlineProvider(new ViewOutlineProvider() {
@@ -89,6 +97,15 @@ public class ViewProfile extends AppCompatActivity {
         txtNickName = findViewById(R.id.txt_nickname);
         txtDateOfBirth = findViewById(R.id.txt_dateofbirth);
         imgAvatar = findViewById(R.id.img_avatar);
+    }
+
+    @SuppressLint("ObsoleteSdkInt")
+    public void updateStatusBarColor(String color) {// Color must be in hexadecimal fromat
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.parseColor(color));
+        }
     }
 
 }

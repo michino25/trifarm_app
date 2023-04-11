@@ -3,17 +3,28 @@ package michittio.ueh.trifarm_app.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Outline;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import michittio.ueh.trifarm_app.MainActivity;
 import michittio.ueh.trifarm_app.R;
@@ -39,6 +50,8 @@ public class ProfileFragment extends Fragment {
     private Context context;
     private TextView txtUpdateProfile, txtViewProfile;
     private Button btnLogout;
+    private ImageView imgAvatar;
+    private TextView txtFullName;
 
     public ProfileFragment() {
     }
@@ -68,6 +81,7 @@ public class ProfileFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -95,6 +109,36 @@ public class ProfileFragment extends Fragment {
                 context.startActivity(intent);
             }
         });
+
+        imgAvatar.setOutlineProvider(new ViewOutlineProvider() {
+
+            @Override
+            public void getOutline(View view, Outline outline) {
+                outline.setOval(0, 0, view.getWidth(), view.getHeight());
+            }
+        });
+        imgAvatar.setClipToOutline(true);
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("SaveUser", Context.MODE_PRIVATE);
+        String key = sharedPreferences.getString("key", "");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(key);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // Lấy dữ liệu từ DataSnapshot và gán vào các thành phần giao diện
+                String avatarUrl = snapshot.child("avatar").getValue(String.class);
+                String fullName = snapshot.child("fullName").getValue(String.class);
+
+                Picasso.get().load(avatarUrl).into(imgAvatar);
+                txtFullName.setText(fullName);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         return view;
     }
 
@@ -102,6 +146,8 @@ public class ProfileFragment extends Fragment {
         txtUpdateProfile = view.findViewById(R.id.btn_updateProfile);
         txtViewProfile = view.findViewById(R.id.btn_viewProfile);
         btnLogout = view.findViewById(R.id.btn_logout);
+        txtFullName = view.findViewById(R.id.txt_name_profile);
+        imgAvatar = view.findViewById(R.id.imv_avt_profile);
 
     }
 

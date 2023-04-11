@@ -382,93 +382,92 @@
     </ScrollView>
 
     <!-- add to card bar-->
-<androidx.cardview.widget.CardView
-    android:id="@+id/CardViewCart"
-    app:cardElevation="8dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-    tools:ignore="MissingConstraints">
-    <LinearLayout
-        android:id="@+id/linearLayout3"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/CardViewCart"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:paddingHorizontal="6dp"
->
+        android:layout_height="wrap_content"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        tools:ignore="MissingConstraints">
 
-        <!-- số lượng -->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="6dp"
-            android:background="@drawable/d_search_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingHorizontal="6dp">
 
-            <ImageView
-                android:id="@+id/btn_minus"
-                android:layout_width="wrap_content"
+            <!-- số lượng -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/txt_quantity"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/baseline_remove_24" />
-
-            <TextView
-                android:id="@+id/txt_quantity"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@drawable/d_square_line_background"
-                android:text="1"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="6dp"
-                android:textAlignment="center"
-                android:textColor="@color/text_fuzz3"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="6dp"
+                android:background="@drawable/d_search_background"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/btn_minus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_quantity"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/baseline_remove_24" />
+
+                <TextView
+                    android:id="@+id/txt_quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/d_square_line_background"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="7dp"
+                    android:text="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_fuzz3"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="HardcodedText" />
+
+                <ImageView
+                    android:id="@+id/btn_plus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/txt_quantity"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/baseline_add_24_black" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- nút thêm vào giỏ -->
+            <Button
+                android:id="@+id/btn_addCart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="8dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/d_background_green_13"
+                android:gravity="center"
+                android:text="Thêm vào giỏ"
+                android:textColor="@color/white"
+                android:textStyle="bold"
                 tools:ignore="HardcodedText" />
 
-            <ImageView
-                android:id="@+id/btn_plus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/txt_quantity"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/baseline_add_24_black" />
+        </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <!-- nút thêm vào giỏ -->
-        <Button
-            android:id="@+id/btn_addCart"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="8dp"
-            android:layout_weight="0.5"
-            android:background="@drawable/d_background_green_13"
-            android:gravity="center"
-            android:padding="8dp"
-            android:text="Thêm vào giỏ hàng"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
-
-    </LinearLayout>
-
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

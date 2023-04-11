@@ -14,10 +14,11 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
+import android.graphics.Outline;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewOutlineProvider;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,19 +30,21 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import michittio.ueh.trifarm_app.MainActivity;
 import michittio.ueh.trifarm_app.R;
-import michittio.ueh.trifarm_app.data.Product;
 import michittio.ueh.trifarm_app.data.User;
 import michittio.ueh.trifarm_app.fragment.ProfileFragment;
 
@@ -56,28 +59,65 @@ public class UpdateUser extends AppCompatActivity {
     private ImageView imageAvartar;
     ProgressBar progressBar;
     private Uri imageUri;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_user);
-        initui();
+        init();
 
+        // Set the outline provider to create a circular outline
+        imageAvartar.setOutlineProvider(new ViewOutlineProvider() {
 
-        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        if (result.getResultCode() == Activity.RESULT_OK){
-                            Intent data = result.getData();
-                            imageUri = data.getData();
-                            imageAvartar.setImageURI(imageUri);
-                        } else {
-                            Toast.makeText(UpdateUser.this, "No Image Selected", Toast.LENGTH_SHORT).show();
-                        }
-                    }
+            @Override
+            public void getOutline(View view, Outline outline) {
+                outline.setOval(0, 0, view.getWidth(), view.getHeight());
+            }
+        });
+        imageAvartar.setClipToOutline(true);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("SaveUser", Context.MODE_PRIVATE);
+        String key = sharedPreferences.getString("key", "");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(key);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // Lấy dữ liệu từ DataSnapshot và gán vào các thành phần giao diện
+                String avatarUrl = snapshot.child("avatar").getValue(String.class);
+                String fullName = snapshot.child("fullName").getValue(String.class);
+                String phone = snapshot.child("phoneNumber").getValue(String.class);
+                String dateOfBirth = snapshot.child("dateOfBirth").getValue(String.class);
+                String address = snapshot.child("address").getValue(String.class);
+                String nickname = snapshot.child("nickname").getValue(String.class);
+
+//                Toast.makeText(context, fullName, Toast.LENGTH_SHORT).show();
+
+                Picasso.get().load(avatarUrl).into(imageAvartar);
+                edtFullName.setText(fullName);
+                edtPhone.setText(phone);
+                edtDateOfBirth.setText(dateOfBirth);
+                edtAddress.setText(address);
+                edtNickName.setText(nickname);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    Intent data = result.getData();
+                    imageUri = data.getData();
+                    imageAvartar.setImageURI(imageUri);
+                } else {
+                    Toast.makeText(UpdateUser.this, "No Image Selected", Toast.LENGTH_SHORT).show();
                 }
-        );
+            }
+        });
         imageAvartar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,9 +131,9 @@ public class UpdateUser extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (imageUri != null){
+                if (imageUri != null) {
                     uploadToFirebase(imageUri);
-                } else  {
+                } else {
                     Toast.makeText(UpdateUser.this, "Please select image", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -102,7 +142,7 @@ public class UpdateUser extends AppCompatActivity {
 
     }
 
-    private void initui() {
+    private void init() {
         edtFullName = findViewById(R.id.edt_fullname);
         edtPhone = findViewById(R.id.edt_phone);
         edtDateOfBirth = findViewById(R.id.edt_dateOfBirth);
@@ -151,7 +191,7 @@ public class UpdateUser extends AppCompatActivity {
                         updateData.put("phoneNumber", phoneNumber);
                         updateData.put("dateOfBirth", dateOfBirth);
                         updateData.put("address", address);
-                        updateData.put("nickname",nickname);
+                        updateData.put("nickname", nickname);
                         updateData.put("avatar", uri.toString());
                         progressBar.setVisibility(View.INVISIBLE);
                         userRef.updateChildren(updateData).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -185,10 +225,11 @@ public class UpdateUser extends AppCompatActivity {
                 progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(UpdateUser.this, "Failed", Toast.LENGTH_SHORT).show();
             }
-        });;
+        });
+        ;
     }
 
-    private String getFileExtension(Uri fileUri){
+    private String getFileExtension(Uri fileUri) {
         ContentResolver contentResolver = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(contentResolver.getType(fileUri));
