@@ -1,15 +1,55 @@
 package michittio.ueh.trifarm_app.data;
 
 
-
 public class Product {
     String id;
     String name;
     String description;
     String image;
     String price;
+    String old_price;
+    String star;
     String sold;
+    String review;
     String id_category;
+
+
+    public Product(String id, String name, String description, String image, String price, String old_price, String sale, String star, String review, String sold, String id_category) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.image = image;
+        this.price = price;
+        this.old_price = old_price;
+        this.review = review;
+        this.star = star;
+        this.sold = sold;
+        this.id_category = id_category;
+    }
+
+    public String getReview() {
+        return review;
+    }
+
+    public void setReview(String review) {
+        this.review = review;
+    }
+
+    public String getOld_price() {
+        return old_price;
+    }
+
+    public void setOld_price(String old_price) {
+        this.old_price = old_price;
+    }
+
+    public String getStar() {
+        return star;
+    }
+
+    public void setStar(String star) {
+        this.star = star;
+    }
 
     public String getId() {
         return id;
@@ -19,20 +59,9 @@ public class Product {
         this.id = id;
     }
 
-    public  Product() {
+    public Product() {
 
     }
-
-    public Product( String id,String name, String description, String image, String price, String sold, String id_category) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.image = image;
-        this.price = price;
-        this.sold = sold;
-        this.id_category = id_category;
-    }
-
 
 
     public String getName() {

@@ -49,6 +49,7 @@
                 tools:ignore="HardcodedText,SmallSp" />
 
             <TextView
+                android:id="@+id/gird_sale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
