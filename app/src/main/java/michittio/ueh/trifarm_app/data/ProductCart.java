@@ -3,25 +3,46 @@ package michittio.ueh.trifarm_app.data;
 
 public class ProductCart {
 
-    int id;
+    String id;
     String name;
-    int price;
-    int quantity;
+    String price;
+    String quantity;
     String image;
+    long expiryTimeMillis;
+    boolean status;
 
-    public ProductCart(int id, String name, int price, int quantity, String image) {
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public long getExpiryTimeMillis() {
+        return expiryTimeMillis;
+    }
+
+    public void setExpiryTimeMillis(long expiryTimeMillis) {
+        this.expiryTimeMillis = expiryTimeMillis;
+    }
+
+    public ProductCart() {}
+    public ProductCart(String id, String name, String price, String quantity, String image, long expiryTimeMillis,boolean status) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.image = image;
+        this.expiryTimeMillis = expiryTimeMillis;
+        this.status = status;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -29,11 +50,11 @@ public class ProductCart {
         return name;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public int getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 

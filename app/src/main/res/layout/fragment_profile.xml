@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/layout_profile"
     tools:context=".fragment.ProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -694,8 +695,9 @@
                                         android:src="@drawable/i_edit" />
 
                                     <TextView
+                                        android:id="@+id/btn_updateProfile"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
+                                        android:layout_height="match_parent"
                                         android:paddingVertical="2dp"
                                         android:paddingStart="5dp"
                                         android:text="Chỉnh sửa"
@@ -724,8 +726,9 @@
                                         android:src="@drawable/i_note_search" />
 
                                     <TextView
+                                        android:id="@+id/btn_viewProfile"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
+                                        android:layout_height="match_parent"
                                         android:paddingVertical="2dp"
                                         android:paddingStart="5dp"
                                         android:text="Xem tài khoản"

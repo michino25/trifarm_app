@@ -8,6 +8,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,7 @@ import com.squareup.picasso.Picasso;
 import michittio.ueh.trifarm_app.MainActivity;
 import michittio.ueh.trifarm_app.R;
 import michittio.ueh.trifarm_app.srceen.UpdateUser;
+import michittio.ueh.trifarm_app.srceen.ViewProfile;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +48,7 @@ public class ProfileFragment extends Fragment {
     private String mParam2;
     private View view;
     private Context context;
+    private TextView txtUpdateProfile,txtViewProfile;
 
     public ProfileFragment() {
     }
@@ -80,10 +84,33 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
         context = container.getContext();
-
+        initui();
         ((MainActivity)getActivity()).updateStatusBarColor("#4CA71E");
 
+        txtUpdateProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,UpdateUser.class);
+                context.startActivity(intent);
+            }
+        });
+
+        txtViewProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ViewProfile.class);
+                context.startActivity(intent);
+            }
+        });
         return view;
     }
+
+    private void initui() {
+        txtUpdateProfile = view.findViewById(R.id.btn_updateProfile);
+        txtViewProfile = view.findViewById(R.id.btn_viewProfile);
+    }
+
+
+
 
 }

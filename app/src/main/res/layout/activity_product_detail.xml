@@ -451,8 +451,8 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- nút thêm vào giỏ -->
-        <TextView
-            android:id="@+id/textView7"
+        <Button
+            android:id="@+id/btn_addCart"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
