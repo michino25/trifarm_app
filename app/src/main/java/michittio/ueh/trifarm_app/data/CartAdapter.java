@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
@@ -19,22 +20,29 @@ import java.util.Iterator;
 import java.util.List;
 
 import michittio.ueh.trifarm_app.CartTotalListener;
+import michittio.ueh.trifarm_app.OnProductItemClickListener;
 import michittio.ueh.trifarm_app.R;
 import michittio.ueh.trifarm_app.fragment.CartFragment;
 
 public class CartAdapter extends BaseAdapter {
     private ArrayList<ProductCart> productCartList;
     private Context context;
-    private CartTotalListener cartTotalListener;
+    private OnProductItemClickListener itemClickListener;
 
+    public OnProductItemClickListener getItemClickListener() {
+        return itemClickListener;
+    }
+
+    public void setItemClickListener(OnProductItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
 
     public CartAdapter(ArrayList<ProductCart> productCartList, Context context) {
         this.productCartList = productCartList;
         this.context = context;
     }
-    public void setCartTotalListener(CartTotalListener listener) {
-        this.cartTotalListener = listener;
-    }
+
+
     @Override
     public int getCount() {
         return productCartList.size();
@@ -85,9 +93,11 @@ public class CartAdapter extends BaseAdapter {
         dataItem.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String productId = productCartList.get(position).getId() ;
-                updateProductCartStatus(productId, false);
-                Toast.makeText(context, productId, Toast.LENGTH_SHORT).show();
+                if (itemClickListener != null) {
+                    itemClickListener.onProductItemDeleteClick(position);
+                    total(productCartList);
+                    
+                }
             }
         });
 
@@ -103,6 +113,8 @@ public class CartAdapter extends BaseAdapter {
                 for(int i = 0;i<productCartList.size();i++) {
                     productCartList.get(i).setQuantity(String.valueOf(newQuantity));
                 }
+                total(productCartList);
+                updateData();
 
             }
         });
@@ -117,6 +129,8 @@ public class CartAdapter extends BaseAdapter {
                 for(int i = 0;i<productCartList.size();i++) {
                     productCartList.get(i).setQuantity(String.valueOf(newQuantity));
                 }
+                total(productCartList);
+                updateData();
 
             }
         });
@@ -126,20 +140,12 @@ public class CartAdapter extends BaseAdapter {
     }
 
 
-    public void updateProductCartStatus(String id, boolean status) {
-        for (ProductCart productCart : productCartList) {
-            if (productCart.getId() == id) {
-                productCart.setStatus(status);
-                notifyDataSetChanged();
-                break;
-            }
-        }
-    }
 
     public boolean removeProductCart(int position) {
-        if (position >= 0 && position < productCartList.size()) {
-            productCartList.get(position).setStatus(false);
-            notifyDataSetChanged();
+        if (productCartList != null && position >= 0 && position < productCartList.size()) {
+            productCartList.remove(position);
+
+            updateData();
             return true;
         } else {
             return false;
@@ -151,7 +157,7 @@ public class CartAdapter extends BaseAdapter {
        for (int i = 0;i<productCartList.size();i++) {
            total += Integer.parseInt(productCartList.get(i).price ) * Integer.parseInt(productCartList.get(i).getQuantity());
        }
-        cartTotalListener.onCartTotalChanged(total);
+        itemClickListener.onCartTotalChanged(total);
     }
 
     public String myFormat(int number, int mode) {
@@ -172,5 +178,15 @@ public class CartAdapter extends BaseAdapter {
         ImageView btnPlus,btnMinus;
         ImageView btnDelete;
 
+    }
+
+    private void updateData() {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("CartPrefs", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String updatedCartJson = gson.toJson(productCartList);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("cart", updatedCartJson);
+        editor.apply();
+        notifyDataSetChanged();
     }
 }
