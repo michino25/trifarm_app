@@ -5,26 +5,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import michittio.ueh.trifarm_app.MainActivity;
 import michittio.ueh.trifarm_app.R;
@@ -48,7 +37,8 @@ public class ProfileFragment extends Fragment {
     private String mParam2;
     private View view;
     private Context context;
-    private TextView txtUpdateProfile,txtViewProfile;
+    private TextView txtUpdateProfile, txtViewProfile;
+    private Button btnLogout;
 
     public ProfileFragment() {
     }
@@ -84,13 +74,16 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
         context = container.getContext();
-        initui();
-        ((MainActivity)getActivity()).updateStatusBarColor("#4CA71E");
+        init();
+        logOut();
+
+        ((MainActivity) getActivity()).updateStatusBarColor("#4CA71E");
+
 
         txtUpdateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,UpdateUser.class);
+                Intent intent = new Intent(context, UpdateUser.class);
                 context.startActivity(intent);
             }
         });
@@ -105,12 +98,60 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    private void initui() {
+    private void init() {
         txtUpdateProfile = view.findViewById(R.id.btn_updateProfile);
         txtViewProfile = view.findViewById(R.id.btn_viewProfile);
+        btnLogout = view.findViewById(R.id.btn_logout);
+
     }
 
+    private void logOut() {
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showLogoutDialog();
+            }
+        });
 
+    }
+
+    private void showLogoutDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Logout");
+        builder.setMessage("Are you sure you want to logout?");
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            // Xử lý đăng xuất
+            // Xóa email và mật khẩu từ SharedPreferences
+            if (checkSharedPreferencesExistence("email")) {
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("SaveUser", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("email");
+                editor.remove("password");
+                editor.apply();
+
+                // Đóng tất cả các hoạt động của ứng dụng
+                getActivity().finishAffinity();
+                // Thoát ứng dụng
+                System.exit(0);
+            } else {
+                Toast.makeText(context, "Logout fail", Toast.LENGTH_SHORT).show();
+
+            }
+
+        });
+        builder.setNegativeButton("No", (dialog, which) -> {
+            // Đóng hộp thoại
+            dialog.dismiss();
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private boolean checkSharedPreferencesExistence(String keyEmail) {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("SaveUser", Context.MODE_PRIVATE);
+        // Kiểm tra khóa key có tồn tại trong SharedPreferences hay không
+        return sharedPreferences.contains(keyEmail);
+    }
 
 
 }
