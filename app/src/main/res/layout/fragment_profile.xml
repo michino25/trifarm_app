@@ -33,7 +33,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="166dp"
+                    android:layout_marginTop="160dp"
                     android:background="@color/white"
                     android:orientation="vertical"
                     android:paddingHorizontal="12dp"
@@ -558,16 +558,17 @@
                     android:paddingHorizontal="12dp"
                     android:paddingVertical="12dp">
 
-                    <TextView
+                    <Button
+                        android:id="@+id/btn_logout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/d_search_btn_background"
                         android:text="Đăng xuất"
+                        android:textAllCaps="false"
                         android:layout_gravity="center"
-                        android:paddingHorizontal="60dp"
-                        android:paddingVertical="8dp"
+                        android:paddingHorizontal="64dp"
                         android:textColor="@color/white"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         tools:ignore="HardcodedText" />
 
@@ -697,8 +698,8 @@
                                     <TextView
                                         android:id="@+id/btn_updateProfile"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="match_parent"
-                                        android:paddingVertical="2dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
                                         android:paddingStart="5dp"
                                         android:text="Chỉnh sửa"
                                         android:textColor="@color/text_fuzz6"
@@ -728,8 +729,8 @@
                                     <TextView
                                         android:id="@+id/btn_viewProfile"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="match_parent"
-                                        android:paddingVertical="2dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
                                         android:paddingStart="5dp"
                                         android:text="Xem tài khoản"
                                         android:textColor="@color/text_fuzz6"
