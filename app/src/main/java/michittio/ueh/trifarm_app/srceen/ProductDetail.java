@@ -154,6 +154,7 @@ public class ProductDetail extends AppCompatActivity {
                 // Tính thời gian hết hạn (5 phút sau thời điểm hiện tại)
                 long expiryTimeMillis = currentTimeMillis + (15 * 60 * 1000);
 
+
                 ProductCart productCart = new ProductCart(id, name, price,String.valueOf(quantity) , image, expiryTimeMillis, true);
                 if (productCart != null) {
                     addToCart(productCart);
@@ -168,7 +169,7 @@ public class ProductDetail extends AppCompatActivity {
         });
     }
 
-    ;
+
 
     public void addToCart(ProductCart product) {
         // Lấy danh sách sản phẩm trong giỏ hàng từ SharedPreferences
@@ -180,13 +181,26 @@ public class ProductDetail extends AppCompatActivity {
         // Chuyển đổi dữ liệu JSON thành danh sách sản phẩm
         if (!TextUtils.isEmpty(cartJson)) {
             Gson gson = new Gson();
-            Type type = new TypeToken<List<ProductCart>>() {
-            }.getType();
+            Type type = new TypeToken<List<ProductCart>>() {}.getType();
             cartList = gson.fromJson(cartJson, type);
         }
 
-        // Thêm sản phẩm mới vào danh sách
-        cartList.add(product);
+        boolean isProductExistInCart = false;
+
+        // Kiểm tra sự tồn tại của sản phẩm trong giỏ hàng
+        for (ProductCart item : cartList) {
+            if (item.getId().equals(product.getId())) {
+                int quantity = Integer.parseInt(item.getQuantity()) + Integer.parseInt(product.getQuantity());
+                item.setQuantity(String.valueOf(quantity));
+                isProductExistInCart = true;
+                break;
+            }
+        }
+
+        // Nếu sản phẩm không tồn tại trong giỏ hàng, thêm sản phẩm mới vào danh sách
+        if (!isProductExistInCart) {
+            cartList.add(product);
+        }
 
         // Chuyển danh sách sản phẩm thành chuỗi JSON
         Gson gson = new Gson();
@@ -197,6 +211,9 @@ public class ProductDetail extends AppCompatActivity {
         editor.putString("cart", newCartJson);
         editor.apply();
     }
+
+
+
 
 
 }
