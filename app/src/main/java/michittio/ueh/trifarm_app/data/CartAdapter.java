@@ -42,6 +42,8 @@ public class CartAdapter extends BaseAdapter {
         this.context = context;
     }
 
+    public CartAdapter() {}
+
 
     @Override
     public int getCount() {
@@ -128,6 +130,9 @@ public class CartAdapter extends BaseAdapter {
                 dataItem.tv_quantity.setText(myFormatter.format(newQuantity));
                 for(int i = 0;i<productCartList.size();i++) {
                     productCartList.get(i).setQuantity(String.valueOf(newQuantity));
+                }
+                if (newQuantity == 0) {
+                    removeProductCart(position);
                 }
                 total(productCartList);
                 updateData();

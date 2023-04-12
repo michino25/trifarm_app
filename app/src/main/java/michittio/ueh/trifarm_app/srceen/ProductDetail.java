@@ -49,7 +49,11 @@ public class ProductDetail extends AppCompatActivity {
     private String review;
     private String name;
     private String id;
+    private int quantity;
+    private ImageView btnMinus;
+    private ImageView btnPlus;
     private DecimalFormat myFormatter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,27 @@ public class ProductDetail extends AppCompatActivity {
         renderData();
 
         addToCartView();
+
+        quantity = Integer.parseInt(tv_detail_quantity.getText().toString());
+        btnMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (quantity  <= 1) {
+                    tv_detail_quantity.setText(String.valueOf(quantity));
+                    return;
+                }
+                quantity = quantity - 1;
+                tv_detail_quantity.setText(String.valueOf(quantity));
+
+            }
+        });
+        btnPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quantity = quantity + 1;
+                tv_detail_quantity.setText(String.valueOf(quantity));
+            }
+        });
     }
 
     @SuppressLint("SetTextI18n")
@@ -97,6 +122,7 @@ public class ProductDetail extends AppCompatActivity {
         tv_detail_star.setText(star);
         tv_detail_sale.setText("-" + sale + "%");
         tv_detail_review.setText(review);
+
     }
 
     private void init() {
@@ -107,7 +133,6 @@ public class ProductDetail extends AppCompatActivity {
         tv_detail_price = findViewById(R.id.txt_detailPrice);
         tv_detail_old_price = findViewById(R.id.txt_oldPrice);
         tv_detail_quantity = findViewById(R.id.txt_quantity);
-//        tv_total = findViewById(R.id.txt_total);
         tv_detail_sold = findViewById(R.id.txt_detailSold);
         tv_detail_sale = findViewById(R.id.txt_salePrice);
         tv_detail_star = findViewById(R.id.txt_detailStar);
@@ -115,6 +140,8 @@ public class ProductDetail extends AppCompatActivity {
         mImagePlus = findViewById(R.id.btn_plus);
         mImageMinus = findViewById(R.id.btn_minus);
         btnAddCart = findViewById(R.id.btn_addCart);
+        btnMinus = findViewById(R.id.btn_minus);
+        btnPlus = findViewById(R.id.btn_plus);
 
     }
 
@@ -126,7 +153,8 @@ public class ProductDetail extends AppCompatActivity {
                 long currentTimeMillis = System.currentTimeMillis();
                 // Tính thời gian hết hạn (5 phút sau thời điểm hiện tại)
                 long expiryTimeMillis = currentTimeMillis + (15 * 60 * 1000);
-                ProductCart productCart = new ProductCart(id, name, price, tv_detail_quantity.getText().toString(), image, expiryTimeMillis, true);
+
+                ProductCart productCart = new ProductCart(id, name, price,String.valueOf(quantity) , image, expiryTimeMillis, true);
                 if (productCart != null) {
                     addToCart(productCart);
                     Toast.makeText(ProductDetail.this, "Add cart success", Toast.LENGTH_SHORT).show();

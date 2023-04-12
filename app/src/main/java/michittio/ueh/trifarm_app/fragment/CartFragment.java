@@ -32,6 +32,7 @@ import michittio.ueh.trifarm_app.OnProductItemClickListener;
 import michittio.ueh.trifarm_app.R;
 import michittio.ueh.trifarm_app.data.CartAdapter;
 import michittio.ueh.trifarm_app.data.ProductCart;
+import michittio.ueh.trifarm_app.srceen.OrderCart;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,9 +71,10 @@ public class CartFragment extends Fragment implements OnProductItemClickListener
     }
 
     private GridView gridViewCart;
-    private TextView txtQuantity,txtTotal;
+    private TextView txtQuantity,txtTotal,txtOrder;
     private ArrayList<ProductCart> cartProducts ;
     private CartAdapter adapter;
+    private String totalOrder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,12 +92,31 @@ public class CartFragment extends Fragment implements OnProductItemClickListener
 
         gridViewCart = getView().findViewById(R.id.gridViewCart);
         txtQuantity = getView().findViewById(R.id.txt_quantity_cart);
-
+        txtOrder = getView().findViewById(R.id.btn_order);
         txtTotal = getView().findViewById(R.id.txt_total_cart);
         adapter = new CartAdapter(getCartProducts(), getActivity().getApplicationContext());
         adapter.setItemClickListener(this);
         gridViewCart.setAdapter(adapter);
 
+        nextOrderPage();
+
+    }
+
+    private void nextOrderPage() {
+        txtOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferencesCart = getActivity().getSharedPreferences("CartPrefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorCart = sharedPreferencesCart.edit();
+                editorCart.remove("cart");
+                editorCart.apply();
+                adapter.notifyDataSetChanged();
+                gridViewCart.setAdapter(adapter);
+                Intent intent = new Intent(getActivity(), OrderCart.class);
+                intent.putExtra("totalOrder",totalOrder);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -167,7 +188,8 @@ public class CartFragment extends Fragment implements OnProductItemClickListener
     @Override
     public void onCartTotalChanged(int total) {
         DecimalFormat myFormatter = new DecimalFormat("###,### ₫");
-        txtTotal.setText(myFormatter.format(total));
+        totalOrder =myFormatter.format(total);
+        txtTotal.setText(totalOrder);
     }
 }
 

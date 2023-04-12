@@ -28,6 +28,7 @@ import com.squareup.picasso.Picasso;
 
 import michittio.ueh.trifarm_app.MainActivity;
 import michittio.ueh.trifarm_app.R;
+import michittio.ueh.trifarm_app.srceen.Login;
 import michittio.ueh.trifarm_app.srceen.UpdateUser;
 import michittio.ueh.trifarm_app.srceen.ViewProfile;
 
@@ -173,12 +174,22 @@ public class ProfileFragment extends Fragment {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.remove("email");
                 editor.remove("password");
+                editor.remove("key");
                 editor.apply();
 
+                SharedPreferences sharedPreferencesCart = getActivity().getSharedPreferences("CartPrefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorCart = sharedPreferencesCart.edit();
+                editorCart.remove("cart");
+                editorCart.apply();
+
+
+
+                Intent intent = new Intent(context, Login.class);
+                context.startActivity(intent);
                 // Đóng tất cả các hoạt động của ứng dụng
-                getActivity().finishAffinity();
+                //getActivity().finishAffinity();
                 // Thoát ứng dụng
-                System.exit(0);
+                //System.exit(0);
             } else {
                 Toast.makeText(context, "Logout fail", Toast.LENGTH_SHORT).show();
 
