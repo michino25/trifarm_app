@@ -111,4 +111,13 @@ public class Product {
     public void setId_category(String id_category) {
         this.id_category = id_category;
     }
+
+    public int getNewPrice() {
+        int price = Integer.parseInt(getPrice()); // Chuyển đổi chuỗi price thành số nguyên
+        int old_price = Integer.parseInt(getOld_price()); // Chuyển đổi chuỗi old_price thành số nguyên
+
+        int percent = Math.round(((old_price - price) / (float) old_price) * 100);
+
+        return percent;
+    }
 }

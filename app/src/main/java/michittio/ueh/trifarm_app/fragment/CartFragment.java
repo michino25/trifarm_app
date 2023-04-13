@@ -108,7 +108,7 @@ public class CartFragment extends Fragment implements OnProductItemClickListener
         txtOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (cartProducts == null) {
+                if (cartProducts != null) {
 
                     SharedPreferences sharedPreferencesCart = getActivity().getSharedPreferences("CartPrefs", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editorCart = sharedPreferencesCart.edit();

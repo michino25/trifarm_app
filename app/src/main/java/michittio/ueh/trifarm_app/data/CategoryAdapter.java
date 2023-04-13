@@ -45,8 +45,9 @@ public class CategoryAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return categories.get(position).getId();
+        return 0;
     }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

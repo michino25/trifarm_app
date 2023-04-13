@@ -1,24 +1,24 @@
 package michittio.ueh.trifarm_app.data;
 
 public class Category {
-    int id;
+    String id;
     String name;
     String image;
 
     public  Category() {
 
     }
-    public Category(int id, String name, String image) {
+    public Category(String id, String name, String image) {
         this.id = id;
         this.name = name;
         this.image = image;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
