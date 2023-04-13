@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
-        app:cardCornerRadius="30dp"
+        app:cardCornerRadius="20dp"
         app:cardElevation="20dp">
 
         <LinearLayout
@@ -28,18 +28,19 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Login"
+                android:text="Đăng Nhập"
                 android:textAlignment="center"
-                android:textColor="@color/green_1"
-                android:textSize="36sp"
-                android:textStyle="bold" />
+                android:textColor="@color/green_2"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:indeterminateTint="@color/green_1"
+                android:indeterminateTint="@color/green_2"
                 android:visibility="invisible" />
 
             <EditText
@@ -65,11 +66,11 @@
                 android:id="@+id/edt_login_password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="12dp"
                 android:background="@drawable/d_custom_edittext"
                 android:drawableLeft="@drawable/baseline_lock_24"
                 android:drawablePadding="8dp"
-                android:hint="Password"
+                android:hint="Mật khẩu"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:paddingStart="16dp"
@@ -84,12 +85,13 @@
             <Button
                 android:id="@+id/btn_login"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="30dp"
-                android:backgroundTint="@color/green_1"
-                android:text="Sign In"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="44dp"
+                android:paddingVertical="6dp"
+                android:backgroundTint="@color/green_2"
+                android:text="Đăng nhập"
                 android:textColor="@color/white"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 app:cornerRadius="20dp"
                 tools:ignore="HardcodedText" />
 
@@ -100,9 +102,9 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:padding="8dp"
-                android:text="Not yet resgitered? Sign Up"
-                android:textColor="@color/green_1"
-                android:textSize="18sp"
+                android:text="Chưa có tài khoản? Đăng ký ngay"
+                android:textColor="@color/green_2"
+                android:textSize="12sp"
                 tools:ignore="HardcodedText" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
