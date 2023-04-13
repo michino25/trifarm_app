@@ -112,9 +112,7 @@ public class CartAdapter extends BaseAdapter {
                 int currentPirce = price;
                 int newQuantity = currentQuantity + 1;
                 dataItem.tv_quantity.setText(myFormatter.format(newQuantity));
-                for(int i = 0;i<productCartList.size();i++) {
-                    productCartList.get(i).setQuantity(String.valueOf(newQuantity));
-                }
+                productCartList.get(position).setQuantity(String.valueOf(newQuantity));
                 total(productCartList);
                 updateData();
 
@@ -128,9 +126,7 @@ public class CartAdapter extends BaseAdapter {
                 int currentPirce = price;
                 int newQuantity = currentQuantity - 1;
                 dataItem.tv_quantity.setText(myFormatter.format(newQuantity));
-                for(int i = 0;i<productCartList.size();i++) {
-                    productCartList.get(i).setQuantity(String.valueOf(newQuantity));
-                }
+                productCartList.get(position).setQuantity(String.valueOf(newQuantity));
                 if (newQuantity == 0) {
                     removeProductCart(position);
                 }
