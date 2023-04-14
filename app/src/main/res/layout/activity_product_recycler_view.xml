@@ -13,7 +13,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="12dp"
-        android:background="@drawable/green_boder"
+        android:background="@drawable/d_green_boder"
         android:focusable="false"
         app:closeIcon="@drawable/baseline_clear_24"
         app:iconifiedByDefault="false"
