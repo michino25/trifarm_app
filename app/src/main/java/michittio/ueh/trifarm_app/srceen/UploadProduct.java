@@ -115,7 +115,7 @@ public class UploadProduct extends AppCompatActivity {
                         //String key = databaseReference.push().getKey();
                         int count = 0;
                         String productId = "s" + (count + 1);
-                        Product product = new Product(productId, name, descripttion, uri.toString(), price, oldPrice, "4.0", "0", "0", "");
+                        Product product = new Product(productId, name, descripttion, uri.toString(), price, oldPrice, "40", "0", "0", "");
                         databaseReference.child(productId).setValue(product);
                         progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(UploadProduct.this, "Uploaded", Toast.LENGTH_SHORT).show();
