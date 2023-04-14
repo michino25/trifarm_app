@@ -6,14 +6,21 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +35,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import michittio.ueh.trifarm_app.ExpandableGridView;
 import michittio.ueh.trifarm_app.R;
+import michittio.ueh.trifarm_app.data.CmtAdapter;
 import michittio.ueh.trifarm_app.data.ProductCart;
 
 public class ProductDetail extends AppCompatActivity {
@@ -53,6 +62,7 @@ public class ProductDetail extends AppCompatActivity {
     private ImageView btnMinus;
     private ImageView btnPlus;
     private TextView btnSeeAllCmt;
+    private GridView gridViewCmtDetail;
     private DecimalFormat myFormatter;
     private Context context = this;
 
@@ -67,6 +77,13 @@ public class ProductDetail extends AppCompatActivity {
         renderData();
 
         addToCartView();
+
+        //Register ContextView
+        registerForContextMenu(tv_detail_name);
+
+        gridViewCmtDetail = findViewById(R.id.gridViewCmtDetail);
+        CmtAdapter adapter = new CmtAdapter(CommentActivity.getListComment(3), getApplicationContext());
+        gridViewCmtDetail.setAdapter(adapter);
 
         quantity = Integer.parseInt(tv_detail_quantity.getText().toString());
         btnMinus.setOnClickListener(new View.OnClickListener() {
@@ -125,6 +142,8 @@ public class ProductDetail extends AppCompatActivity {
         tv_detail_sale.setText("-" + sale + "%");
         tv_detail_review.setText(review);
 
+        ExpandableGridView productGrid = (ExpandableGridView) findViewById(R.id.gridViewCmtDetail);
+        productGrid.setExpanded(true);
     }
 
     private void init() {
@@ -145,6 +164,7 @@ public class ProductDetail extends AppCompatActivity {
         btnMinus = findViewById(R.id.btn_minus);
         btnPlus = findViewById(R.id.btn_plus);
         btnSeeAllCmt = findViewById(R.id.btn_see_all);
+        gridViewCmtDetail = findViewById(R.id.gridViewCmtDetail);
 
     }
 
@@ -228,5 +248,28 @@ public class ProductDetail extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        MenuInflater inflater = new MenuInflater(this);
+        inflater.inflate(R.menu.context_menu, menu);
+        super.onCreateContextMenu(menu, v, menuInfo);
 
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_copy:
+                // Xử lý lựa chọn "Copy" ở đây
+                String text = tv_detail_name.getText().toString();
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("text", text);
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(this, "Đã sao chép: " + text, Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+
+    }
 }

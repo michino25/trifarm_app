@@ -45,15 +45,12 @@
         android:layout_height="match_parent"
         android:layout_marginTop="46dp"
         android:layout_marginBottom="60dp"
-        android:paddingHorizontal="12dp"
-        android:paddingTop="1dp"
         android:background="@color/background"
         android:gravity="center"
-        android:horizontalSpacing="10dp"
         android:numColumns="1"
         android:scrollbars="none"
         android:stretchMode="columnWidth"
-        android:verticalSpacing="0dp" />
+        android:verticalSpacing="4dp" />
 
     <!-- buy bar -->
     <androidx.cardview.widget.CardView
@@ -83,12 +80,12 @@
                     android:id="@+id/txt_total_cart"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingStart="5dp"
-                    android:hint="Viết nhận xét..."
+                    android:layout_gravity="center"
+                    android:paddingHorizontal="12dp"
+                    android:background="@color/white"
+                    android:hint="Viết đánh giá..."
                     android:textColor="@color/green_2"
                     android:textSize="14sp"
-                    android:textStyle="bold"
                     tools:ignore="HardcodedText,RtlSymmetry" />
 
             </LinearLayout>
@@ -110,7 +107,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="Nhận xét"
+                        android:text="Đăng"
+                        android:paddingHorizontal="3dp"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="13sp"

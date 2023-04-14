@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/background"
+    android:background="@color/white"
     android:orientation="vertical"
     android:paddingVertical="3dp">
 
@@ -20,17 +20,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:layout_marginVertical="4dp"
+            android:layout_marginVertical="6dp"
             android:layout_marginStart="4dp"
-            android:layout_marginEnd="8dp"
-            app:cardCornerRadius="25dp"
-            app:cardElevation="3dp"
+            android:layout_marginEnd="6dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="1dp"
             tools:ignore="RtlSymmetry">
 
             <ImageView
                 android:id="@+id/imv_avt_cmt"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_gravity="center"
                 android:src="@drawable/i_user_line" />
 
@@ -41,14 +41,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:paddingHorizontal="4dp"
-            android:paddingStart="8dp">
+            android:paddingHorizontal="6dp">
 
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingVertical="4dp"
                 android:text="Username"
                 android:textColor="@color/text_fuzz3"
                 android:textSize="14sp"
@@ -59,24 +57,35 @@
                 android:id="@+id/tv_cmt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingVertical="3dp"
                 android:text="Sản phẩm tốt, giá hợp lý, giao hàng nhanh."
                 android:textColor="@color/text_fuzz6"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 tools:ignore="HardcodedText,RtlSymmetry,SmallSp" />
 
-            <TextView
-                android:id="@+id/tv_like"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingVertical="3dp"
-                android:paddingStart="8dp"
-                android:text="Hữu ích (3)"
-                android:textStyle="bold"
-                android:textColor="@color/green_2"
-                android:textSize="11sp"
-                tools:ignore="HardcodedText,RtlSymmetry,SmallSp" />
+                android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:paddingHorizontal="1dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/i_love_green" />
+
+                <TextView
+                    android:id="@+id/tv_like"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="3dp"
+                    android:paddingStart="2dp"
+                    android:text="Hữu ích (3)"
+                    android:textColor="@color/green_2"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText,RtlSymmetry,SmallSp" />
+            </LinearLayout>
 
         </LinearLayout>
 

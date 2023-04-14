@@ -396,17 +396,29 @@
                     android:textStyle="bold"
                     tools:ignore="HardcodedText" />
 
+                <michittio.ueh.trifarm_app.ExpandableGridView
+                    android:id="@+id/gridViewCmtDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:numColumns="1"
+                    android:scrollbars="none"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="0dp" />
+
                 <TextView
                     android:id="@+id/btn_see_all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/d_search_btn_background"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/d_search_background"
                     android:paddingHorizontal="64dp"
-                    android:paddingVertical="6dp"
+                    android:paddingVertical="4dp"
                     android:text="Xem tất cả"
-                    android:textColor="@color/white"
+                    android:textColor="@color/green_2"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     tools:ignore="HardcodedText" />
