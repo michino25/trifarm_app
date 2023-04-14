@@ -22,9 +22,13 @@ public class Product {
         this.price = price;
         this.old_price = old_price;
         this.review = review;
-        this.star = star;
         this.sold = sold;
         this.id_category = id_category;
+
+        if (star.isEmpty())
+            this.star = "4.0";
+        else
+            this.star = star;
     }
 
     public String getReview() {

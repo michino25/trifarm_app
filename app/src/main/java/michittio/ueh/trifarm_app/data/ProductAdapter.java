@@ -44,32 +44,32 @@ public class ProductAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        if (layoutInflater == null){
+        if (layoutInflater == null) {
             layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
-        if (view == null){
+        if (view == null) {
             view = layoutInflater.inflate(R.layout.product_item, null);
         }
 
         ImageView gridImage = view.findViewById(R.id.grid_image);
         TextView gridName = view.findViewById(R.id.gird_name);
         TextView gridPrice = view.findViewById(R.id.gird_price);
-        TextView gridSold= view.findViewById(R.id.gird_sold);
-        TextView gridSale= view.findViewById(R.id.gird_sale);
-        TextView gridStar= view.findViewById(R.id.gird_star);
+        TextView gridSold = view.findViewById(R.id.gird_sold);
+        TextView gridSale = view.findViewById(R.id.gird_sale);
+        TextView gridStar = view.findViewById(R.id.gird_star);
 
 
         DecimalFormat myFormatter = new DecimalFormat("###,###");
         int price = Integer.parseInt(listProduct.get(i).getPrice());
-        String star = String.valueOf(((double) Integer.parseInt(listProduct.get(i).getStar()) / 10));
+        String sold = "Đã bán " + listProduct.get(i).getSold() + "k";
 
-        String sold ="Đã bán " + listProduct.get(i).getSold() +"k";
+        String star = String.valueOf((double) Integer.parseInt(listProduct.get(i).getStar()) / 10);
 
         double priceNew = Double.parseDouble(listProduct.get(i).getPrice());
         double priceOld = Double.parseDouble(listProduct.get(i).getOld_price());
         int saleInt = (int) (100 - Math.round(priceNew / priceOld * 100));
 
-        String sale ="Giảm " + saleInt + "%";
+        String sale = "Giảm " + saleInt + "%";
 
         Glide.with(context).load(listProduct.get(i).getImage()).into(gridImage);
         gridName.setText(listProduct.get(i).getName());
@@ -85,10 +85,10 @@ public class ProductAdapter extends BaseAdapter {
                 // Handle onClick event here
                 // For example, start a new activity to display the details of the clicked item
                 Intent intent = new Intent(context, ProductDetail.class);
-                intent.putExtra("id",listProduct.get(i).getId());
-                intent.putExtra("image",listProduct.get(i).getImage());
+                intent.putExtra("id", listProduct.get(i).getId());
+                intent.putExtra("image", listProduct.get(i).getImage());
                 intent.putExtra("name", listProduct.get(i).getName());
-                intent.putExtra("description",listProduct.get(i).getDescription());
+                intent.putExtra("description", listProduct.get(i).getDescription());
                 intent.putExtra("price", listProduct.get(i).getPrice());
                 intent.putExtra("old_price", listProduct.get(i).getOld_price());
                 intent.putExtra("sold", listProduct.get(i).getSold());
@@ -102,7 +102,7 @@ public class ProductAdapter extends BaseAdapter {
         return view;
     }
 
-    public void searchDataList(ArrayList<Product> searchList){
+    public void searchDataList(ArrayList<Product> searchList) {
         listProduct = searchList;
         notifyDataSetChanged();
     }

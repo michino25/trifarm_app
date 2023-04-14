@@ -301,7 +301,6 @@
                 android:paddingVertical="12dp">
 
                 <TextView
-                    android:id="@+id/textView18"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
@@ -378,6 +377,41 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingVertical="12dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:paddingVertical="4dp"
+                    android:text="KHÁCH HÀNG ĐÁNH GIÁ"
+                    android:textColor="@color/green_2"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/btn_see_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/d_search_btn_background"
+                    android:layout_marginTop="16dp"
+                    android:paddingHorizontal="64dp"
+                    android:paddingVertical="6dp"
+                    android:text="Xem tất cả"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

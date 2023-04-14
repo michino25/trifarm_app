@@ -52,7 +52,9 @@ public class ProductDetail extends AppCompatActivity {
     private int quantity;
     private ImageView btnMinus;
     private ImageView btnPlus;
+    private TextView btnSeeAllCmt;
     private DecimalFormat myFormatter;
+    private Context context = this;
 
 
     @Override
@@ -61,7 +63,7 @@ public class ProductDetail extends AppCompatActivity {
         setContentView(R.layout.activity_product_detail);
 
         init();
-
+        nextOrderPage();
         renderData();
 
         addToCartView();
@@ -70,7 +72,7 @@ public class ProductDetail extends AppCompatActivity {
         btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (quantity  <= 1) {
+                if (quantity <= 1) {
                     tv_detail_quantity.setText(String.valueOf(quantity));
                     return;
                 }
@@ -142,6 +144,7 @@ public class ProductDetail extends AppCompatActivity {
         btnAddCart = findViewById(R.id.btn_addCart);
         btnMinus = findViewById(R.id.btn_minus);
         btnPlus = findViewById(R.id.btn_plus);
+        btnSeeAllCmt = findViewById(R.id.btn_see_all);
 
     }
 
@@ -155,7 +158,7 @@ public class ProductDetail extends AppCompatActivity {
                 long expiryTimeMillis = currentTimeMillis + (15 * 60 * 1000);
 
 
-                ProductCart productCart = new ProductCart(id, name, price,String.valueOf(quantity) , image, expiryTimeMillis, true);
+                ProductCart productCart = new ProductCart(id, name, price, String.valueOf(quantity), image, expiryTimeMillis, true);
                 if (productCart != null) {
                     addToCart(productCart);
                     Toast.makeText(ProductDetail.this, "Add cart success", Toast.LENGTH_SHORT).show();
@@ -170,7 +173,6 @@ public class ProductDetail extends AppCompatActivity {
     }
 
 
-
     public void addToCart(ProductCart product) {
         // Lấy danh sách sản phẩm trong giỏ hàng từ SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", Context.MODE_PRIVATE);
@@ -181,7 +183,8 @@ public class ProductDetail extends AppCompatActivity {
         // Chuyển đổi dữ liệu JSON thành danh sách sản phẩm
         if (!TextUtils.isEmpty(cartJson)) {
             Gson gson = new Gson();
-            Type type = new TypeToken<List<ProductCart>>() {}.getType();
+            Type type = new TypeToken<List<ProductCart>>() {
+            }.getType();
             cartList = gson.fromJson(cartJson, type);
         }
 
@@ -213,7 +216,17 @@ public class ProductDetail extends AppCompatActivity {
     }
 
 
+    private void nextOrderPage() {
+        btnSeeAllCmt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Intent intent = new Intent(context, CommentActivity.class);
+                intent.putExtra("idProduct", id);
+                startActivity(intent);
+            }
+        });
+    }
 
 
 }
