@@ -119,7 +119,7 @@ public class UploadProduct extends AppCompatActivity {
                         databaseReference.child(productId).setValue(product);
                         progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(UploadProduct.this, "Uploaded", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(UploadProduct.this, MainActivity.class);
+                        Intent intent = new Intent(UploadProduct.this, Product_RecyclerView.class);
                         startActivity(intent);
                         finish();
                     }

@@ -29,6 +29,7 @@ import com.squareup.picasso.Picasso;
 import michittio.ueh.trifarm_app.MainActivity;
 import michittio.ueh.trifarm_app.R;
 import michittio.ueh.trifarm_app.srceen.Login;
+import michittio.ueh.trifarm_app.srceen.Product_RecyclerView;
 import michittio.ueh.trifarm_app.srceen.UpdateUser;
 import michittio.ueh.trifarm_app.srceen.ViewProfile;
 
@@ -53,6 +54,7 @@ public class ProfileFragment extends Fragment {
     private Button btnLogout;
     private ImageView imgAvatar;
     private TextView txtFullName;
+    private ImageView imgSell;
 
     public ProfileFragment() {
     }
@@ -89,8 +91,9 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
         context = container.getContext();
-        init();
+        initui();
         logOut();
+        nextPageAdmin();
 
         ((MainActivity) getActivity()).updateStatusBarColor("#4CA71E");
 
@@ -122,6 +125,8 @@ public class ProfileFragment extends Fragment {
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("SaveUser", Context.MODE_PRIVATE);
         String key = sharedPreferences.getString("key", "");
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(key);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -129,6 +134,7 @@ public class ProfileFragment extends Fragment {
                 // Lấy dữ liệu từ DataSnapshot và gán vào các thành phần giao diện
                 String avatarUrl = snapshot.child("avatar").getValue(String.class);
                 String fullName = snapshot.child("fullName").getValue(String.class);
+
 
                 Picasso.get().load(avatarUrl).into(imgAvatar);
                 txtFullName.setText(fullName);
@@ -143,12 +149,23 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    private void init() {
+    private void nextPageAdmin() {
+        imgSell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, Product_RecyclerView.class);
+                context.startActivity(intent);
+            }
+        });
+    }
+
+    private void initui() {
         txtUpdateProfile = view.findViewById(R.id.btn_updateProfile);
         txtViewProfile = view.findViewById(R.id.btn_viewProfile);
         btnLogout = view.findViewById(R.id.btn_logout);
         txtFullName = view.findViewById(R.id.txt_name_profile);
         imgAvatar = view.findViewById(R.id.imv_avt_profile);
+        imgSell = view.findViewById(R.id.txt_sell_trifarm);
 
     }
 

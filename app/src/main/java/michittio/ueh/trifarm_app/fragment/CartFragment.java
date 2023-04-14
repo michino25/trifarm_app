@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,15 +24,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 
-import michittio.ueh.trifarm_app.CartTotalListener;
-
 import michittio.ueh.trifarm_app.MainActivity;
 
 import michittio.ueh.trifarm_app.OnProductItemClickListener;
 import michittio.ueh.trifarm_app.R;
 import michittio.ueh.trifarm_app.data.CartAdapter;
 import michittio.ueh.trifarm_app.data.ProductCart;
-import michittio.ueh.trifarm_app.srceen.Login;
 import michittio.ueh.trifarm_app.srceen.OrderCart;
 
 /**
@@ -109,7 +105,6 @@ public class CartFragment extends Fragment implements OnProductItemClickListener
             @Override
             public void onClick(View v) {
                 if (cartProducts != null) {
-
                     SharedPreferences sharedPreferencesCart = getActivity().getSharedPreferences("CartPrefs", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editorCart = sharedPreferencesCart.edit();
                     editorCart.remove("cart");

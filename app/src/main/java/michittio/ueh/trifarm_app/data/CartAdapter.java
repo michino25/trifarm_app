@@ -1,7 +1,6 @@
 package michittio.ueh.trifarm_app.data;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,20 +8,15 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
-import michittio.ueh.trifarm_app.CartTotalListener;
 import michittio.ueh.trifarm_app.OnProductItemClickListener;
 import michittio.ueh.trifarm_app.R;
-import michittio.ueh.trifarm_app.fragment.CartFragment;
 
 public class CartAdapter extends BaseAdapter {
     private ArrayList<ProductCart> productCartList;

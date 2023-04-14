@@ -265,8 +265,10 @@ public class HomeFragment extends Fragment {
 
                 // Thay thế Fragment hiện tại bằng Fragment mới
                 fragmentManager.beginTransaction()
-                        .replace(R.id.frame_layout, searchFragment) // R.id.fragment_container là ID của ViewGroup chứa các Fragment
-                        .addToBackStack(null) // (Tuỳ chọn) Thêm Fragment hiện tại vào Stack để có thể quay lại sau này
+                        // R.id.fragment_container là ID của ViewGroup chứa các Fragment
+                        .replace(R.id.frame_layout, searchFragment)
+                        // (Tuỳ chọn) Thêm Fragment hiện tại vào Stack để có thể quay lại sau này
+                        .addToBackStack(null)
                         .commit();
             }
         });

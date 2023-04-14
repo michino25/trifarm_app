@@ -71,6 +71,7 @@ public class ViewProfile extends AppCompatActivity {
                 String nickname = snapshot.child("nickname").getValue(String.class);
                 String email = snapshot.child("email").getValue(String.class);
 
+
 //                Toast.makeText(context, fullName, Toast.LENGTH_SHORT).show();
 
                 Picasso.get().load(avatarUrl).into(imgAvatar);

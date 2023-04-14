@@ -113,8 +113,9 @@ public class Product {
     }
 
     public int getNewPrice() {
-        int price = Integer.parseInt(getPrice()); // Chuyển đổi chuỗi price thành số nguyên
-        int old_price = Integer.parseInt(getOld_price()); // Chuyển đổi chuỗi old_price thành số nguyên
+
+        int price = Integer.parseInt(getPrice());
+        int old_price = Integer.parseInt(getOld_price());
 
         int percent = Math.round(((old_price - price) / (float) old_price) * 100);
 

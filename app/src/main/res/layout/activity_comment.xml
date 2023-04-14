@@ -77,7 +77,7 @@
                 android:padding="10dp">
 
                 <EditText
-                    android:id="@+id/txt_total_cart"
+                    android:id="@+id/edt_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -103,7 +103,7 @@
                     android:background="@drawable/d_background_green_13">
 
                     <TextView
-                        android:id="@+id/btn_order"
+                        android:id="@+id/txt_addComment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
