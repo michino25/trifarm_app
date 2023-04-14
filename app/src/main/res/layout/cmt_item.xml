@@ -46,7 +46,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-<<<<<<< HEAD
                 android:orientation="horizontal">
 
                 <TextView
@@ -73,15 +72,14 @@
                     tools:ignore="HardcodedText,RtlSymmetry" />
 
             </LinearLayout>
-
-
-=======
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Username"
                 android:textColor="@color/text_fuzz3"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText,RtlSymmetry" />
->>>>>>> 08962b0d8ff8a0ef877362572da43fde9d6ef9d2
 
             <TextView
                 android:id="@+id/tv_cmt"
@@ -95,7 +93,6 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-<<<<<<< HEAD
                 android:paddingVertical="3dp"
                 android:paddingStart="0dp"
                 android:text="Hữu ích (3)"
@@ -103,9 +100,6 @@
                 android:textColor="@color/green_2"
                 android:textSize="11sp"
                 tools:ignore="HardcodedText,RtlSymmetry,SmallSp" />
-=======
-                android:orientation="horizontal">
->>>>>>> 08962b0d8ff8a0ef877362572da43fde9d6ef9d2
 
                 <ImageView
                     android:layout_width="16dp"
@@ -130,4 +124,4 @@
         </LinearLayout>
 
     </LinearLayout>
-</LinearLayout>
+
