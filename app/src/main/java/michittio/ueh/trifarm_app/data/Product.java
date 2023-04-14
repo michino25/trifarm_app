@@ -14,7 +14,7 @@ public class Product {
     String id_category;
 
 
-    public Product(String id, String name, String description, String image, String price, String old_price, String sale, String star, String review, String sold, String id_category) {
+    public Product(String id, String name, String description, String image, String price, String old_price, String star, String review, String sold, String id_category) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -22,13 +22,9 @@ public class Product {
         this.price = price;
         this.old_price = old_price;
         this.review = review;
+        this.star = star;
         this.sold = sold;
         this.id_category = id_category;
-
-        if (star.isEmpty())
-            this.star = "4.0";
-        else
-            this.star = star;
     }
 
     public String getReview() {
