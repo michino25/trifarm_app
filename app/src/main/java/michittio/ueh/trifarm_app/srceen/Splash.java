@@ -22,11 +22,11 @@ public class Splash extends AppCompatActivity {
             public void run() {
                 nextActivity();
             }
-        },000);
+        },200);
     }
 
     private void nextActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, Product_RecyclerView.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

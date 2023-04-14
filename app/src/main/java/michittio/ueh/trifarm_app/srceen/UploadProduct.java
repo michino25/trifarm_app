@@ -49,10 +49,8 @@ public class UploadProduct extends AppCompatActivity {
         setContentView(R.layout.activity_upload_product);
 
         initui();
-        UpLoadProduct();
-    }
 
-    private void UpLoadProduct() {
+
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -97,9 +95,10 @@ public class UploadProduct extends AppCompatActivity {
         edtPrice = findViewById(R.id.edt_price);
         uploadImage = findViewById(R.id.uploadImage);
         progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
-
+    //Outside onCreate
     private void uploadToFirebase(Uri uri){
         String name = edtName.getText().toString();
         String descripttion = edtDesciption.getText().toString();
@@ -111,14 +110,14 @@ public class UploadProduct extends AppCompatActivity {
                 imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        //String key = databaseReference.push().getKey();
+                        String key = databaseReference.push().getKey();
                         int count = 0;
                         String productId = "s" + (count + 1);
-                        Product product = new Product(productId,name,descripttion,uri.toString(),price,"","","","","","");
+                        Product product = new Product(productId,name,descripttion,uri.toString(),price,"20000","","","","","");
                         databaseReference.child(productId).setValue(product);
                         progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(UploadProduct.this, "Uploaded", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(UploadProduct.this, MainActivity.class);
+                        Intent intent = new Intent(UploadProduct.this, Product_RecyclerView.class);
                         startActivity(intent);
                         finish();
                     }
@@ -137,7 +136,6 @@ public class UploadProduct extends AppCompatActivity {
             }
         });
     }
-
     private String getFileExtension(Uri fileUri){
         ContentResolver contentResolver = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
