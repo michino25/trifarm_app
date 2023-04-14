@@ -49,7 +49,7 @@ public class Login extends AppCompatActivity {
                 final String email = edtEmail.getText().toString().trim();
                 final String password = edtPassword.getText().toString().trim();
 
-                if(validateEmail(email) && validatePassword(password)) {
+                if (validateEmail(email) && validatePassword(password)) {
                     // Search for user in Firebase Realtime Database
                     DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("Users");
                     Query query = databaseRef.orderByChild("email").equalTo(email);
@@ -59,21 +59,20 @@ public class Login extends AppCompatActivity {
                             boolean found = false;
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 User user = snapshot.getValue(User.class);
-                                if (user != null && user.getPassword().equals(password) ) {
+                                if (user != null && user.getPassword().equals(password)) {
                                     found = true;
                                     progressBar.setVisibility(View.VISIBLE);
-                                    if(user.getRule().equals("admin")) {
+                                    if (user.getRule().equals("admin")) {
                                         // Login successful
                                         Toast.makeText(Login.this, "Login successful.", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(Login.this, Product_RecyclerView.class);
                                         startActivity(intent);
                                     } else {
-                                        if (saveUser(user.getEmail(),user.getPassword(),user.getKey()) ) {
+                                        if (saveUser(user.getEmail(), user.getPassword(), user.getKey())) {
                                             Toast.makeText(Login.this, "Login successful.", Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(Login.this, MainActivity.class);
                                             startActivity(intent);
-                                        }
-                                        else {
+                                        } else {
                                             Toast.makeText(Login.this, "Login Errol.", Toast.LENGTH_SHORT).show();
                                         }
                                     }
@@ -100,14 +99,15 @@ public class Login extends AppCompatActivity {
 
         });
     }
-    private boolean saveUser(String email, String password,String key) {
+
+    private boolean saveUser(String email, String password, String key) {
         if (!email.isEmpty() && !password.isEmpty()) {
             // Kiểm tra email và password không rỗng
             SharedPreferences sharedPreferences = getSharedPreferences("SaveUser", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("email", email);
             editor.putString("password", password);
-            editor.putString("key",key);
+            editor.putString("key", key);
             editor.apply();
             return true;
         } else {
@@ -120,7 +120,7 @@ public class Login extends AppCompatActivity {
         txtsignupRedirectText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Login.this,SignUp.class);
+                Intent intent = new Intent(Login.this, SignUp.class);
                 startActivity(intent);
             }
         });
