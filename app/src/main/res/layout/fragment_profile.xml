@@ -527,6 +527,7 @@
                             android:orientation="vertical">
 
                             <ImageView
+                                android:id="@+id/txt_sell_trifarm"
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
                                 android:layout_gravity="center"

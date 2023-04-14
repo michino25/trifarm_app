@@ -56,8 +56,10 @@
                     android:background="@drawable/radio_flat_selector"
                     android:button="@android:color/transparent"
                     android:gravity="center"
+                    android:layout_weight="1"
                     android:paddingHorizontal="12dp"
                     android:text="Cùng loại"
+                    android:textSize="12sp"
                     android:textColor="@drawable/radio_flat_text_selector"
                     tools:ignore="HardcodedText" />
 
@@ -69,8 +71,10 @@
                     android:button="@android:color/transparent"
                     android:checked="true"
                     android:gravity="center"
+                    android:layout_weight="1"
                     android:paddingHorizontal="12dp"
                     android:text="Phổ Biến"
+                    android:textSize="12sp"
                     android:textColor="@drawable/radio_flat_text_selector"
                     tools:ignore="HardcodedText" />
 
@@ -81,9 +85,11 @@
                     android:background="@drawable/radio_flat_selector"
                     android:button="@android:color/transparent"
                     android:gravity="center"
+                    android:layout_weight="1"
                     android:padding="-1dp"
                     android:paddingHorizontal="12dp"
                     android:text="Bán Chạy"
+                    android:textSize="12sp"
                     android:textColor="@drawable/radio_flat_text_selector"
                     tools:ignore="HardcodedText" />
 
@@ -94,8 +100,10 @@
                     android:background="@drawable/radio_flat_selector"
                     android:button="@android:color/transparent"
                     android:gravity="center"
+                    android:layout_weight="1"
                     android:paddingHorizontal="12dp"
                     android:text="Giảm Giá"
+                    android:textSize="12sp"
                     android:textColor="@drawable/radio_flat_text_selector"
                     tools:ignore="HardcodedText" />
 

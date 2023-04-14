@@ -69,6 +69,16 @@ public class Login extends AppCompatActivity {
                                         startActivity(intent);
                                     } else {
                                         if (saveUser(user.getEmail(),user.getPassword(),user.getKey()) ) {
+                                            SharedPreferences info = getSharedPreferences("Info", Context.MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = info.edit();
+                                            if (user.getImage() == null && user.getFullName() == null) {
+                                                editor.putString("fullname", "Ẩn danh");
+                                                editor.putString("avatar", "https://ss-images.saostar.vn/wp700/pc/1613810558698/Facebook-Avatar_3.png");
+                                            } else {
+                                                editor.putString("avatar", user.getImage());
+                                                editor.putString("fullname", user.getFullName());
+                                            }
+                                            editor.apply();
                                             Toast.makeText(Login.this, "Login successful.", Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(Login.this, MainActivity.class);
                                             startActivity(intent);

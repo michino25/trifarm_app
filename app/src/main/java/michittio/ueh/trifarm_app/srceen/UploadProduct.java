@@ -29,6 +29,8 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.Random;
+
 import michittio.ueh.trifarm_app.MainActivity;
 import michittio.ueh.trifarm_app.R;
 import michittio.ueh.trifarm_app.data.Product;
@@ -37,10 +39,10 @@ public class UploadProduct extends AppCompatActivity {
 
     private Button uploadProduct;
     private ImageView uploadImage;
-    EditText edtName,edtDesciption,edtPrice;
+    EditText edtName, edtDesciption, edtPrice;
     ProgressBar progressBar;
     private Uri imageUri;
-    final  private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Products");
+    final private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Products");
     final private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 
     @Override
@@ -49,23 +51,22 @@ public class UploadProduct extends AppCompatActivity {
         setContentView(R.layout.activity_upload_product);
 
         initui();
+        UpLoadProduct();
+    }
 
-
-        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        if (result.getResultCode() == Activity.RESULT_OK){
-                            Intent data = result.getData();
-                            imageUri = data.getData();
-                            uploadImage.setImageURI(imageUri);
-                        } else {
-                            Toast.makeText(UploadProduct.this, "No Image Selected", Toast.LENGTH_SHORT).show();
-                        }
-                    }
+    private void UpLoadProduct() {
+        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    Intent data = result.getData();
+                    imageUri = data.getData();
+                    uploadImage.setImageURI(imageUri);
+                } else {
+                    Toast.makeText(UploadProduct.this, "No Image Selected", Toast.LENGTH_SHORT).show();
                 }
-        );
+            }
+        });
 
         uploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,9 +80,9 @@ public class UploadProduct extends AppCompatActivity {
         uploadProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (imageUri != null){
+                if (imageUri != null) {
                     uploadToFirebase(imageUri);
-                } else  {
+                } else {
                     Toast.makeText(UploadProduct.this, "Please select image", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -95,14 +96,15 @@ public class UploadProduct extends AppCompatActivity {
         edtPrice = findViewById(R.id.edt_price);
         uploadImage = findViewById(R.id.uploadImage);
         progressBar = findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.INVISIBLE);
     }
 
-    //Outside onCreate
-    private void uploadToFirebase(Uri uri){
+
+    private void uploadToFirebase(Uri uri) {
         String name = edtName.getText().toString();
         String descripttion = edtDesciption.getText().toString();
         String price = edtPrice.getText().toString();
+        int intOldPrice = Integer.parseInt(price) * (new Random().nextInt(300 - 100 + 1) + 100) / 100;
+        String oldPrice = String.valueOf(intOldPrice);
         final StorageReference imageReference = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(uri));
         imageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -110,10 +112,10 @@ public class UploadProduct extends AppCompatActivity {
                 imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        String key = databaseReference.push().getKey();
+                        //String key = databaseReference.push().getKey();
                         int count = 0;
                         String productId = "s" + (count + 1);
-                        Product product = new Product(productId,name,descripttion,uri.toString(),price,"20000","","","","","");
+                        Product product = new Product(productId, name, descripttion, uri.toString(), price, oldPrice, "40", "0", "0", "");
                         databaseReference.child(productId).setValue(product);
                         progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(UploadProduct.this, "Uploaded", Toast.LENGTH_SHORT).show();
@@ -136,7 +138,8 @@ public class UploadProduct extends AppCompatActivity {
             }
         });
     }
-    private String getFileExtension(Uri fileUri){
+
+    private String getFileExtension(Uri fileUri) {
         ContentResolver contentResolver = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(contentResolver.getType(fileUri));
