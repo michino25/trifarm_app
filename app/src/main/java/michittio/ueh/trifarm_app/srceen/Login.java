@@ -62,32 +62,27 @@ public class Login extends AppCompatActivity {
                                 if (user != null && user.getPassword().equals(password)) {
                                     found = true;
                                     progressBar.setVisibility(View.VISIBLE);
-                                    if (user.getRule().equals("admin")) {
-                                        // Login successful
+
+                                    if (saveUser(user.getEmail(), user.getPassword(), user.getKey(), user.getRule())) {
+                                        SharedPreferences info = getSharedPreferences("Info", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = info.edit();
+
+                                        if (user.getImage() == null && user.getFullName() == null) {
+                                            editor.putString("fullname", "Ẩn danh");
+                                            editor.putString("avatar", "https://media.istockphoto.com/id/1298261537/vi/vec-to/ch%E1%BB%97-d%C3%A0nh-s%E1%BA%B5n-cho-bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-%C4%91%E1%BA%A7u-h%E1%BB%93-s%C6%A1-ng%C6%B0%E1%BB%9Di-%C4%91%C3%A0n-%C3%B4ng-tr%E1%BB%91ng.jpg?s=612x612&w=0&k=20&c=Rbi2tNjNA4z86gzSPBhGOefKI-XTKqlqGy-kiPoUvRA=");
+                                        } else {
+                                            editor.putString("avatar", user.getImage());
+                                            editor.putString("fullname", user.getFullName());
+                                        }
+                                        editor.apply();
                                         Toast.makeText(Login.this, "Login successful.", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(Login.this, Product_RecyclerView.class);
+                                        Intent intent = new Intent(Login.this, MainActivity.class);
                                         startActivity(intent);
                                     } else {
-                                        if (saveUser(user.getEmail(),user.getPassword(),user.getKey()) ) {
-                                            SharedPreferences info = getSharedPreferences("Info", Context.MODE_PRIVATE);
-                                            SharedPreferences.Editor editor = info.edit();
-                                            if (user.getImage() == null && user.getFullName() == null) {
-                                                editor.putString("fullname", "Ẩn danh");
-                                                editor.putString("avatar", "https://ss-images.saostar.vn/wp700/pc/1613810558698/Facebook-Avatar_3.png");
-                                            } else {
-                                                editor.putString("avatar", user.getImage());
-                                                editor.putString("fullname", user.getFullName());
-                                            }
-                                            editor.apply();
-                                            Toast.makeText(Login.this, "Login successful.", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(Login.this, MainActivity.class);
-                                            startActivity(intent);
-                                        } else {
-                                            Toast.makeText(Login.this, "Login Errol.", Toast.LENGTH_SHORT).show();
-                                        }
+                                        Toast.makeText(Login.this, "Login Errol.", Toast.LENGTH_SHORT).show();
                                     }
-
                                 }
+
                             }
 
                             if (!found) {
@@ -110,7 +105,7 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    private boolean saveUser(String email, String password, String key) {
+    private boolean saveUser(String email, String password, String key, String role) {
         if (!email.isEmpty() && !password.isEmpty()) {
             // Kiểm tra email và password không rỗng
             SharedPreferences sharedPreferences = getSharedPreferences("SaveUser", Context.MODE_PRIVATE);
@@ -118,6 +113,7 @@ public class Login extends AppCompatActivity {
             editor.putString("email", email);
             editor.putString("password", password);
             editor.putString("key", key);
+            editor.putString("role", role);
             editor.apply();
             return true;
         } else {

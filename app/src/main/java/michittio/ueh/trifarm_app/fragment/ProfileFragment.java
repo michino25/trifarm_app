@@ -1,5 +1,6 @@
 package michittio.ueh.trifarm_app.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,6 +26,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import java.util.Objects;
 
 import michittio.ueh.trifarm_app.MainActivity;
 import michittio.ueh.trifarm_app.R;
@@ -53,8 +56,9 @@ public class ProfileFragment extends Fragment {
     private TextView txtUpdateProfile, txtViewProfile;
     private Button btnLogout;
     private ImageView imgAvatar;
-    private TextView txtFullName;
+    private TextView txtFullName, txtRole;
     private ImageView imgSell;
+    private View adminBtn;
 
     public ProfileFragment() {
     }
@@ -93,7 +97,6 @@ public class ProfileFragment extends Fragment {
         context = container.getContext();
         initui();
         logOut();
-        nextPageAdmin();
 
         ((MainActivity) getActivity()).updateStatusBarColor("#4CA71E");
 
@@ -129,12 +132,18 @@ public class ProfileFragment extends Fragment {
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(key);
         reference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 // Lấy dữ liệu từ DataSnapshot và gán vào các thành phần giao diện
                 String avatarUrl = snapshot.child("avatar").getValue(String.class);
                 String fullName = snapshot.child("fullName").getValue(String.class);
+                String role = snapshot.child("rule").getValue(String.class);
 
+                if (Objects.equals(role, "admin")) {
+                    txtRole.setText("Quản trị viên");
+                    nextPageAdmin();
+                }
 
                 Picasso.get().load(avatarUrl).into(imgAvatar);
                 txtFullName.setText(fullName);
@@ -164,8 +173,10 @@ public class ProfileFragment extends Fragment {
         txtViewProfile = view.findViewById(R.id.btn_viewProfile);
         btnLogout = view.findViewById(R.id.btn_logout);
         txtFullName = view.findViewById(R.id.txt_name_profile);
+        txtRole = view.findViewById(R.id.tv_role_profile);
         imgAvatar = view.findViewById(R.id.imv_avt_profile);
         imgSell = view.findViewById(R.id.txt_sell_trifarm);
+        adminBtn = view.findViewById(R.id.admin_btn);
 
     }
 
@@ -192,13 +203,13 @@ public class ProfileFragment extends Fragment {
                 editor.remove("email");
                 editor.remove("password");
                 editor.remove("key");
+                editor.remove("role");
                 editor.apply();
 
                 SharedPreferences sharedPreferencesCart = getActivity().getSharedPreferences("CartPrefs", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editorCart = sharedPreferencesCart.edit();
                 editorCart.remove("cart");
                 editorCart.apply();
-
 
 
                 Intent intent = new Intent(context, Login.class);
