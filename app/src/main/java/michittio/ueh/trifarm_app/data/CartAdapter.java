@@ -36,7 +36,8 @@ public class CartAdapter extends BaseAdapter {
         this.context = context;
     }
 
-    public CartAdapter() {}
+    public CartAdapter() {
+    }
 
 
     @Override
@@ -85,18 +86,16 @@ public class CartAdapter extends BaseAdapter {
         dataItem.tv_quantity.setText(myFormatter.format(quantity));
 
 
-
         dataItem.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (itemClickListener != null) {
                     itemClickListener.onProductItemDeleteClick(position);
                     total(productCartList);
-                    
+
                 }
             }
         });
-
 
 
         dataItem.btnPlus.setOnClickListener(new View.OnClickListener() {
@@ -135,7 +134,6 @@ public class CartAdapter extends BaseAdapter {
     }
 
 
-
     public boolean removeProductCart(int position) {
         if (productCartList != null && position >= 0 && position < productCartList.size()) {
             productCartList.remove(position);
@@ -147,15 +145,15 @@ public class CartAdapter extends BaseAdapter {
         }
     }
 
-    public void total(ArrayList<ProductCart> productCartList ) {
+    public void total(ArrayList<ProductCart> productCartList) {
         int total = 0;
-       for (int i = 0;i<productCartList.size();i++) {
-           total += Integer.parseInt(productCartList.get(i).price ) * Integer.parseInt(productCartList.get(i).getQuantity());
-       }
+        for (int i = 0; i < productCartList.size(); i++) {
+            total += Integer.parseInt(productCartList.get(i).price) * Integer.parseInt(productCartList.get(i).getQuantity());
+        }
         itemClickListener.onCartTotalChanged(total);
     }
 
-    public String myFormat(int number, int mode) {
+    public static String myFormat(int number, int mode) {
         DecimalFormat myFormatter = new DecimalFormat("###,###");
 
         if (mode == 1)
@@ -165,12 +163,19 @@ public class CartAdapter extends BaseAdapter {
         return "";
     }
 
+    public static String myFormat(String num) {
+        DecimalFormat myFormatter = new DecimalFormat("###,###");
+
+        int price = Integer.parseInt(num);
+        return myFormatter.format(price);
+    }
+
     private static class MyView {
         ImageView iv_photo;
         TextView tv_name;
         TextView tv_price;
         TextView tv_quantity;
-        ImageView btnPlus,btnMinus;
+        ImageView btnPlus, btnMinus;
         ImageView btnDelete;
 
     }

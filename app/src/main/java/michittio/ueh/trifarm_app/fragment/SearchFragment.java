@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AutoCompleteTextView;
 import android.widget.GridView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -60,7 +63,7 @@ public class SearchFragment extends Fragment {
     private String mParam2;
     private View view;
     private Context thiscontext;
-    private SearchView searchView ;
+    private SearchView searchView;
     private ProductAdapter adapter;
     private GridView gridView;
     private ArrayList<Product> productList;
@@ -69,12 +72,13 @@ public class SearchFragment extends Fragment {
     private RadioGroup radioGroup;
     private int checkedRadioButtonId;
     private RadioButton checkedRadioButton;
-    private String idCategory,keySearch;
+    private String idCategory, keySearch;
     private Bundle bundle;
     final private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Products");
 
 
-    public SearchFragment() {}
+    public SearchFragment() {
+    }
 
     /**
      * Use this factory method to create a new instance of
@@ -119,19 +123,16 @@ public class SearchFragment extends Fragment {
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    // Inflate the layout for this fragment
+        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_search, container, false);
         thiscontext = container.getContext();
 
-        ((MainActivity)getActivity()).updateStatusBarColor("#FFFFFF");
+        ((MainActivity) getActivity()).updateStatusBarColor("#FFFFFF");
 
         //ánh xạ
         initui();
-
-
 
         radioGroup.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -166,11 +167,7 @@ public class SearchFragment extends Fragment {
         });
 
 
-
-
         return view;
-
-
 
 
     }
@@ -184,13 +181,13 @@ public class SearchFragment extends Fragment {
             case R.id.rd_popular:
                 // Xử lý lọc dữ liệu theo item "Phổ Biến"
                 keySearch = "@Phổ biến";
-                searchView.setQuery(keySearch,false);
+                searchView.setQuery(keySearch, false);
                 // Sắp xếp giảm dần theo số lượng
                 Collections.sort(productList, new Comparator<Product>() {
                     @Override
                     public int compare(Product product1, Product product2) {
 
-                        return Integer.compare(Integer.parseInt(product2.getStar()),Integer.parseInt(product1.getStar()));
+                        return Integer.compare(Integer.parseInt(product2.getStar()), Integer.parseInt(product1.getStar()));
                     }
                 });
 
@@ -200,12 +197,12 @@ public class SearchFragment extends Fragment {
             case R.id.rd_selling:
                 // Xử lý lọc dữ liệu theo item "Bán Chạy"
                 keySearch = "@Bán chạy";
-                searchView.setQuery(keySearch,false);
+                searchView.setQuery(keySearch, false);
                 Collections.sort(productList, new Comparator<Product>() {
                     @Override
                     public int compare(Product product1, Product product2) {
 
-                        return Integer.compare(Integer.parseInt(product2.getSold()),Integer.parseInt(product1.getSold()));
+                        return Integer.compare(Integer.parseInt(product2.getSold()), Integer.parseInt(product1.getSold()));
                     }
                 });
                 adapter.searchDataList(productList);
@@ -215,7 +212,7 @@ public class SearchFragment extends Fragment {
             case R.id.rd_discount:
                 // Xử lý lọc dữ liệu theo item "Giảm Giá"
                 keySearch = "@Giảm giá";
-                searchView.setQuery(keySearch,false);
+                searchView.setQuery(keySearch, false);
                 Collections.sort(productList, new Comparator<Product>() {
                     @Override
                     public int compare(Product product1, Product product2) {
@@ -227,13 +224,13 @@ public class SearchFragment extends Fragment {
                 searchData();
                 break;
             case R.id.rd_type:
-                if(bundle !=  null) {
-                    keySearch = "@"+idCategory;
+                if (bundle != null) {
+                    keySearch = "@" + idCategory;
                 } else {
                     keySearch = "@All product";
                 }
 
-                searchView.setQuery(keySearch,false);
+                searchView.setQuery(keySearch, false);
                 for (Product product : productList) {
                     if (product.getName().toLowerCase().contains(keySearch.toLowerCase())) {
                         productList.add(product);
@@ -299,29 +296,29 @@ public class SearchFragment extends Fragment {
         });
 
     }
-    private void searchIdCategory() {
-            databaseReference.orderByChild("id_category").equalTo(idCategory).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    // Xử lý dữ liệu sản phẩm có idCategory bằng 1
-                    for (DataSnapshot productSnapshot : dataSnapshot.getChildren()) {
-                        // Lấy dữ liệu của sản phẩm
-                        Product product = productSnapshot.getValue(Product.class);
-                        productList.add(product);
-                        // Hiển thị sản phẩm trong giao diện người dùng
-                        adapter.searchDataList(productList);
-                        gridView.setAdapter(adapter);
-                        // ...
-                    }
-                }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+    private void searchIdCategory() {
+        databaseReference.orderByChild("id_category").equalTo(idCategory).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Xử lý dữ liệu sản phẩm có idCategory bằng 1
+                for (DataSnapshot productSnapshot : dataSnapshot.getChildren()) {
+                    // Lấy dữ liệu của sản phẩm
+                    Product product = productSnapshot.getValue(Product.class);
+                    productList.add(product);
+                    // Hiển thị sản phẩm trong giao diện người dùng
+                    adapter.searchDataList(productList);
+                    gridView.setAdapter(adapter);
+                    // ...
                 }
-            });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
 
     }
-
 
 
     @Override

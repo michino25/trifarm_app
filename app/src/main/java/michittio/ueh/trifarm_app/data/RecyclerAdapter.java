@@ -45,8 +45,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     public void onBindViewHolder(@NonNull MyViewHoder holder, int position) {
         Glide.with(context).load(productList.get(position).getImage()).into(holder.imageView);
         holder.txt_name.setText(productList.get(position).getName());
-        holder.txt_price.setText(productList.get(position).getPrice());
-
+        holder.txt_price.setText(CartAdapter.myFormat(productList.get(position).getPrice()) + " ₫");
 
     }
     @Override
