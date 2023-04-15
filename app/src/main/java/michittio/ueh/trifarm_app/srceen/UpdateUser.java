@@ -106,7 +106,8 @@ public class UpdateUser extends AppCompatActivity {
             }
         });
 
-        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
                 if (result.getResultCode() == Activity.RESULT_OK) {
@@ -118,6 +119,7 @@ public class UpdateUser extends AppCompatActivity {
                 }
             }
         });
+
         imageAvartar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
