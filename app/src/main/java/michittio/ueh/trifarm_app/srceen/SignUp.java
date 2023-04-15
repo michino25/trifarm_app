@@ -119,8 +119,10 @@ public class SignUp extends AppCompatActivity {
         } else if(password.length() < 6) {
             edtPassword.setError("Độ dài mật khẩu phải từ 6 kí tự");
             return false;
+        } else {
+            return true;
         }
-        return true;
+
     }
 
 
