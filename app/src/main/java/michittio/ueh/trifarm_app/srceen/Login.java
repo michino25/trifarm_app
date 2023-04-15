@@ -75,11 +75,11 @@ public class Login extends AppCompatActivity {
                                             editor.putString("fullname", user.getFullName());
                                         }
                                         editor.apply();
-                                        Toast.makeText(Login.this, "Login successful.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Login.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(Login.this, MainActivity.class);
                                         startActivity(intent);
                                     } else {
-                                        Toast.makeText(Login.this, "Login Errol.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Login.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
                                     }
                                 }
 
@@ -87,7 +87,7 @@ public class Login extends AppCompatActivity {
 
                             if (!found) {
                                 // Login failed
-                                Toast.makeText(Login.this, "Invalid email or password.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Login.this, "Sai mật khẩu hoặc email.", Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -141,10 +141,10 @@ public class Login extends AppCompatActivity {
 
     private boolean validateEmail(String email) {
         if (TextUtils.isEmpty(email)) {
-            edtEmail.setError("Email is required");
+            edtEmail.setError("Vui lòng nhập email của bạn");
             return false;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            edtEmail.setError("Invalid email format");
+            edtEmail.setError("Định dạng email không hợp lệ");
             return false;
         }
         return true;
@@ -152,10 +152,10 @@ public class Login extends AppCompatActivity {
 
     private boolean validatePassword(String password) {
         if (TextUtils.isEmpty(password)) {
-            edtPassword.setError("Password is required");
+            edtPassword.setError("Vui lòng nhập mật khẩu");
             return false;
         } else if (password.length() < 6) {
-            edtPassword.setError("Password must be at least 6 characters");
+            edtPassword.setError("Độ dài mật khẩu phải từ 6 kí tự");
             return false;
         }
         return true;

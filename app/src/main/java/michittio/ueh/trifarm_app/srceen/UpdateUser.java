@@ -115,7 +115,7 @@ public class UpdateUser extends AppCompatActivity {
                     imageUri = data.getData();
                     imageAvartar.setImageURI(imageUri);
                 } else {
-                    Toast.makeText(UpdateUser.this, "No Image Selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateUser.this, "Không có hình ảnh được chọn", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -136,7 +136,7 @@ public class UpdateUser extends AppCompatActivity {
                 if (imageUri != null) {
                     uploadToFirebase(imageUri);
                 } else {
-                    Toast.makeText(UpdateUser.this, "Please select image", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateUser.this, "Vui lòng chọn hình ảnh", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -225,7 +225,7 @@ public class UpdateUser extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 progressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(UpdateUser.this, "Failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UpdateUser.this, "Lỗi", Toast.LENGTH_SHORT).show();
             }
         });
         ;

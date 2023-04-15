@@ -242,10 +242,10 @@ public class ProductDetail extends AppCompatActivity {
                 ProductCart productCart = new ProductCart(id, name, price, String.valueOf(quantity), image, expiryTimeMillis, true);
                 if (productCart != null) {
                     addToCart(productCart);
-                    Toast.makeText(ProductDetail.this, "Add cart success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProductDetail.this, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show();
 
                 } else {
-                    Toast.makeText(ProductDetail.this, "Add cart fail", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProductDetail.this, "Thêm vào giỏ hàng thành thất bại", Toast.LENGTH_SHORT).show();
 
                 }
 

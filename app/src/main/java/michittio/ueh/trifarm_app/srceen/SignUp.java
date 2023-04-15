@@ -65,7 +65,7 @@ public class SignUp extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         progressBar.setVisibility(View.GONE);
-                        Toast.makeText(SignUp.this, "User created successfully!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUp.this, "Tạo tài khoản thành công!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(SignUp.this,Login.class);
                         startActivity(intent);
                     }
@@ -74,7 +74,7 @@ public class SignUp extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         progressBar.setVisibility(View.GONE);
-                        Toast.makeText(SignUp.this, "Failed to create user: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUp.this, "Tạo tài khoản thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -102,10 +102,10 @@ public class SignUp extends AppCompatActivity {
     private boolean validateEmail() {
         String email = edtEmail.getText().toString().trim();
         if(TextUtils.isEmpty(email)) {
-            edtEmail.setError("Email is required");
+            edtEmail.setError("Vui lòng nhập email của bạn");
             return false;
         } else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            edtEmail.setError("Invalid email format");
+            edtEmail.setError("Đinh dạng email không hợp lệ");
             return false;
         }
         return true;
@@ -114,10 +114,10 @@ public class SignUp extends AppCompatActivity {
     private boolean validatePassword() {
         String password = edtPassword.getText().toString().trim();
         if(TextUtils.isEmpty(password)) {
-            edtPassword.setError("Password is required");
+            edtPassword.setError("Vui lòng nhập mật khẩu");
             return false;
         } else if(password.length() < 6) {
-            edtPassword.setError("Password must be at least 6 characters");
+            edtPassword.setError("Độ dài mật khẩu phải từ 6 kí tự");
             return false;
         }
         return true;

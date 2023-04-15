@@ -152,7 +152,7 @@ public class SearchFragment extends Fragment {
                     // Thiết lập trạng thái của RadioButton popular trong SearchView
                     radioGroup.check(R.id.rd_type);
                     RadioButton radioButton = view.findViewById(R.id.rd_type);
-                    radioButton.setText("All Product");
+                    radioButton.setText("Tất cả");
                     loadData();
                 }
             }
@@ -227,7 +227,7 @@ public class SearchFragment extends Fragment {
                 if (bundle != null) {
                     keySearch = "@" + idCategory;
                 } else {
-                    keySearch = "@All product";
+                    keySearch = "@Tất cả";
                 }
 
                 searchView.setQuery(keySearch, false);
@@ -262,7 +262,7 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e(TAG, "Failed to read value.", error.toException());
+                Log.e(TAG, "Không thể đọc giá trị.", error.toException());
             }
         });
     }

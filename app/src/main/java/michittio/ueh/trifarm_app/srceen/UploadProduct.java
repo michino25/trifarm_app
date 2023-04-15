@@ -63,7 +63,7 @@ public class UploadProduct extends AppCompatActivity {
                     imageUri = data.getData();
                     uploadImage.setImageURI(imageUri);
                 } else {
-                    Toast.makeText(UploadProduct.this, "No Image Selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UploadProduct.this, "Không có hình ảnh", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -83,7 +83,7 @@ public class UploadProduct extends AppCompatActivity {
                 if (imageUri != null) {
                     uploadToFirebase(imageUri);
                 } else {
-                    Toast.makeText(UploadProduct.this, "Please select image", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UploadProduct.this, "Vui lòng chọn một ảnh", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -134,7 +134,7 @@ public class UploadProduct extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 progressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(UploadProduct.this, "Failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UploadProduct.this, "Lỗi", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -192,9 +192,9 @@ public class ProfileFragment extends Fragment {
 
     private void showLogoutDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Logout");
-        builder.setMessage("Are you sure you want to logout?");
-        builder.setPositiveButton("Yes", (dialog, which) -> {
+        builder.setTitle("Đăng xuất");
+        builder.setMessage("Bạn có chắc muốn đăng xuất?");
+        builder.setPositiveButton("Đồng ý", (dialog, which) -> {
             // Xử lý đăng xuất
             // Xóa email và mật khẩu từ SharedPreferences
             if (checkSharedPreferencesExistence("email")) {
@@ -217,12 +217,12 @@ public class ProfileFragment extends Fragment {
                 // Thoát ứng dụng
                 //System.exit(0);
             } else {
-                Toast.makeText(context, "Logout fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Đăng xuất thất bại", Toast.LENGTH_SHORT).show();
 
             }
 
         });
-        builder.setNegativeButton("No", (dialog, which) -> {
+        builder.setNegativeButton("Không", (dialog, which) -> {
             // Đóng hộp thoại
             dialog.dismiss();
         });

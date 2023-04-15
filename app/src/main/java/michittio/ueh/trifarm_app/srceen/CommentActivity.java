@@ -115,14 +115,14 @@ public class CommentActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         // Thêm dữ liệu thành công
-                        Toast.makeText(CommentActivity.this, "Comment success", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CommentActivity.this, "Bình luận thành công", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         // Xảy ra lỗi khi thêm dữ liệu
-                        Toast.makeText(CommentActivity.this, "Comment fail", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CommentActivity.this, "Bình luận thất bại", Toast.LENGTH_SHORT).show();
 
                     }
                 });
