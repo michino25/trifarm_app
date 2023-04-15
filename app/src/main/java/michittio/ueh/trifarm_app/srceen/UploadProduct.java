@@ -176,7 +176,7 @@ public class UploadProduct extends AppCompatActivity {
                         Product product = new Product(productId, name, descripttion, uri.toString(), price, oldPrice, "40", "0", "0", getDataRadio());
                         databaseReference.child(productId).setValue(product);
                         progressBar.setVisibility(View.INVISIBLE);
-                        Toast.makeText(UploadProduct.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UploadProduct.this, "Đăng sản phẩm thành công", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(UploadProduct.this, Product_RecyclerView.class);
                         startActivity(intent);
                         finish();

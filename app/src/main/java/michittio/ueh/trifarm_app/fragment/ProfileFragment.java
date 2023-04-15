@@ -145,8 +145,10 @@ public class ProfileFragment extends Fragment {
                     nextPageAdmin();
                 }
 
-                Picasso.get().load(avatarUrl).into(imgAvatar);
-                txtFullName.setText(fullName);
+                if (fullName != null){
+                    Picasso.get().load(avatarUrl).into(imgAvatar);
+                    txtFullName.setText(fullName);
+                }
             }
 
             @Override

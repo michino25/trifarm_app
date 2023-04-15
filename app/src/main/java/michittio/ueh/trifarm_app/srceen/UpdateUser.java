@@ -200,6 +200,13 @@ public class UpdateUser extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
+
+                                    SharedPreferences info = getSharedPreferences("Info", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = info.edit();
+                                    editor.putString("avatar", uri.toString());
+                                    editor.putString("fullname", fullName);
+                                    editor.apply();
+
                                     Toast.makeText(getApplicationContext(), "Cập nhật thông tin thành công!", Toast.LENGTH_SHORT).show();
                                     ProfileFragment profileFragment = new ProfileFragment();
                                     FragmentManager fragmentManager = getSupportFragmentManager();
