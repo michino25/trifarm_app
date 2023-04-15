@@ -50,7 +50,11 @@
         android:numColumns="1"
         android:scrollbars="none"
         android:stretchMode="columnWidth"
-        android:verticalSpacing="4dp" />
+        android:verticalSpacing="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- buy bar -->
     <androidx.cardview.widget.CardView
@@ -71,20 +75,22 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
                 android:layout_weight="0.75"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/edt_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:paddingHorizontal="12dp"
-                    android:background="@color/white"
+                    android:background="@drawable/d_search_background"
                     android:hint="Viết đánh giá..."
-                    android:textColor="@color/green_2"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/text_fuzz3"
                     android:textSize="14sp"
                     tools:ignore="HardcodedText,RtlSymmetry" />
 
@@ -95,7 +101,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.25"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -107,8 +114,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="Đăng"
                         android:paddingHorizontal="3dp"
+                        android:text="Đăng"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="13sp"

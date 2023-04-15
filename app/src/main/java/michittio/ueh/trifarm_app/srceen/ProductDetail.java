@@ -48,6 +48,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 import michittio.ueh.trifarm_app.ExpandableGridView;
 import michittio.ueh.trifarm_app.R;
@@ -84,7 +85,9 @@ public class ProductDetail extends AppCompatActivity {
     private DatabaseReference productsRef;
     private SharedPreferences sharedPreferences;
     private ValueEventListener eventListener;
-    private ArrayList<Comment> comments;
+    private ArrayList<Comment> comments, topComments;
+    private ArrayList<String> likeData;
+    private int startLike;
 
 
     @Override
@@ -99,9 +102,13 @@ public class ProductDetail extends AppCompatActivity {
         addToCartView();
 
         comments = new ArrayList<>();
-//        int size = comments.size();
-//        ArrayList<Comment> topCmt = new ArrayList<>(comments.subList(size - 3, size));
-        CmtAdapter cmtAdapter = new CmtAdapter(comments, ProductDetail.this);
+        topComments = new ArrayList<>();
+
+        likeData = new ArrayList<>();
+        likeData.addAll(createArrayInt(100));
+        startLike = new Random().nextInt(50);
+
+        CmtAdapter cmtAdapter = new CmtAdapter(topComments, ProductDetail.this);
         gridViewCmtDetail.setAdapter(cmtAdapter);
 
 //        Lấy comment từ firebase
@@ -109,13 +116,15 @@ public class ProductDetail extends AppCompatActivity {
             @Override
             public void onDataChange(@androidx.annotation.NonNull DataSnapshot snapshot) {
                 comments.clear();
+                topComments.clear();
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     Comment comment = itemSnapshot.getValue(Comment.class);
+                    comment.setLike(likeData.get(startLike + comments.size()));
                     comments.add(comment);
                 }
 
-                while (comments.size() > 3)
-                    comments.remove(0);
+                topComments.addAll(comments);
+                while (topComments.size() > 3) topComments.remove(0);
 
                 cmtAdapter.notifyDataSetChanged();
 
@@ -295,6 +304,8 @@ public class ProductDetail extends AppCompatActivity {
 
                 Intent intent = new Intent(context, CommentActivity.class);
                 intent.putExtra("idProduct", id);
+                intent.putExtra("likeData", ArrayListToJson(likeData));
+                intent.putExtra("startLike", String.valueOf(startLike));
                 startActivity(intent);
             }
         });
@@ -325,5 +336,24 @@ public class ProductDetail extends AppCompatActivity {
 
     }
 
+    public static String ArrayListToJson(ArrayList<String> strings) {
+        Gson gson = new Gson();
+        String json = gson.toJson(strings);
+        return json;
+    }
 
+    public static ArrayList<String> JsonToArrayList(String json) {
+        Gson gson = new Gson();
+        ArrayList<String> arrayList = gson.fromJson(json, ArrayList.class);
+        return arrayList;
+    }
+
+    private ArrayList<String> createArrayInt(int quantity) {
+        ArrayList<String> result = new ArrayList<>();
+        for (int i = 0; i < quantity; i++) {
+            int rand = new Random().nextInt(10);
+            result.add(String.valueOf(rand));
+        }
+        return result;
+    }
 }

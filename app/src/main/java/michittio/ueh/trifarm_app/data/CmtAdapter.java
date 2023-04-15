@@ -1,7 +1,10 @@
 package michittio.ueh.trifarm_app.data;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +52,15 @@ public class CmtAdapter extends BaseAdapter {
     public CmtAdapter() {
     }
 
+    private boolean isTextViewBold(TextView textView) {
+        Typeface typeface = textView.getTypeface();
+        if (typeface != null) {
+            return typeface.getStyle() == Typeface.BOLD || typeface.getStyle() == Typeface.BOLD_ITALIC;
+        } else {
+            return false;
+        }
+    }
+
     public int getIntFormString(String str) {
         String pattern = "\\d+"; // Regular expression to match numbers
         Pattern p = Pattern.compile(pattern);
@@ -88,6 +100,7 @@ public class CmtAdapter extends BaseAdapter {
             dataItem.tv_name = convertView.findViewById(R.id.tv_name);
             dataItem.tv_cmt = convertView.findViewById(R.id.tv_cmt);
             dataItem.tv_like = convertView.findViewById(R.id.tv_like);
+            dataItem.img_heart_icon = convertView.findViewById(R.id.img_heart_icon);
             dataItem.tv_time = convertView.findViewById(R.id.tv_time);
 
             convertView.setTag(dataItem);
@@ -102,30 +115,34 @@ public class CmtAdapter extends BaseAdapter {
         String idproduct = commentArrayList.get(position).getIdProduct();
         String key = commentArrayList.get(position).getId();
 
+        String likeStr = "Hữu ích (" + commentArrayList.get(position).getLike() + ")";
+        dataItem.tv_like.setText(likeStr);
+        dataItem.tv_time.setText(commentArrayList.get(position).getTime());
+
         dataItem.tv_like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatabaseReference commentRef = FirebaseDatabase.getInstance().getReference("Products").child(idproduct).child(key);
                 commentRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        if (snapshot.exists()) {
-//                            int currentLike = snapshot.child("like").getValue(Integer.class);
-//                            int number = currentLike + 1;
-//                            commentRef.child("like").setValue(String.valueOf(number));
-//                            Toast.makeText(context, "Bạn đã thích một bình luận", Toast.LENGTH_SHORT).show();
-//                        }
-//                        Integer currentLike = snapshot.child("like").getValue(Integer.class); // Đọc giá trị hiện tại của trường like
-//                        if (currentLike != null) {
-//                            commentRef.child("like").setValue(currentLike + 1); // Tăng giá trị lên 1 đơn vị và ghi lên Firebase Realtime Database
-//                        }
-//                        Toast.makeText(context, "Bạn đã thích một bình luận", Toast.LENGTH_SHORT).show();
 
                         String str = dataItem.tv_like.getText().toString();
-                        Toast.makeText(context, String.valueOf(getIntFormString(str)), Toast.LENGTH_SHORT).show();
 
-                        //                        Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
-//                        Toast.makeText(context, String.valueOf(position), Toast.LENGTH_SHORT).show();
+                        if (isTextViewBold(dataItem.tv_like)) {
+                            dataItem.tv_like.setTypeface(null, Typeface.NORMAL);
+                            dataItem.tv_like.setTextColor(Color.parseColor("#A1A1A1"));
+                            dataItem.img_heart_icon.setImageResource(R.drawable.i_heart_unlike);
+                            dataItem.tv_like.setText("Hữu ích (" + (getIntFormString(str) - 1) + ")");
+
+                        } else {
+                            dataItem.tv_like.setTypeface(null, Typeface.BOLD);
+                            dataItem.tv_like.setTextColor(Color.parseColor("#4CA71E"));
+                            dataItem.img_heart_icon.setImageResource(R.drawable.i_heart_like);
+                            dataItem.tv_like.setText("Hữu ích (" + (getIntFormString(str) + 1) + ")");
+                        }
+                        // Toast.makeText(context, String.valueOf(position), Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -137,11 +154,6 @@ public class CmtAdapter extends BaseAdapter {
             }
         });
 
-
-        String likeStr = "Hữu ích (" + commentArrayList.get(position).getLike() + ")";
-        dataItem.tv_like.setText(likeStr);
-        dataItem.tv_time.setText(commentArrayList.get(position).getTime());
-
         return convertView;
     }
 
@@ -152,6 +164,7 @@ public class CmtAdapter extends BaseAdapter {
         TextView tv_name;
         TextView tv_cmt;
         TextView tv_like;
+        ImageView img_heart_icon;
         TextView tv_time;
 
     }

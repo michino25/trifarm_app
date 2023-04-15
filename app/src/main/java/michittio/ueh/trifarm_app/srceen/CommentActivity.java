@@ -32,6 +32,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Random;
 
 import michittio.ueh.trifarm_app.R;
 import michittio.ueh.trifarm_app.data.Category;
@@ -50,6 +51,8 @@ public class CommentActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences infor;
     private ArrayList<Comment> comments;
+    private ArrayList<String> likeData;
+    private int startLike;
     private ValueEventListener eventListener;
 
     @Override
@@ -68,7 +71,6 @@ public class CommentActivity extends AppCompatActivity {
             }
         });
 
-        comments = new ArrayList<>();
         CmtAdapter cmtAdapter = new CmtAdapter(comments, CommentActivity.this);
         gridViewCmt.setAdapter(cmtAdapter);
 
@@ -79,6 +81,7 @@ public class CommentActivity extends AppCompatActivity {
                 comments.clear();
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     Comment comment = itemSnapshot.getValue(Comment.class);
+                    comment.setLike(likeData.get(startLike + comments.size()));
                     comments.add(comment);
                 }
                 cmtAdapter.notifyDataSetChanged();
@@ -131,7 +134,15 @@ public class CommentActivity extends AppCompatActivity {
         txtAddComt = findViewById(R.id.txt_addComment);
         edtContent = findViewById(R.id.edt_content);
         Intent intent = getIntent();
+        comments = new ArrayList<>();
         idProduct = intent.getStringExtra("idProduct");
+
+        startLike = Integer.parseInt(intent.getStringExtra("startLike"));
+
+        String likeDataStr = intent.getStringExtra("likeData");
+        likeData = new ArrayList<>();
+        likeData.addAll(ProductDetail.JsonToArrayList(likeDataStr));
+
         sharedPreferences = getSharedPreferences("SaveUser", Context.MODE_PRIVATE);
         infor = getSharedPreferences("Info", Context.MODE_PRIVATE);
         productsRef = FirebaseDatabase.getInstance().getReference("Products").child(idProduct).child("Comments");
