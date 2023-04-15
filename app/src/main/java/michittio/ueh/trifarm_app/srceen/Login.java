@@ -63,7 +63,7 @@ public class Login extends AppCompatActivity {
                                     found = true;
                                     progressBar.setVisibility(View.VISIBLE);
 
-                                    if (saveUser(user.getEmail(), user.getPassword(), user.getKey(), user.getRule())) {
+                                    if (saveUser(user.getEmail(), user.getPassword(), user.getKey())) {
                                         SharedPreferences info = getSharedPreferences("Info", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = info.edit();
 
@@ -105,15 +105,13 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    private boolean saveUser(String email, String password, String key, String role) {
+    private boolean saveUser(String email, String password, String key) {
         if (!email.isEmpty() && !password.isEmpty()) {
             // Kiểm tra email và password không rỗng
             SharedPreferences sharedPreferences = getSharedPreferences("SaveUser", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("email", email);
-            editor.putString("password", password);
             editor.putString("key", key);
-            editor.putString("role", role);
             editor.apply();
             return true;
         } else {

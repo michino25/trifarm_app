@@ -57,7 +57,6 @@
                 android:paddingEnd="20dp"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
-                android:text="damjack48@gmail.com"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 tools:ignore="HardcodedText,RtlHardcoded,TextFields" />
@@ -77,7 +76,6 @@
                 android:paddingEnd="20dp"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
-                android:text="123456"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 tools:ignore="HardcodedText,RtlHardcoded" />
