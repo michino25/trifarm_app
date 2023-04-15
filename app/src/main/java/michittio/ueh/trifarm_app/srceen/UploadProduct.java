@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -41,6 +42,11 @@ public class UploadProduct extends AppCompatActivity {
     private ImageView uploadImage;
     EditText edtName, edtDesciption, edtPrice;
     ProgressBar progressBar;
+    RadioGroup radioGr1;
+    RadioGroup radioGr2;
+    private boolean isChecking = true;
+    private int mCheckedId = R.id.traicay_cate;
+
     private Uri imageUri;
     final private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Products");
     final private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
@@ -52,6 +58,56 @@ public class UploadProduct extends AppCompatActivity {
 
         initui();
         UpLoadProduct();
+
+        radioGrHandler();
+    }
+
+    private String getDataRadio() {
+        String result = "";
+
+        if (mCheckedId == R.id.traicay_cate) {
+            result = "Trái cây";
+        } else if (mCheckedId == R.id.cafe_cate) {
+            result = "Cà phê";
+        } else if (mCheckedId == R.id.chay_cate) {
+            result = "Đồ chay";
+        } else if (mCheckedId == R.id.raucu_cate) {
+            result = "Rau củ";
+        } else if (mCheckedId == R.id.sua_cate) {
+            result = "Sữa";
+        } else if (mCheckedId == R.id.tra_cate) {
+            result = "Trà";
+        }
+
+        return result;
+
+    }
+
+    private void radioGrHandler() {
+        radioGr1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId != -1 && isChecking) {
+                    isChecking = false;
+                    radioGr2.clearCheck();
+                    mCheckedId = checkedId;
+                }
+                isChecking = true;
+            }
+        });
+
+        radioGr2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId != -1 && isChecking) {
+                    isChecking = false;
+                    radioGr1.clearCheck();
+                    mCheckedId = checkedId;
+                }
+                isChecking = true;
+            }
+        });
+
     }
 
     private void UpLoadProduct() {
@@ -96,6 +152,8 @@ public class UploadProduct extends AppCompatActivity {
         edtPrice = findViewById(R.id.edt_price);
         uploadImage = findViewById(R.id.uploadImage);
         progressBar = findViewById(R.id.progressBar);
+        radioGr1 = (RadioGroup) findViewById(R.id.rdg_cate_1);
+        radioGr2 = (RadioGroup) findViewById(R.id.rdg_cate_2);
     }
 
 
@@ -115,7 +173,7 @@ public class UploadProduct extends AppCompatActivity {
                         //String key = databaseReference.push().getKey();
                         int count = 0;
                         String productId = "s" + (count + 1);
-                        Product product = new Product(productId, name, descripttion, uri.toString(), price, oldPrice, "40", "0", "0", "");
+                        Product product = new Product(productId, name, descripttion, uri.toString(), price, oldPrice, "40", "0", "0", getDataRadio());
                         databaseReference.child(productId).setValue(product);
                         progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(UploadProduct.this, "Uploaded", Toast.LENGTH_SHORT).show();

@@ -123,13 +123,144 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/d_green_boder"
+                    android:orientation="vertical"
+                    android:paddingVertical="8dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingBottom="6dp"
+                        android:text="Loại sản phẩm"
+                        tools:ignore="HardcodedText,RtlSymmetry" />
+
+                    <RadioGroup
+                        android:id="@+id/rdg_cate_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <RadioButton
+                            android:id="@+id/traicay_cate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/radio_flat_selector"
+                            android:button="@android:color/transparent"
+                            android:gravity="center"
+                            android:paddingHorizontal="12dp"
+                            android:text="Trái cây"
+                            android:textColor="@drawable/radio_flat_text_selector"
+                            android:textSize="12sp"
+                            tools:ignore="HardcodedText" />
+
+                        <RadioButton
+                            android:id="@+id/raucu_cate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/radio_flat_selector"
+                            android:button="@android:color/transparent"
+                            android:checked="true"
+                            android:gravity="center"
+                            android:paddingHorizontal="12dp"
+                            android:text="Rau củ"
+                            android:textColor="@drawable/radio_flat_text_selector"
+                            android:textSize="12sp"
+                            tools:ignore="HardcodedText" />
+
+                        <RadioButton
+                            android:id="@+id/tra_cate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/radio_flat_selector"
+                            android:button="@android:color/transparent"
+                            android:gravity="center"
+                            android:padding="-1dp"
+                            android:paddingHorizontal="12dp"
+                            android:text="Trà"
+                            android:textColor="@drawable/radio_flat_text_selector"
+                            android:textSize="12sp"
+                            tools:ignore="HardcodedText" />
+
+                    </RadioGroup>
+
+                    <RadioGroup
+                        android:id="@+id/rdg_cate_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <RadioButton
+                            android:id="@+id/sua_cate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/radio_flat_selector"
+                            android:button="@android:color/transparent"
+                            android:gravity="center"
+                            android:paddingHorizontal="12dp"
+                            android:text="Sữa"
+                            android:textColor="@drawable/radio_flat_text_selector"
+                            android:textSize="12sp"
+                            tools:ignore="HardcodedText" />
+
+                        <RadioButton
+                            android:id="@+id/chay_cate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/radio_flat_selector"
+                            android:button="@android:color/transparent"
+                            android:gravity="center"
+                            android:paddingHorizontal="12dp"
+                            android:text="Đồ chay"
+                            android:textColor="@drawable/radio_flat_text_selector"
+                            android:textSize="12sp"
+                            tools:ignore="HardcodedText" />
+
+                        <RadioButton
+                            android:id="@+id/cafe_cate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/radio_flat_selector"
+                            android:button="@android:color/transparent"
+                            android:gravity="center"
+                            android:padding="-1dp"
+                            android:paddingHorizontal="12dp"
+                            android:text="Cà phê"
+                            android:textColor="@drawable/radio_flat_text_selector"
+                            android:textSize="12sp"
+                            tools:ignore="HardcodedText" />
+
+                    </RadioGroup>
+
+                </LinearLayout>
+
                 <Button
                     android:id="@+id/btn_uploadProduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginVertical="20dp"
                     android:background="@drawable/d_search_btn_background"
                     android:text="Thêm sản phẩm"
-                    android:layout_marginTop="20dp"
                     android:textColor="@color/white"
                     app:tint="@color/white"
                     tools:ignore="HardcodedText" />
