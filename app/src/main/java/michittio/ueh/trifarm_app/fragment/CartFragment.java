@@ -48,7 +48,8 @@ public class CartFragment extends Fragment implements OnProductItemClickListener
     private String mParam1;
     private String mParam2;
 
-    public CartFragment() {}
+    public CartFragment() {
+    }
 
     /**
      * Use this factory method to create a new instance of
@@ -69,8 +70,8 @@ public class CartFragment extends Fragment implements OnProductItemClickListener
     }
 
     private GridView gridViewCart;
-    private TextView txtQuantity,txtTotal,txtOrder;
-    private ArrayList<ProductCart> cartProducts ;
+    private TextView txtQuantity, txtTotal, txtOrder;
+    private ArrayList<ProductCart> cartProducts;
     private CartAdapter adapter;
     private String totalOrder;
 
@@ -125,7 +126,7 @@ public class CartFragment extends Fragment implements OnProductItemClickListener
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        ((MainActivity)getActivity()).updateStatusBarColor("#FFFFFF");
+        ((MainActivity) getActivity()).updateStatusBarColor("#FFFFFF");
 
         return inflater.inflate(R.layout.fragment_cart, container, false);
     }
@@ -189,7 +190,7 @@ public class CartFragment extends Fragment implements OnProductItemClickListener
     @Override
     public void onCartTotalChanged(int total) {
         DecimalFormat myFormatter = new DecimalFormat("###,### ₫");
-        totalOrder =myFormatter.format(total);
+        totalOrder = myFormatter.format(total);
         txtTotal.setText(totalOrder);
     }
 }

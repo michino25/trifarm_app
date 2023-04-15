@@ -133,7 +133,7 @@
                     android:textColor="@color/white"
                     app:tint="@color/white"
                     tools:ignore="HardcodedText" />
-                
+
             </LinearLayout>
 
         </LinearLayout>

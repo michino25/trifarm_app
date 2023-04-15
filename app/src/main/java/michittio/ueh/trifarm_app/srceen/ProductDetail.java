@@ -1,40 +1,64 @@
 package michittio.ueh.trifarm_app.srceen;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.common.reflect.TypeToken;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import java.lang.reflect.Type;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
+import michittio.ueh.trifarm_app.ExpandableGridView;
 import michittio.ueh.trifarm_app.R;
+import michittio.ueh.trifarm_app.data.CategoryAdapter;
+import michittio.ueh.trifarm_app.data.CmtAdapter;
+import michittio.ueh.trifarm_app.data.Comment;
 import michittio.ueh.trifarm_app.data.ProductCart;
 
 public class ProductDetail extends AppCompatActivity {
     ImageView imageView;
-    TextView tv_detail_name, tv_detail_name2, tv_detail_description,
-            tv_detail_price, tv_detail_old_price, tv_detail_quantity, tv_detail_sold, tv_detail_sale, tv_detail_star, tv_detail_review;
+    TextView tv_detail_name, tv_detail_name2, tv_detail_description, tv_detail_price, tv_detail_old_price, tv_detail_quantity, tv_detail_sold, tv_detail_sale, tv_detail_star, tv_detail_review;
     ImageView mImagePlus, mImageMinus;
     private Button btnAddCart;
     private int mCount = 1;
@@ -53,8 +77,14 @@ public class ProductDetail extends AppCompatActivity {
     private ImageView btnMinus;
     private ImageView btnPlus;
     private TextView btnSeeAllCmt;
+    private GridView gridViewCmtDetail;
     private DecimalFormat myFormatter;
     private Context context = this;
+    private String idProduct;
+    private DatabaseReference productsRef;
+    private SharedPreferences sharedPreferences;
+    private ValueEventListener eventListener;
+    private ArrayList<Comment> comments;
 
 
     @Override
@@ -67,6 +97,38 @@ public class ProductDetail extends AppCompatActivity {
         renderData();
 
         addToCartView();
+
+        comments = new ArrayList<>();
+//        int size = comments.size();
+//        ArrayList<Comment> topCmt = new ArrayList<>(comments.subList(size - 3, size));
+        CmtAdapter cmtAdapter = new CmtAdapter(comments, ProductDetail.this);
+        gridViewCmtDetail.setAdapter(cmtAdapter);
+
+//        Lấy comment từ firebase
+        eventListener = productsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@androidx.annotation.NonNull DataSnapshot snapshot) {
+                comments.clear();
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    Comment comment = itemSnapshot.getValue(Comment.class);
+                    comments.add(comment);
+                }
+
+                while (comments.size() > 3)
+                    comments.remove(0);
+
+                cmtAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@androidx.annotation.NonNull DatabaseError error) {
+
+            }
+        });
+
+        //Register ContextView
+        registerForContextMenu(tv_detail_name);
 
         quantity = Integer.parseInt(tv_detail_quantity.getText().toString());
         btnMinus.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +143,7 @@ public class ProductDetail extends AppCompatActivity {
 
             }
         });
+
         btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,6 +190,7 @@ public class ProductDetail extends AppCompatActivity {
 
     }
 
+    @SuppressLint("CutPasteId")
     private void init() {
         imageView = findViewById(R.id.img_detailproduct);
         tv_detail_name = findViewById(R.id.txt_detailName);
@@ -145,6 +209,14 @@ public class ProductDetail extends AppCompatActivity {
         btnMinus = findViewById(R.id.btn_minus);
         btnPlus = findViewById(R.id.btn_plus);
         btnSeeAllCmt = findViewById(R.id.btn_see_all);
+        gridViewCmtDetail = findViewById(R.id.gridViewCmtDetail);
+
+        ExpandableGridView productGrid = (ExpandableGridView) findViewById(R.id.gridViewCmtDetail);
+        productGrid.setExpanded(true);
+
+        Intent intent = getIntent();
+        idProduct = intent.getStringExtra("id");
+        productsRef = FirebaseDatabase.getInstance().getReference("Products").child(idProduct).child("Comments");
 
     }
 
@@ -226,6 +298,31 @@ public class ProductDetail extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        MenuInflater inflater = new MenuInflater(this);
+        inflater.inflate(R.menu.context_menu, menu);
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_copy:
+                // Xử lý lựa chọn "Copy" ở đây
+                String text = tv_detail_name.getText().toString();
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("text", text);
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(this, "Đã sao chép: " + text, Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+
     }
 
 

@@ -22,6 +22,8 @@ import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import michittio.ueh.trifarm_app.OnProductItemClickListener;
 import michittio.ueh.trifarm_app.R;
@@ -47,6 +49,16 @@ public class CmtAdapter extends BaseAdapter {
     public CmtAdapter() {
     }
 
+    public int getIntFormString(String str) {
+        String pattern = "\\d+"; // Regular expression to match numbers
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(str);
+        if (m.find()) {
+            String number = m.group(); // Extract the matched number
+            return Integer.parseInt(number);
+        }
+        return -1;
+    }
 
     @Override
     public int getCount() {
@@ -97,17 +109,23 @@ public class CmtAdapter extends BaseAdapter {
                 commentRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()) {
-                            int currentLike = snapshot.child("like").getValue(Integer.class);
-                            int number = currentLike + 1;
-                            commentRef.child("like").setValue(String.valueOf(number));
-                            Toast.makeText(context, "Bạn đã thích một bình luận", Toast.LENGTH_SHORT).show();
-                        }
-                        Integer currentLike = snapshot.child("like").getValue(Integer.class); // Đọc giá trị hiện tại của trường like
-                        if (currentLike != null) {
-                            commentRef.child("like").setValue(currentLike + 1); // Tăng giá trị lên 1 đơn vị và ghi lên Firebase Realtime Database
-                        }
-                        Toast.makeText(context, "Bạn đã thích một bình luận", Toast.LENGTH_SHORT).show();
+//                        if (snapshot.exists()) {
+//                            int currentLike = snapshot.child("like").getValue(Integer.class);
+//                            int number = currentLike + 1;
+//                            commentRef.child("like").setValue(String.valueOf(number));
+//                            Toast.makeText(context, "Bạn đã thích một bình luận", Toast.LENGTH_SHORT).show();
+//                        }
+//                        Integer currentLike = snapshot.child("like").getValue(Integer.class); // Đọc giá trị hiện tại của trường like
+//                        if (currentLike != null) {
+//                            commentRef.child("like").setValue(currentLike + 1); // Tăng giá trị lên 1 đơn vị và ghi lên Firebase Realtime Database
+//                        }
+//                        Toast.makeText(context, "Bạn đã thích một bình luận", Toast.LENGTH_SHORT).show();
+
+                        String str = dataItem.tv_like.getText().toString();
+                        Toast.makeText(context, String.valueOf(getIntFormString(str)), Toast.LENGTH_SHORT).show();
+
+                        //                        Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(context, String.valueOf(position), Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -120,7 +138,7 @@ public class CmtAdapter extends BaseAdapter {
         });
 
 
-        String likeStr = "Hữu ích (" + commentArrayList.get(position).getLike()  +")";
+        String likeStr = "Hữu ích (" + commentArrayList.get(position).getLike() + ")";
         dataItem.tv_like.setText(likeStr);
         dataItem.tv_time.setText(commentArrayList.get(position).getTime());
 

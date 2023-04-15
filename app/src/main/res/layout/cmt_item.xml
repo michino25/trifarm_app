@@ -43,7 +43,7 @@
             android:orientation="vertical"
             android:paddingHorizontal="6dp">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -52,34 +52,26 @@
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="4dp"
+                    android:paddingVertical="1dp"
                     android:text="Username"
                     android:textColor="@color/text_fuzz3"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    tools:ignore="HardcodedText,RtlSymmetry" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="HardcodedText,MissingConstraints,RtlSymmetry" />
 
                 <TextView
                     android:id="@+id/tv_time"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
-                    android:paddingVertical="4dp"
+                    android:paddingVertical="1dp"
                     android:text="Time"
-                    android:textColor="@color/text_fuzz3"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    tools:ignore="HardcodedText,RtlSymmetry" />
+                    android:textColor="@color/text_fuzz6"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:ignore="HardcodedText,MissingConstraints,RtlSymmetry" />
 
-            </LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Username"
-                android:textColor="@color/text_fuzz3"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                tools:ignore="HardcodedText,RtlSymmetry" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tv_cmt"
@@ -93,19 +85,13 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingVertical="3dp"
-                android:paddingStart="0dp"
-                android:text="Hữu ích (3)"
-                android:textStyle="bold"
-                android:textColor="@color/green_2"
-                android:textSize="11sp"
-                tools:ignore="HardcodedText,RtlSymmetry,SmallSp" />
+                android:paddingVertical="3dp">
 
                 <ImageView
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:paddingHorizontal="1dp"
                     android:layout_gravity="center"
+                    android:paddingHorizontal="1dp"
                     android:src="@drawable/i_love_green" />
 
                 <TextView
@@ -120,8 +106,8 @@
                     android:textStyle="bold"
                     tools:ignore="HardcodedText,RtlSymmetry,SmallSp" />
             </LinearLayout>
-
         </LinearLayout>
-
     </LinearLayout>
+</LinearLayout>
+
 

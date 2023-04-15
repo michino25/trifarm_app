@@ -46,7 +46,7 @@ public class CommentActivity extends AppCompatActivity {
     private TextView txtAddComt;
     private EditText edtContent;
     private DatabaseReference productsRef;
-    private String idProduct,usename,avatarUrl,useId,commentPost;
+    private String idProduct, usename, avatarUrl, useId, commentPost;
     private SharedPreferences sharedPreferences;
     private SharedPreferences infor;
     private ArrayList<Comment> comments;
@@ -67,8 +67,9 @@ public class CommentActivity extends AppCompatActivity {
                 edtContent.setText("");
             }
         });
-        comments = new  ArrayList<>();
-        CmtAdapter cmtAdapter = new CmtAdapter(comments,CommentActivity.this);
+
+        comments = new ArrayList<>();
+        CmtAdapter cmtAdapter = new CmtAdapter(comments, CommentActivity.this);
         gridViewCmt.setAdapter(cmtAdapter);
 
 
@@ -94,9 +95,9 @@ public class CommentActivity extends AppCompatActivity {
     }
 
     private void postComment() {
-        useId = sharedPreferences.getString("key","");
-        usename = infor.getString("fullname","");
-        avatarUrl = infor.getString("avatar","");
+        useId = sharedPreferences.getString("key", "");
+        usename = infor.getString("fullname", "");
+        avatarUrl = infor.getString("avatar", "");
         commentPost = edtContent.getText().toString();
         Calendar calendar = Calendar.getInstance();
         Date currentTime = calendar.getTime();
@@ -105,7 +106,7 @@ public class CommentActivity extends AppCompatActivity {
 
         String cid = productsRef.push().getKey();
 
-        Comment comment = new Comment(cid,useId,usename,avatarUrl,commentPost,"0",formattedTime,idProduct);
+        Comment comment = new Comment(cid, useId, usename, avatarUrl, commentPost, "0", formattedTime, idProduct);
         productsRef.child(cid).setValue(comment)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -125,9 +126,6 @@ public class CommentActivity extends AppCompatActivity {
     }
 
 
-
-
-
     private void initui() {
         gridViewCmt = findViewById(R.id.gridViewCmt);
         txtAddComt = findViewById(R.id.txt_addComment);
@@ -138,32 +136,6 @@ public class CommentActivity extends AppCompatActivity {
         infor = getSharedPreferences("Info", Context.MODE_PRIVATE);
         productsRef = FirebaseDatabase.getInstance().getReference("Products").child(idProduct).child("Comments");
     }
-
-    private void loadComments() {
-        DatabaseReference productsRef = FirebaseDatabase.getInstance().getReference().child("comments");
-        productsRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<Comment> comments = new ArrayList<>();
-                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
-                    Comment comment = itemSnapshot.getValue(Comment.class);
-                    comments.add(comment);
-                }
-
-
-                // Tạo và thiết lập adapter cho gridViewCmt
-                CmtAdapter cmtAdapter = new CmtAdapter(comments, CommentActivity.this);
-                gridViewCmt.setAdapter(cmtAdapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e(TAG, "Failed to read value.", error.toException());
-            }
-        });
-    }
-
-
 
 
 }
